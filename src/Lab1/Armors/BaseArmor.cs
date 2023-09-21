@@ -1,16 +1,9 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Armors;
 
 public abstract class BaseArmor
 {
-    protected BaseArmor()
-    {
-        IsDestroyed = false;
-        MaxHP = 100;
-        CurHP = 100;
-    }
-
     public bool IsDestroyed { get; set; }
-    protected int MaxHP { get; }
+    protected int MaxHP { get;  set;  }
     protected int CurHP { get; set; }
     protected abstract void TakeDamage(int obstacleType);
 }

@@ -1,9 +1,16 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Armors;
 
 public class Armor3 : BaseArmor
 {
     private const float AsteroidDamageCoefficient = 0.05f;
     private const float MeteorDamageCoefficient = 0.2f;
+
+    public Armor3()
+    {
+        IsDestroyed = false;
+        MaxHP = 100;
+        CurHP = 100;
+    }
 
     protected override void TakeDamage(int obstacleType)
     {
