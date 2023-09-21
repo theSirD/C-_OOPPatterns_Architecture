@@ -9,7 +9,6 @@ public abstract class BaseArmor
         CurHP = 100;
     }
 
-    private bool _isDestroyed;
     public bool IsDestroyed { get; set; }
     protected int MaxHP { get; }
     protected int CurHP { get; set; }
