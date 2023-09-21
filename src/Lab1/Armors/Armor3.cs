@@ -1,3 +1,5 @@
+using System;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Armors;
 
 public class Armor3 : BaseArmor
@@ -12,10 +14,17 @@ public class Armor3 : BaseArmor
         CurHP = 100;
     }
 
-    protected override void TakeDamage(int obstacleType)
+    public override void TakeDamage(int obstacleNumber, int[] obstaclesInEnvironmentList)
     {
-        if (obstacleType == 0) CurHP = (int)(MaxHP - (MaxHP * AsteroidDamageCoefficient));
-        if (obstacleType == 1) CurHP = (int)(MaxHP - (MaxHP * MeteorDamageCoefficient));
-        if (CurHP <= 0) IsDestroyed = true;
+        if (obstaclesInEnvironmentList == null)
+            throw new ArgumentNullException(nameof(obstaclesInEnvironmentList), $"is NULL");
+
+        // array needs to be passed by reference
+        while (CurHP > 0 && obstaclesInEnvironmentList[obstacleNumber] != 0)
+        {
+            if (obstacleNumber == 0) CurHP = (int)(MaxHP - (MaxHP * AsteroidDamageCoefficient));
+            if (obstacleNumber == 1) CurHP = (int)(MaxHP - (MaxHP * MeteorDamageCoefficient));
+            if (CurHP <= 0) IsDestroyed = true;
+        }
     }
 }

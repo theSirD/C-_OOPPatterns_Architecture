@@ -5,5 +5,5 @@ public abstract class BaseArmor
     public bool IsDestroyed { get; set; }
     protected int MaxHP { get;  set;  }
     protected int CurHP { get; set; }
-    protected abstract void TakeDamage(int obstacleType);
+    public abstract void TakeDamage(int obstacleNumber, int[] obstaclesInEnvironmentList);
 }
