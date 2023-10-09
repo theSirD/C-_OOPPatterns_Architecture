@@ -1,10 +1,10 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1.Armors;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Deflectors;
 
-public class Armor1 : BaseArmor
+public class PhotonicDeflector : BaseDeflector
 {
-    private readonly float[] _obstaclesDamageCoefficients = new float[] { 1f, 1f, 1f, 1f };
+    private readonly float[] _obstaclesDamageCoefficients = new float[] { 0f, 0f, 0.34f, 0f };
 
-    public Armor1()
+    public PhotonicDeflector()
     {
         IsDestroyed = false;
         MaxHP = 100;

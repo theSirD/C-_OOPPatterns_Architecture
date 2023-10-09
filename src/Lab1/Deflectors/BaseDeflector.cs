@@ -6,5 +6,5 @@ public abstract class BaseDeflector
     protected int MaxHP { get;  set;  }
     protected int CurHP { get; set; }
 
-    public abstract void TakeDamage(int obstacleNumber, int[] obstaclesInEnvironmentList);
+    public abstract void TakeDamage(int obstacleNumber);
 }

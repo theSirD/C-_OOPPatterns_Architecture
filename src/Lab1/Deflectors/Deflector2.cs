@@ -1,11 +1,8 @@
-using System;
-
 namespace Itmo.ObjectOrientedProgramming.Lab1.Deflectors;
 
 public class Deflector2 : BaseDeflector
 {
-    private const float AsteroidDamageCoefficient = 0.1f;
-    private const float MeteorDamageCoefficient = 0.34f;
+    private readonly float[] _obstaclesDamageCoefficients = new float[] { 0.1f, 0.34f, 1f, 1f };
 
     public Deflector2()
     {
@@ -14,17 +11,9 @@ public class Deflector2 : BaseDeflector
         CurHP = 100;
     }
 
-    public override void TakeDamage(int obstacleNumber, int[] obstaclesInEnvironmentList)
+    public override void TakeDamage(int obstacleNumber)
     {
-        if (obstaclesInEnvironmentList == null)
-            throw new ArgumentNullException(nameof(obstaclesInEnvironmentList), $"is NULL");
-
-        // array needs to be passed by reference
-        while (CurHP > 0 && obstaclesInEnvironmentList[obstacleNumber] != 0)
-        {
-            if (obstacleNumber == 0) CurHP = (int)(MaxHP - (MaxHP * AsteroidDamageCoefficient));
-            if (obstacleNumber == 1) CurHP = (int)(MaxHP - (MaxHP * MeteorDamageCoefficient));
-            if (CurHP <= 0) IsDestroyed = true;
-        }
+        CurHP = (int)(MaxHP - (MaxHP * _obstaclesDamageCoefficients[obstacleNumber]));
+        if (CurHP < 0) IsDestroyed = true;
     }
 }
