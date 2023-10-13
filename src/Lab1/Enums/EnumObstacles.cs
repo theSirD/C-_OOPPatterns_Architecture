@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Enums;
 
 public enum EnumObstacles
 {

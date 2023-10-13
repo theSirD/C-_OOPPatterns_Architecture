@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Enums;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.FlightResponses;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Responses;
 
 public class FlightResponse
 {

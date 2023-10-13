@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Enums;
-using Itmo.ObjectOrientedProgramming.Lab1.FlightResponses;
 using Itmo.ObjectOrientedProgramming.Lab1.PulseEngines;
+using Itmo.ObjectOrientedProgramming.Lab1.Responses;
 using Itmo.ObjectOrientedProgramming.Lab1.RouteSegments;
 using Itmo.ObjectOrientedProgramming.Lab1.RouteSegments.Environments;
 using Itmo.ObjectOrientedProgramming.Lab1.Services;

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Enums;
-using Itmo.ObjectOrientedProgramming.Lab1.FlightResponses;
 using Itmo.ObjectOrientedProgramming.Lab1.JumpEngines;
+using Itmo.ObjectOrientedProgramming.Lab1.Responses;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Services;
