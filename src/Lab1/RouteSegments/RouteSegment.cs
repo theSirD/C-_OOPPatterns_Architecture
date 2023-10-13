@@ -1,6 +1,6 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environments;
+using Itmo.ObjectOrientedProgramming.Lab1.RouteSegments.Environments;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Route;
+namespace Itmo.ObjectOrientedProgramming.Lab1.RouteSegments;
 
 public class RouteSegment
 {
@@ -10,6 +10,6 @@ public class RouteSegment
         Length = length;
     }
 
-    private BaseEnvironment? Environment { get; set; }
-    private int Length { get; set; }
+    public BaseEnvironment? Environment { get; private set; }
+    public int Length { get; private set; }
 }

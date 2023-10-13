@@ -8,11 +8,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
 public abstract class BaseShip
 {
+    public BasePulseEngine? PulseEngine { get; protected set; }
+    public BaseJumpEngine? JumpEngine { get; protected set; }
     protected BaseArmor? Armor { get; set; }
     protected BaseDeflector? Deflector { get; set; }
     protected BaseDeflector? PhotonicDeflector { get; set; }
-    protected BasePulseEngine? PulseEngine { get; set; }
-    protected BaseJumpEngine? JumpEngine { get; set; }
     protected bool AntiNitrinMediator { get; set; }
 
     protected bool IsDestroyed { get; set; }
