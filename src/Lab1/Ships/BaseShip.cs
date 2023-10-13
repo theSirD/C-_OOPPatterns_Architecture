@@ -1,6 +1,6 @@
-using System;
 using Itmo.ObjectOrientedProgramming.Lab1.Armors;
 using Itmo.ObjectOrientedProgramming.Lab1.Deflectors;
+using Itmo.ObjectOrientedProgramming.Lab1.Enums;
 using Itmo.ObjectOrientedProgramming.Lab1.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.PulseEngines;
 
@@ -17,56 +17,46 @@ public abstract class BaseShip
 
     protected bool IsDestroyed { get; set; }
 
-    protected void TakeDamage(int[] obstacles)
+    public SegmentResults TakeDamage(int obstacleNumber, int obstaclesAmount)
     {
-        if (obstacles == null)
-            throw new ArgumentNullException(nameof(obstacles), $"is NULL");
-
-        foreach (EnumObstacles obstacleName in Enum.GetValues(typeof(EnumObstacles)))
+        while (obstaclesAmount > 0)
         {
-            int obstacleNumber = (int)obstacleName;
-
-            if (obstacleNumber == 2)
+            switch (obstacleNumber)
             {
-                if (AntiNitrinMediator) continue;
-            }
+                case 0 or 1:
+                    if (Deflector is not { IsDestroyed: true })
+                    {
+                        Deflector?.TakeDamage(obstacleNumber);
+                    }
+                    else if (Armor is not { IsDestroyed: true })
+                    {
+                        Armor?.TakeDamage(obstacleNumber);
+                    }
+                    else
+                    {
+                        IsDestroyed = true;
+                    }
 
-            if (obstacleNumber == 3)
-            {
-                if (((PhotonicDeflector != null && PhotonicDeflector.IsDestroyed) || PhotonicDeflector == null) && obstacles[obstacleNumber] != 0)
-                {
-                    IsDestroyed = true;
+                    if (IsDestroyed) return SegmentResults.ShipIsDestroyed;
+
                     break;
-                }
+                case 2:
+                    if (!AntiNitrinMediator)
+                    {
+                        if (Deflector is not Deflector3 || Deflector?.IsDestroyed == true) return SegmentResults.ShipIsDestroyed;
+                        Deflector?.TakeDamage(obstacleNumber);
+                    }
 
-                if (PhotonicDeflector != null && !PhotonicDeflector.IsDestroyed && obstacles[obstacleNumber] != 0)
-                {
+                    break;
+                case 3:
+                    if (PhotonicDeflector is not { IsDestroyed: true }) return SegmentResults.CrewIsDead;
                     PhotonicDeflector.TakeDamage(obstacleNumber);
-                    obstacles[obstacleNumber]--;
-                }
+                    break;
             }
 
-            if (Deflector != null && !Deflector.IsDestroyed && obstacles[obstacleNumber] != 0)
-            {
-                Deflector.TakeDamage(obstacleNumber);
-                obstacles[obstacleNumber]--;
-                continue;
-            }
-
-            // unnecessary check for Armor is not NULL №1
-            if (Armor != null && !Armor.IsDestroyed && obstacles[obstacleNumber] != 0)
-            {
-                Armor.TakeDamage(obstacleNumber);
-                obstacles[obstacleNumber]--;
-                continue;
-            }
-
-            // unnecessary check for Armor is not NULL №2
-            if (Armor != null && Armor.IsDestroyed && obstacles[obstacleNumber] != 0)
-            {
-                IsDestroyed = true;
-                break;
-            }
+            obstaclesAmount--;
         }
+
+        return SegmentResults.Success;
     }
 }
