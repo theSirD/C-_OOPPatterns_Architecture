@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Responses;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.RouteSegments.Environments;
 
@@ -13,17 +14,17 @@ public abstract class BaseEnvironment
 
     public IList<int>? ObstaclesList { get; private set; }
 
-    protected bool ValidateObstacles()
+    public EnvironmentValidationResponse ValidateObstacles()
     {
-        if (ObstaclesList is null) return false;
+        if (ObstaclesList is null) return EnvironmentValidationResponse.EnvObstaclesIsNull;
 
         for (int i = 0; i < _isObstacleAllowed.Length; i++)
         {
-            if (!_isObstacleAllowed[i] && ObstaclesList[i] != 0) return false;
+            if (!_isObstacleAllowed[i] && ObstaclesList[i] != 0) return EnvironmentValidationResponse.EnvIsInvalid;
 
-            if (ObstaclesList[i] < 0) return false;
+            if (ObstaclesList[i] < 0) return EnvironmentValidationResponse.EnvIsInvalid;
         }
 
-        return true;
+        return EnvironmentValidationResponse.EnvIsValid;
     }
 }
