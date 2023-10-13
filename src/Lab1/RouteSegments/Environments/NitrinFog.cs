@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
+namespace Itmo.ObjectOrientedProgramming.Lab1.RouteSegments.Environments;
 
 public class NitrinFog : BaseEnvironment
 {

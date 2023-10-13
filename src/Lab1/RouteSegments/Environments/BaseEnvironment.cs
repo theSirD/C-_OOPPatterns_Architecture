@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
+namespace Itmo.ObjectOrientedProgramming.Lab1.RouteSegments.Environments;
 
 public abstract class BaseEnvironment
 {
@@ -11,7 +11,7 @@ public abstract class BaseEnvironment
         ObstaclesList = obstacles;
     }
 
-    private IList<int>? ObstaclesList { get; set; }
+    public IList<int>? ObstaclesList { get; private set; }
 
     protected bool ValidateObstacles()
     {
