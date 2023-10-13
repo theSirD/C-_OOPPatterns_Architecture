@@ -10,12 +10,12 @@ public abstract class BaseShip
 {
     public BasePulseEngine? PulseEngine { get; protected set; }
     public BaseJumpEngine? JumpEngine { get; protected set; }
-    protected BaseArmor? Armor { get; set; }
-    protected BaseDeflector? Deflector { get; set; }
-    protected BaseDeflector? PhotonicDeflector { get; set; }
-    protected bool AntiNitrinMediator { get; set; }
+    public BaseArmor? Armor { get; set; }
+    public BaseDeflector? Deflector { get; set; }
+    public BaseDeflector? PhotonicDeflector { get; set; }
+    public bool AntiNitrinMediator { get; set; }
 
-    protected bool IsDestroyed { get; set; }
+    public bool IsDestroyed { get; set; }
 
     public SegmentResults TakeDamage(int obstacleNumber, int obstaclesAmount)
     {
