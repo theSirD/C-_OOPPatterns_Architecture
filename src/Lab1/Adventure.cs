@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Enums;
 using Itmo.ObjectOrientedProgramming.Lab1.PulseEngines;
@@ -24,15 +25,18 @@ public class Adventure
 
     public FlightResponse StartAdventure()
     {
-        // change
-        if (_route is null) return new FlightResponse(0, 0, SegmentResults.Success);
+        if (_route is null)
+            throw new ArgumentOutOfRangeException("route array is null");
 
         SegmentResults result;
         foreach (RouteSegment segment in _route)
         {
-            // Replace with proper validation
-            if (segment.Environment is null) return new FlightResponse(0, 0, SegmentResults.Success);
-            result = _adventureService.TakeDamageFromSegment(segment.Environment.ObstaclesList);
+            EnvironmentValidationResponse? envValResponse = segment.Environment?.ValidateObstacles();
+
+            if (envValResponse == EnvironmentValidationResponse.EnvIsInvalid)
+                throw new ArgumentOutOfRangeException("obstacles array of Environment is invalid");
+
+            result = _adventureService.TakeDamageFromSegment(segment?.Environment?.ObstaclesList);
 
             if (result == SegmentResults.ShipIsDestroyed || result == SegmentResults.CrewIsDead)
                 return new FlightResponse(0, 0, result);

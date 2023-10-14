@@ -4,5 +4,4 @@ public enum EnvironmentValidationResponse
 {
     EnvIsInvalid,
     EnvIsValid,
-    EnvObstaclesIsNull,
 }
