@@ -13,7 +13,7 @@ public class AugurCrashTest
 {
     [Fact]
 
-    public void VaclasWithoutPhotonicDeflectors()
+    public void ExtraTest()
     {
         var ship = new Augur();
         ship.PhotonicDeflector = new PhotonicDeflector();
@@ -22,7 +22,7 @@ public class AugurCrashTest
         var env1 = new NitrinFog(obstacle1);
         var segment1 = new RouteSegment(env1, 500);
 
-        var obstacle2 = new List<int> { 0, 0, 0, 3 };
+        var obstacle2 = new List<int> { 0, 0, 0, 2 };
         var env2 = new DenseFog(obstacle2);
         var segment2 = new RouteSegment(env2, 500);
 

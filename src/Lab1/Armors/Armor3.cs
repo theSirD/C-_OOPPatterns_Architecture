@@ -8,7 +8,7 @@ public class Armor3 : BaseArmor
     {
         _obstaclesDamageCoefficients = new float[] { 0.05f, 0.2f, 1f, 1f };
         IsDestroyed = false;
-        MaxHP = 100;
-        CurHP = 100;
+        MaxHealthPoints = 100;
+        CurHealthPoints = 100;
     }
 }

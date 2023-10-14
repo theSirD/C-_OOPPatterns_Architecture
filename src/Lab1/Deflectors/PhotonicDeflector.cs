@@ -6,9 +6,9 @@ public class PhotonicDeflector : BaseDeflector
 
     public PhotonicDeflector()
     {
-        _obstaclesDamageCoefficients = new float[] { 0f, 0f, 0.34f, 0f };
+        _obstaclesDamageCoefficients = new float[] { 0f, 0f, 0f, 0.32f };
         IsDestroyed = false;
-        MaxHP = 100;
-        CurHP = 100;
+        MaxHealthPoints = 100;
+        CurHealthPoints = 100;
     }
 }

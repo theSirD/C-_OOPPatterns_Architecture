@@ -8,7 +8,7 @@ public class Deflector2 : BaseDeflector
     {
         _obstaclesDamageCoefficients = new float[] { 0.1f, 0.34f, 1f, 1f };
         IsDestroyed = false;
-        MaxHP = 100;
-        CurHP = 100;
+        MaxHealthPoints = 100;
+        CurHealthPoints = 100;
     }
 }
