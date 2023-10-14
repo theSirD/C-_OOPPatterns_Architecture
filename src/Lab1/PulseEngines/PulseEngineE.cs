@@ -9,7 +9,7 @@ public class PulseEngineE : BasePulseEngine
     public PulseEngineE()
     {
         FuelConsumptionInLitersPerSecond = 15;
-        Fuel = 200;
+        Fuel = 75;
         _maxFlyTime = Fuel / FuelConsumptionInLitersPerSecond;
         Speed = Math.Exp(_maxFlyTime);
     }

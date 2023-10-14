@@ -4,8 +4,7 @@ public class JumpEngineA : BaseJumpEngine
 {
     public JumpEngineA()
     {
-        FuelConsumptionInLitersPerSecond = 5;
-        Fuel = 100;
+        Fuel = 9;
         Speed = 100;
     }
 }
