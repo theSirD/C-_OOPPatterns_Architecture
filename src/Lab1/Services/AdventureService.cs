@@ -26,6 +26,8 @@ public class AdventureService
         for (int i = 0; i < obstacles?.Count; i++)
         {
             result = _ship.TakeDamage(i, obstacles[i]);
+            if (result == SegmentResults.CrewIsDead ||
+                result == SegmentResults.ShipIsDestroyed) break;
         }
 
         return result;

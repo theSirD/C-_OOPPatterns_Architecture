@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.RouteSegments;
 
 public class RouteSegment
 {
-    protected RouteSegment(BaseEnvironment environment, int length)
+    public RouteSegment(BaseEnvironment environment, int length)
     {
         Environment = environment;
         Length = length;

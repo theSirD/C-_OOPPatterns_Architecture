@@ -49,7 +49,7 @@ public abstract class BaseShip
 
                     break;
                 case 3:
-                    if (PhotonicDeflector is not { IsDestroyed: true }) return SegmentResults.CrewIsDead;
+                    if (PhotonicDeflector is null || PhotonicDeflector.IsDestroyed) return SegmentResults.CrewIsDead;
                     PhotonicDeflector.TakeDamage(obstacleNumber);
                     break;
             }

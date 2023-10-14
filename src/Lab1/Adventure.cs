@@ -35,7 +35,7 @@ public class Adventure
             result = _adventureService.TakeDamageFromSegment(segment.Environment.ObstaclesList);
 
             if (result == SegmentResults.ShipIsDestroyed || result == SegmentResults.CrewIsDead)
-                return new FlightResponse(0, 0, SegmentResults.Success);
+                return new FlightResponse(0, 0, result);
         }
 
         double totalTime = 0;
