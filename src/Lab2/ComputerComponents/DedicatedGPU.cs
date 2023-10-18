@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2;
 
-public class DedicatedGPU : ComputerComponent
+public class DedicatedGPU : BaseComputerComponent
 {
     public DedicatedGPU(string name, double w, double h, int vram, int pcie, double freq, int consump)
         : base(name)

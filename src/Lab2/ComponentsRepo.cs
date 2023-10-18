@@ -6,16 +6,16 @@ public class ComponentsRepo
 {
     private static readonly ComponentsRepo Instance = new ComponentsRepo();
 
-    private Dictionary<string, ComputerComponent> _repo;
+    private Dictionary<string, BaseComputerComponent> _repo;
 
     private ComponentsRepo()
     {
-        _repo = new Dictionary<string, ComputerComponent>();
+        _repo = new Dictionary<string, BaseComputerComponent>();
     }
 
     public static ComponentsRepo Current => Instance;
 
-    public void Add(string name, ComputerComponent component)
+    public void Add(string name, BaseComputerComponent component)
     {
         _repo.Add(name, component);
     }
