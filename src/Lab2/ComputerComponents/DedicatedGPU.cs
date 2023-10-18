@@ -1,22 +1,22 @@
-namespace Itmo.ObjectOrientedProgramming.Lab2;
+namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
 public class DedicatedGPU : BaseComputerComponent
 {
-    public DedicatedGPU(string name, double w, double h, int vram, int pcie, double freq, int consump)
+    public DedicatedGPU(string name, double w, double h, int vram, int pcieVersion, double freq, int consump)
         : base(name)
     {
-        Width = w;
-        Height = h;
+        WidthInSm = w;
+        HeightInSm = h;
         VRAMAmount = vram;
-        PcieVersion = pcie;
-        Frequency = freq;
+        PcieVersion = pcieVersion;
+        FrequencyInGhz = freq;
         PowerConsumptionInWt = consump;
     }
 
-    public double Width { get; set; }
-    public double Height { get; init; }
+    public double WidthInSm { get; set; }
+    public double HeightInSm { get; init; }
     public int VRAMAmount { get; init; }
     public int PcieVersion { get; init; }
-    public double Frequency { get; init; }
+    public double FrequencyInGhz { get; init; }
     public int PowerConsumptionInWt { get; init; }
 }
