@@ -2,18 +2,18 @@ using System.Collections.Generic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2;
 
-public class ComponentsRepo
+public class BaseComponentsRepo
 {
-    private static readonly ComponentsRepo Instance = new ComponentsRepo();
+    private static readonly BaseComponentsRepo Instance = new BaseComponentsRepo();
 
     private Dictionary<string, BaseComputerComponent> _repo;
 
-    private ComponentsRepo()
+    private BaseComponentsRepo()
     {
         _repo = new Dictionary<string, BaseComputerComponent>();
     }
 
-    public static ComponentsRepo Current => Instance;
+    public static BaseComponentsRepo Current => Instance;
 
     public void Add(string name, BaseComputerComponent component)
     {
