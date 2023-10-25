@@ -20,4 +20,9 @@ public class ComponentsRepo
     {
         _repo.Add(name, component);
     }
+
+    public BaseComputerComponent Get(string name)
+    {
+        return _repo[name];
+    }
 }
