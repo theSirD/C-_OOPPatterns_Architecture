@@ -1,3 +1,5 @@
+using System;
+
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
 public class DedicatedGPU : BaseComputerComponent
@@ -19,4 +21,13 @@ public class DedicatedGPU : BaseComputerComponent
     public int PcieVersion { get; init; }
     public double FrequencyInGhz { get; init; }
     public int PowerConsumptionInWt { get; init; }
+
+    public override void CanBePlaced(ComputerConfiguration computer)
+    {
+        if (computer?.MotherBoard is null)
+            throw new ArgumentException("Install mother board first");
+
+        if (computer.MotherBoard.PciLinesAmount < computer.MotherBoard.CurPciLinesAmount + 1)
+            throw new ArgumentException("Mother board does not have enough PCIE lines");
+    }
 }

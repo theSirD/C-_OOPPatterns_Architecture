@@ -4,7 +4,9 @@ public abstract class BaseComputerComponent
 {
     protected BaseComputerComponent(string name) => Name = name;
 
-    public string? Name { get; init; }
+    public string Name { get; init; }
+
+    public abstract void CanBePlaced(ComputerConfiguration computer);
 
     public BaseComputerComponent? Clone()
     {

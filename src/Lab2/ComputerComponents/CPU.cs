@@ -1,3 +1,5 @@
+using System;
+
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
 public class CPU : BaseComputerComponent
@@ -32,4 +34,16 @@ public class CPU : BaseComputerComponent
     public double MaxMemoryFrequency { get; private init; }
     public int Tdp { get; private init; }
     public int PowerConsumptionInWt { get; private init; }
+
+    public override void CanBePlaced(ComputerConfiguration computer)
+    {
+        if (computer?.Bios is null)
+            throw new ArgumentException("Install BIOS first");
+
+        if (!(bool)computer.Bios.ListOfSuppertedCPUs?.Contains(Name))
+            throw new ArgumentException("BIOS does not support this CPU");
+
+        if (computer.MotherBoard?.Socket != Socket)
+            throw new ArgumentException("Mother board does not support this CPU");
+    }
 }
