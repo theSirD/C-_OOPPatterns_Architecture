@@ -20,11 +20,17 @@ public class MotherBoard : BaseComputerComponent
         SupportedDdrStandard = ddrStandard;
         DdrSlotsAmount = ddrSlotsCount;
         HasNetworkModule = hasNetworkModule;
+
+        CurPciLinesAmount = 0;
+        CurSataPortsAmount = 0;
     }
 
     public string? Socket { get; private init; }
     public int PciLinesAmount { get; private init; }
+    public int CurPciLinesAmount { get; set; }
     public int SataPortsAmount { get; private init; }
+
+    public int CurSataPortsAmount { get; set; }
     public ChipSet? ChipSet { get; private init; }
     public int SupportedDdrStandard { get; private init; }
     public int DdrSlotsAmount { get; private init; }
