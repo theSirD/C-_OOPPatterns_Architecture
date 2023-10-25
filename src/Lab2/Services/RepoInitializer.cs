@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Storage;
 
-namespace Itmo.ObjectOrientedProgramming.Lab2;
+namespace Itmo.ObjectOrientedProgramming.Lab2.Services;
 
 public class RepoInitializer
 {
-    public BaseComponentsRepo? CurrentRepo { get;  set; }
+    public ComponentsRepo? CurrentRepo { get;  set; }
 
     public void Initialize()
     {

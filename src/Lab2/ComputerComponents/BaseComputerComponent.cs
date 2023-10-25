@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab2;
+namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
 public abstract class BaseComputerComponent
 {
