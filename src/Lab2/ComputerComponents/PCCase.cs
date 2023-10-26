@@ -15,4 +15,9 @@ public class PCCase : BaseComputerComponent
     public int WidthInSm { get; private init; }
     public int HeightInSm { get; private init; }
     public MotherBoardFormFactors SupportedFormOfMotherBoard { get; private init; }
+
+    public PCCase CloneWithNewSize(string newName, int width, int height)
+    {
+        return new PCCase(newName, width, height, SupportedFormOfMotherBoard);
+    }
 }

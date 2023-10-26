@@ -11,8 +11,8 @@ public class CPU : BaseComputerComponent
         int coresAmount,
         string socket,
         bool hasGpu,
-        int minMemoryFreq,
-        int maxMemoryFreq,
+        double minMemoryFreq,
+        double maxMemoryFreq,
         int tdp,
         int consump)
     : base(name)
@@ -29,7 +29,7 @@ public class CPU : BaseComputerComponent
 
     public double FrequencyOfCores { get; private init; }
     public int CoresAmount { get; private init; }
-    public string? Socket { get; private init; }
+    public string Socket { get; private init; }
     public bool HasGpu { get; private init; }
     public double MinMemoryFrequency { get; private init; }
     public double MaxMemoryFrequency { get; private init; }
@@ -46,5 +46,10 @@ public class CPU : BaseComputerComponent
 
         if (computer.MotherBoard?.Socket != Socket)
             throw new ArgumentException("Mother board does not support this CPU");
+    }
+
+    public CPU CloneWithNewFrequencyBoundaries(string newName, double minFreq, double maxFreq, int tdp, int consump)
+    {
+        return new CPU(newName, FrequencyOfCores, CoresAmount, Socket, HasGpu, minFreq, maxFreq, tdp, consump);
     }
 }

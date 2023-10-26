@@ -31,7 +31,7 @@ public class MotherBoard : BaseComputerComponent
         CurSataPortsAmount = 0;
     }
 
-    public string? Socket { get; private init; }
+    public string Socket { get; private init; }
     public int PciLinesAmount { get; private init; }
     public int CurPciLinesAmount { get; set; }
     public int SataPortsAmount { get; private init; }
@@ -42,6 +42,10 @@ public class MotherBoard : BaseComputerComponent
     public int DdrSlotsAmount { get; private init; }
     public bool HasNetworkModule { get; private init; }
     public int PcieVersion { get; private init; }
-
     public MotherBoardFormFactors FormFactor { get; private init; }
+
+    public MotherBoard CloneWithNewConnectionPorts(string newName, int pciLinesAmount, int sataPortsAmount, int ddrSlotsAmount)
+    {
+        return new MotherBoard(newName, Socket, pciLinesAmount, sataPortsAmount, ChipSet?.Clone(), SupportedDdrStandard, ddrSlotsAmount, HasNetworkModule, PcieVersion, FormFactor);
+    }
 }

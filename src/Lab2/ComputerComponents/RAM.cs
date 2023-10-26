@@ -28,4 +28,9 @@ public class RAM : BaseComputerComponent
         if (computer?.MotherBoard.SupportedDdrStandard < DdrStandard)
             throw new ArgumentException("Mother board does not support this DDR standard");
     }
+
+    public RAM CloneWithNewFrequency(string newName, double freq)
+    {
+        return new RAM(newName, MemorySize, DdrStandard, PowerConsumptionInWt, freq);
+    }
 }

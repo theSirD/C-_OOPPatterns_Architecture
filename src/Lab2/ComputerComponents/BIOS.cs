@@ -11,7 +11,16 @@ public class BIOS : BaseComputerComponent
         ListOfSuppertedCPUs = supportedCpus;
     }
 
-    public string? TypeOfBIOS { get; private init; }
-    public string? Version { get; private init; }
-    public IReadOnlyList<string?>? ListOfSuppertedCPUs { get; private init; }
+    public string TypeOfBIOS { get; private init; }
+    public string Version { get; private init; }
+    public IReadOnlyList<string?> ListOfSuppertedCPUs { get; private init; }
+    public BIOS CloneWithNewVersion(string newName, string ver, IReadOnlyList<string?> cpus)
+    {
+        return new BIOS(newName, TypeOfBIOS, ver, cpus);
+    }
+
+    public BIOS CloneWithNewTypeOfBios(string newName, string newType, IReadOnlyList<string?> cpus)
+    {
+        return new BIOS(newName, newType, Version, cpus);
+    }
 }

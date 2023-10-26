@@ -31,4 +31,9 @@ public class NetworkModule : BaseComputerComponent
         if (computer.MotherBoard.PciLinesAmount < computer.MotherBoard.CurPciLinesAmount + 1)
             throw new ArgumentException("Mother board does not have enough PCIE lines");
     }
+
+    public NetworkModule CloneWithNewPcieVersion(string newName, int pcieVer)
+    {
+        return new NetworkModule(newName, Version, HasBluetooth, pcieVer, PowerConsumptionInWt);
+    }
 }

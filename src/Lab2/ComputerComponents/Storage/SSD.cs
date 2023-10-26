@@ -28,4 +28,19 @@ public class SSD : BaseStorage
                 throw new ArgumentException("Mother board does not have enough SATA ports");
         }
     }
+
+    public SSD CloneWithNewCapacity(string newName, int capacity)
+    {
+        return new SSD(newName, capacity, Speed, PowerConsumptionInWt, ConnectionType);
+    }
+
+    public SSD CloneWithNewSpeedAndPwConsumption(string newName, int speed, int consump)
+    {
+        return new SSD(newName, CapacityInGb, speed, consump, ConnectionType);
+    }
+
+    public SSD CloneWithNewConnectionType(string newName, SSDConnectionType connectionType)
+    {
+        return new SSD(newName, CapacityInGb, Speed, PowerConsumptionInWt, connectionType);
+    }
 }

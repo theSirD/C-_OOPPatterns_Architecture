@@ -15,9 +15,8 @@ public class CoolingSystem : BaseComputerComponent
         HeightInSm = height;
     }
 
-    public IReadOnlyList<string?>? ListOfSupportedSockets { get; private init; }
+    public IReadOnlyList<string?> ListOfSupportedSockets { get; private init; }
     public int MaxTDP { get; private init; }
-
     public int WidthInSm { get; private init; }
     public int HeightInSm { get; private init; }
 
@@ -28,5 +27,10 @@ public class CoolingSystem : BaseComputerComponent
 
         if (!(bool)ListOfSupportedSockets?.Contains(computer?.MotherBoard.Socket))
             throw new ArgumentException("Mother board does not support this cooling system");
+    }
+
+    public CoolingSystem CloneWithNewSize(string newName, int tdp, int width, int height)
+    {
+        return new CoolingSystem(newName, ListOfSupportedSockets, tdp, width, height);
     }
 }
