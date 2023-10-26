@@ -35,7 +35,7 @@ public class CPU : BaseComputerComponent
     public int Tdp { get; private init; }
     public int PowerConsumptionInWt { get; private init; }
 
-    public override void CanBePlaced(ComputerConfiguration computer)
+    public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.Bios is null)
             throw new ArgumentException("Install BIOS first");

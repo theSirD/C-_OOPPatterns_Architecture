@@ -6,8 +6,6 @@ public abstract class BaseComputerComponent
 
     public string Name { get; init; }
 
-    public abstract void CanBePlaced(ComputerConfiguration computer);
-
     public BaseComputerComponent? Clone()
     {
         return MemberwiseClone() as BaseComputerComponent;

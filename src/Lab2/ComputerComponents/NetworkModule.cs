@@ -17,7 +17,7 @@ public class NetworkModule : BaseComputerComponent
     public bool HasBluetooth { get; private set; }
     public int PcieVersion { get; private init; }
     public int PowerConsumptionInWt { get; private init; }
-    public override void CanBePlaced(ComputerConfiguration computer)
+    public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.MotherBoard is null)
             throw new ArgumentException("Install mother board first");

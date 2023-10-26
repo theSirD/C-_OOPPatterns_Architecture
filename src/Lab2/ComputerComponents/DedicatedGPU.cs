@@ -22,7 +22,7 @@ public class DedicatedGPU : BaseComputerComponent
     public double FrequencyInGhz { get; init; }
     public int PowerConsumptionInWt { get; init; }
 
-    public override void CanBePlaced(ComputerConfiguration computer)
+    public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.MotherBoard is null)
             throw new ArgumentException("Install mother board first");

@@ -15,7 +15,7 @@ public class RAM : BaseComputerComponent
     public int MemorySize { get; private init; }
     public int DdrStandard { get; private init; }
     public int PowerConsumptionInWt { get; private init; }
-    public override void CanBePlaced(ComputerConfiguration computer)
+    public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.MotherBoard is null)
             throw new ArgumentException("Install mother board first");

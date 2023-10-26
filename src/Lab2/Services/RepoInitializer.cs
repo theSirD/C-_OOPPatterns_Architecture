@@ -286,14 +286,14 @@ public class RepoInitializer
         "Dark Rock Pro 4",
         new CoolingSystem(
             "Dark Rock Pro 4",
-            new List<string> { "LGA1700", "AM4", "TR4" },
+            new List<string?> { "LGA1700", "AM4", "TR4" },
             250));
 
         CurrentRepo?.Add(
             "Corsair iCUE H150i ELITE CAPELLIX",
             new CoolingSystem(
                 "Corsair iCUE H150i ELITE CAPELLIX",
-                new List<string> { "LGA1700", "AM4", "TR4" },
+                new List<string?> { "LGA1700", "AM4", "TR4" },
                 300));
     }
 

@@ -15,7 +15,7 @@ public class CoolingSystem : BaseComputerComponent
     public IList<string?>? ListOfSupportedSockets { get; private init; }
     public int MaxTDP { get; private init; }
 
-    public override void CanBePlaced(ComputerConfiguration computer)
+    public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.MotherBoard is null)
             throw new ArgumentException("Install mother board first");
