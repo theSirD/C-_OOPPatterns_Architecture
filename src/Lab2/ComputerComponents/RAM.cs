@@ -22,7 +22,7 @@ public class RAM : BaseRepoItem
         if (computer?.MotherBoard is null)
             throw new ArgumentException("Install mother board first");
 
-        if (computer?.MotherBoard.ChipSet?.MinMemoryFrequency > Frequency)
+        if (computer?.MotherBoard.MinMemoryFrequency > Frequency)
             throw new ArgumentException("This RAM is too slow");
 
         if (computer?.MotherBoard.SupportedDdrStandard < DdrStandard)

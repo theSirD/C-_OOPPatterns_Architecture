@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Storage;
+using Itmo.ObjectOrientedProgramming.Lab2.Enums;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services;
 
@@ -11,7 +12,6 @@ public class RepoInitializer
     public void Initialize()
     {
         AddDiscreteGPUs();
-        AddChipsets();
         AddMotherboards();
         AddBIOS();
         AddPCCases();
@@ -72,41 +72,6 @@ public class RepoInitializer
                 400));
     }
 
-    private void AddChipsets()
-    {
-        CurrentRepo?.Add(
-            "Intel Z690",
-            new ChipSet(
-                "Intel Z690",
-                2.1,
-                5.3,
-                true));
-
-        CurrentRepo?.Add(
-            "AMD X570S",
-            new ChipSet(
-                "AMD X570S",
-                2.1,
-                5.1,
-                true));
-
-        CurrentRepo?.Add(
-            "Intel B550",
-            new ChipSet(
-                "Intel B550",
-                2.1,
-                5.1,
-                false));
-
-        CurrentRepo?.Add(
-            "AMD B550",
-            new ChipSet(
-                "AMD B550",
-                2.1,
-                5.1,
-                true));
-    }
-
     private void AddMotherboards()
     {
         CurrentRepo?.Add(
@@ -116,9 +81,13 @@ public class RepoInitializer
                 "LGA 1700",
                 20,
                 6,
-                null,
                 5,
                 4,
+                true,
+                6,
+                MotherBoardFormFactors.NanoATX,
+                2.1,
+                5.3,
                 true));
 
         CurrentRepo?.Add(
@@ -128,9 +97,13 @@ public class RepoInitializer
                 "AM4",
                 20,
                 6,
-                null,
                 4,
                 4,
+                true,
+                5,
+                MotherBoardFormFactors.MiniATX,
+                2.1,
+                5.1,
                 true));
 
         CurrentRepo?.Add(
@@ -140,10 +113,14 @@ public class RepoInitializer
                 "LGA 1700",
                 16,
                 6,
-                null,
                 5,
                 4,
-                true));
+                true,
+                4,
+                MotherBoardFormFactors.MicroATX,
+                2.1,
+                5.1,
+                false));
 
         CurrentRepo?.Add(
             "ASUS TUF Gaming B550-Plus",
@@ -152,9 +129,13 @@ public class RepoInitializer
                 "AM4",
                 14,
                 4,
-                null,
                 4,
                 4,
+                true,
+                3,
+                MotherBoardFormFactors.ATX,
+                2.1,
+                5.1,
                 true));
     }
 
@@ -193,17 +174,17 @@ public class RepoInitializer
             "Corsair iCUE 5000X RGB",
             new PCCase(
                 "Corsair iCUE 5000X RGB",
-                33,
-                15,
-                "ATX"));
+                330,
+                150,
+                MotherBoardFormFactors.ATX));
 
         CurrentRepo?.Add(
             "NZXT H510 Elite",
             new PCCase(
                 "NZXT H510 Elite",
-                31,
-                14,
-                "ATX"));
+                310,
+                140,
+                MotherBoardFormFactors.MiniATX));
     }
 
     private void AddNetworkModules()
@@ -250,7 +231,8 @@ public class RepoInitializer
                 "Kingston HyperX Fury RGB 32 GB (2 x 16 GB) DDR4-3200 CL16",
                 32,
                 4,
-                16));
+                16,
+                3200));
 
         CurrentRepo?.Add(
             "Crucial Ballistix RGB 32 GB (2 x 16 GB) DDR4-3600 CL16",
@@ -258,7 +240,8 @@ public class RepoInitializer
                 "Crucial Ballistix RGB 32 GB (2 x 16 GB) DDR4-3600 CL16",
                 32,
                 4,
-                16));
+                16,
+                2200));
     }
 
     private void AddXMP()
@@ -287,14 +270,18 @@ public class RepoInitializer
         new CoolingSystem(
             "Dark Rock Pro 4",
             new List<string?> { "LGA1700", "AM4", "TR4" },
-            250));
+            250,
+            136,
+            146));
 
         CurrentRepo?.Add(
             "Corsair iCUE H150i ELITE CAPELLIX",
             new CoolingSystem(
                 "Corsair iCUE H150i ELITE CAPELLIX",
                 new List<string?> { "LGA1700", "AM4", "TR4" },
-                300));
+                300,
+                160,
+                150));
     }
 
     private void AddCPUs()
@@ -412,7 +399,7 @@ public class RepoInitializer
                 1000,
                 7000,
                 6,
-                "PCIe Gen4 NVMe"));
+                SSDConnectionType.PCIE));
 
         CurrentRepo?.Add(
             "Samsung 870 QVO 500Gb SATA III SSD",
@@ -421,7 +408,7 @@ public class RepoInitializer
                 500,
                 560,
                 4,
-                "SATA III"));
+                SSDConnectionType.SATA));
 
         CurrentRepo?.Add(
             "Western Digital Blue SN550 250GB NVMe SSD",
@@ -430,7 +417,7 @@ public class RepoInitializer
                 250,
                 2400,
                 4,
-                "NVMe"));
+                SSDConnectionType.PCIE));
     }
 
     private void AddHDDs()
