@@ -132,6 +132,11 @@ public class ComputerBuilder
         }
     }
 
+    public void WithHdd(string name)
+    {
+        Computer.Hdd = (HDD)_repo.Get(name);
+    }
+
     public ComputerConfiguration Build()
     {
         return Computer;

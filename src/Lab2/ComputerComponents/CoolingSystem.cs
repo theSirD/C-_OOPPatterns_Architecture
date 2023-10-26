@@ -5,15 +5,20 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
 public class CoolingSystem : BaseComputerComponent
 {
-    public CoolingSystem(string name, IList<string?> supportedSockets, int tdp)
+    public CoolingSystem(string name, IList<string?> supportedSockets, int tdp, int width, int height)
     : base(name)
     {
         ListOfSupportedSockets = supportedSockets;
         MaxTDP = tdp;
+        WidthInSm = width;
+        HeightInSm = height;
     }
 
     public IList<string?>? ListOfSupportedSockets { get; private init; }
     public int MaxTDP { get; private init; }
+
+    public int WidthInSm { get; private init; }
+    public int HeightInSm { get; private init; }
 
     public void CanBePlaced(ComputerConfiguration computer)
     {

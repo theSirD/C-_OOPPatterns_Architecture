@@ -25,6 +25,9 @@ public class NetworkModule : BaseComputerComponent
         if (computer.MotherBoard.HasNetworkModule)
             throw new ArgumentException("Mother board has built-in network module");
 
+        if (computer.MotherBoard.PcieVersion < PcieVersion)
+            throw new ArgumentException("Mother board's PCIE is too old for this Wi-Fi module");
+
         if (computer.MotherBoard.PciLinesAmount < computer.MotherBoard.CurPciLinesAmount + 1)
             throw new ArgumentException("Mother board does not have enough PCIE lines");
     }

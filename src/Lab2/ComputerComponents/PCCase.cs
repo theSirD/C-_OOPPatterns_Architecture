@@ -2,15 +2,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
 public class PCCase : BaseComputerComponent
 {
-    public PCCase(string name, int widthOfGpu, int heightOfGpu, string form)
+    public PCCase(string name, int width, int height, string form)
     : base(name)
     {
-        MaxWidthOfGPUInSm = widthOfGpu;
-        MaxHeightOfGPUInSm = heightOfGpu;
+        WidthInSm = width;
+        HeightInSm = height;
         SupportedFormOfMotherBoard = form;
     }
 
-    public double MaxWidthOfGPUInSm { get; private init; }
-    public double MaxHeightOfGPUInSm { get; private init; }
+    public int WidthInSm { get; private init; }
+    public int HeightInSm { get; private init; }
     public string? SupportedFormOfMotherBoard { get; private init; }
 }

@@ -10,7 +10,8 @@ public class MotherBoard : BaseComputerComponent
         ChipSet? chipSet,
         int ddrStandard,
         int ddrSlotsCount,
-        bool hasNetworkModule)
+        bool hasNetworkModule,
+        int pcieVersion)
         : base(name)
     {
         Socket = socket;
@@ -20,6 +21,7 @@ public class MotherBoard : BaseComputerComponent
         SupportedDdrStandard = ddrStandard;
         DdrSlotsAmount = ddrSlotsCount;
         HasNetworkModule = hasNetworkModule;
+        PcieVersion = pcieVersion;
 
         CurPciLinesAmount = 0;
         CurSataPortsAmount = 0;
@@ -35,4 +37,7 @@ public class MotherBoard : BaseComputerComponent
     public int SupportedDdrStandard { get; private init; }
     public int DdrSlotsAmount { get; private init; }
     public bool HasNetworkModule { get; private init; }
+    public int PcieVersion { get; private init; }
+
+    public string? FormFactor { get; private init; }
 }
