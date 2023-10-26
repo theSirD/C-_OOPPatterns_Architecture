@@ -1,6 +1,7 @@
 using System;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Storage;
+using Itmo.ObjectOrientedProgramming.Lab2.Enums;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2;
 
@@ -127,7 +128,7 @@ public class ComputerBuilder
         Computer.Ssd = curSsd;
         if (Computer.MotherBoard is not null)
         {
-            if (curSsd.ConnectionType == "PCIE") Computer.MotherBoard.CurPciLinesAmount++;
+            if (curSsd.ConnectionType == SSDConnectionType.PCIE) Computer.MotherBoard.CurPciLinesAmount++;
             else Computer.MotherBoard.CurSataPortsAmount++;
         }
     }

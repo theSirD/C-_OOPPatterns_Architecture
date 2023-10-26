@@ -1,3 +1,5 @@
+using Itmo.ObjectOrientedProgramming.Lab2.Enums;
+
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
 public class MotherBoard : BaseComputerComponent
@@ -11,7 +13,8 @@ public class MotherBoard : BaseComputerComponent
         int ddrStandard,
         int ddrSlotsCount,
         bool hasNetworkModule,
-        int pcieVersion)
+        int pcieVersion,
+        MotherBoardFormFactors form)
         : base(name)
     {
         Socket = socket;
@@ -22,6 +25,7 @@ public class MotherBoard : BaseComputerComponent
         DdrSlotsAmount = ddrSlotsCount;
         HasNetworkModule = hasNetworkModule;
         PcieVersion = pcieVersion;
+        FormFactor = form;
 
         CurPciLinesAmount = 0;
         CurSataPortsAmount = 0;
@@ -39,5 +43,5 @@ public class MotherBoard : BaseComputerComponent
     public bool HasNetworkModule { get; private init; }
     public int PcieVersion { get; private init; }
 
-    public string? FormFactor { get; private init; }
+    public MotherBoardFormFactors FormFactor { get; private init; }
 }

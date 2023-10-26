@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
