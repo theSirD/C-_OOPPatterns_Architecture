@@ -35,9 +35,29 @@ public class ComputerBuilder
         _computer = new ComputerConfiguration(name);
     }
 
+    public void WithMotherBoard(string name)
+    {
+        _computer.MotherBoard = (MotherBoard)_repo.Get(name);
+    }
+
+    public void WithComputerCase(string name)
+    {
+        _computer.ComputerCase = (PCCase)_repo.Get(name);
+    }
+
     public void WithBios(string name)
     {
         _computer.Bios = (BIOS)_repo.Get(name);
+    }
+
+    public void WithPowerPack(string name)
+    {
+        _computer.PowerPack = (PowerPack)_repo.Get(name);
+    }
+
+    public void WithXmp(string name)
+    {
+        _computer.Xmp = (XMPProfile)_repo.Get(name);
     }
 
     public void WithCool(string name)
@@ -72,21 +92,6 @@ public class ComputerBuilder
         _computer.Cpu = curCpu;
     }
 
-    public void WithMotherBoard(string name)
-    {
-        _computer.MotherBoard = (MotherBoard)_repo.Get(name);
-    }
-
-    public void WithComputerCase(string name)
-    {
-        _computer.ComputerCase = (PCCase)_repo.Get(name);
-    }
-
-    public void WithPowerPack(string name)
-    {
-        _computer.PowerPack = (PowerPack)_repo.Get(name);
-    }
-
     public void WithRam(string name)
     {
         var curRam = (RAM)_repo.Get(name);
@@ -101,11 +106,6 @@ public class ComputerBuilder
         }
 
         _computer.Ram = curRam;
-    }
-
-    public void WithXmp(string name)
-    {
-        _computer.Xmp = (XMPProfile)_repo.Get(name);
     }
 
     public void WithWifi(string name)

@@ -53,8 +53,12 @@ public class BuildErrorsValidatorService
 
     public void CheckIfBuildHasGpu()
     {
-        if (!(bool)_computer.Cpu?.HasGpu && _computer.DedicatedGpu is null)
-            throw new ArgumentException("Configuration does not have a GPU");
+        if (_computer.Cpu is null)
+            throw new ArgumentException("Configuration does not have a CPU");
+        {
+            if (!_computer.Cpu.HasGpu && _computer.DedicatedGpu is null)
+                throw new ArgumentException("Configuration does not have a GPU");
+        }
     }
 
     public void CheckIfComponentsFitCase()
