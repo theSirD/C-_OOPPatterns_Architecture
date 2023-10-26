@@ -10,19 +10,21 @@ public class ComputerBuilder
     private ComponentsRepo _repo = ComponentsRepo.Current;
     private ComputerConfiguration _computer;
 
-    public ComputerBuilder()
+    public ComputerBuilder(string name)
     {
-        _computer = new ComputerConfiguration();
+        _computer = new ComputerConfiguration(name);
     }
 
     public ComputerBuilder(ComputerConfiguration computer)
     {
-        _computer = computer;
+        if (computer is null)
+            throw new ArgumentException("Passed null instead of computer");
+        _computer = (ComputerConfiguration)computer.Clone();
     }
 
-    public void Reset()
+    public void Reset(string name)
     {
-        _computer = new ComputerConfiguration();
+        _computer = new ComputerConfiguration(name);
     }
 
     public void WithBios(string name)
