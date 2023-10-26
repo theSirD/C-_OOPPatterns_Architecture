@@ -1,7 +1,9 @@
 using System;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Responses;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Storage;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
+using Itmo.ObjectOrientedProgramming.Lab2.Services;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2;
 
@@ -9,10 +11,14 @@ public class ComputerBuilder
 {
     private ComponentsRepo _repo = ComponentsRepo.Current;
     private ComputerConfiguration _computer;
+    private BuildErrorsValidatorService _errorsValidator;
+    private BuildWarningsValidatorService _warningsValidator;
 
     public ComputerBuilder(string name)
     {
         _computer = new ComputerConfiguration(name);
+        _errorsValidator = new BuildErrorsValidatorService(_computer, 20);
+        _warningsValidator = new BuildWarningsValidatorService(_computer, 20);
     }
 
     public ComputerBuilder(ComputerConfiguration computer)
@@ -20,6 +26,8 @@ public class ComputerBuilder
         if (computer is null)
             throw new ArgumentException("Passed null instead of computer");
         _computer = (ComputerConfiguration)computer.Clone();
+        _errorsValidator = new BuildErrorsValidatorService(_computer, 20);
+        _warningsValidator = new BuildWarningsValidatorService(_computer, 20);
     }
 
     public void Reset(string name)
@@ -160,54 +168,25 @@ public class ComputerBuilder
         _computer.Hdd = (HDD)_repo.Get(name);
     }
 
-    public ComputerConfiguration Build()
+    public BuildResponse Build()
     {
-        if (_computer.Hdd is null && _computer.Ssd is null)
-            throw new ArgumentException("Configuration does not have a storage");
-
-        if (_computer.MotherBoard is null || _computer.Cpu is null || _computer.Bios is null ||
-            _computer.Cool is null || _computer.Ram is null || _computer.PowerPack is null ||
-            _computer.ComputerCase is null)
-            throw new ArgumentException("Configuration does not have one (or more) required components");
-
-        switch (_computer.ComputerCase.SupportedFormOfMotherBoard)
+        try
         {
-            case MotherBoardFormFactors.MicroATX:
-                if (_computer.MotherBoard.FormFactor == MotherBoardFormFactors.ATX)
-                    throw new ArgumentException("Computer case does not support form factor of mother boards chosen");
-                break;
+            _errorsValidator.CheckIfBuildHasStorage();
+            _errorsValidator.CheckIfBuildHasRequiredComponents();
+            _errorsValidator.CheckForCaseAndMotherBoardCompatibility();
+            _errorsValidator.CheckIfBuildHasGpu();
+            _errorsValidator.CheckIfComponentsFitCase();
+            _errorsValidator.CheckPowerConsumptionOfBuild();
 
-            case MotherBoardFormFactors.MiniATX:
-                if (_computer.MotherBoard.FormFactor == MotherBoardFormFactors.ATX || _computer.MotherBoard.FormFactor == MotherBoardFormFactors.MicroATX)
-                    throw new ArgumentException("Computer case does not support form factor of mother boards chosen");
-                break;
-
-            case MotherBoardFormFactors.NanoATX:
-                if (_computer.MotherBoard.FormFactor == MotherBoardFormFactors.ATX ||
-                    _computer.MotherBoard.FormFactor == MotherBoardFormFactors.MicroATX ||
-                    _computer.MotherBoard.FormFactor == MotherBoardFormFactors.NanoATX)
-                    throw new ArgumentException("Computer case does not support form factor of mother boards chosen");
-                break;
+            _warningsValidator.CheckTdpOfBuild();
+            _warningsValidator.CheckPowerConsumptionOfBuild();
+        }
+        catch (ArgumentException ex)
+        {
+            return new BuildResponse(_computer, ex.Message);
         }
 
-        if (!_computer.Cpu.HasGpu && _computer.DedicatedGpu is null)
-            throw new ArgumentException("Configuration does not have a GPU");
-
-        if (_computer.Cool.WidthInSm + (_computer.DedicatedGpu is null ? 0 : _computer.DedicatedGpu.WidthInSm) > _computer.ComputerCase.WidthInSm)
-            throw new ArgumentException("Components are to wide for this computer case");
-
-        if (_computer.Cool.HeightInSm + (_computer.DedicatedGpu is null ? 0 : _computer.DedicatedGpu.HeightInSm) > _computer.ComputerCase.HeightInSm)
-            throw new ArgumentException("Components are to tall for this computer case");
-
-        if (_computer.Cpu.Tdp > _computer.Cool.MaxTDP)
-            throw new ArgumentException("Cooling system is not good enough");
-
-        if (_computer.Cpu.PowerConsumptionInWt + _computer.Ram.PowerConsumptionInWt +
-            (_computer.DedicatedGpu is null ? 0 : _computer.DedicatedGpu.PowerConsumptionInWt)
-            + (_computer.Ssd is null ? 0 : _computer.Ssd.PowerConsumptionInWt) +
-            (_computer.Hdd is null ? 0 : _computer.Hdd.PowerConsumptionInWt) > _computer.PowerPack.PeakLoadInWt)
-            throw new ArgumentException("Power pack is not good enough");
-
-        return _computer;
+        return new BuildResponse(_computer, "Success");
     }
 }
