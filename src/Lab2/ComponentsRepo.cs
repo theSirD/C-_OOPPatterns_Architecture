@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2;
 
@@ -7,21 +7,23 @@ public class ComponentsRepo
 {
     private static readonly ComponentsRepo Instance = new ComponentsRepo();
 
-    private Dictionary<string, BaseComputerComponent> _repo;
+    private Dictionary<string, BaseRepoItem> _repo;
 
     private ComponentsRepo()
     {
-        _repo = new Dictionary<string, BaseComputerComponent>();
+        _repo = new Dictionary<string, BaseRepoItem>();
     }
 
     public static ComponentsRepo Current => Instance;
 
-    public void Add(string name, BaseComputerComponent component)
+    public void Add(string name, BaseRepoItem component)
     {
+        if (_repo.ContainsKey(name))
+            throw new ArgumentException("Item with this name is already in repo");
         _repo.Add(name, component);
     }
 
-    public BaseComputerComponent Get(string name)
+    public BaseRepoItem Get(string name)
     {
         return _repo[name];
     }
