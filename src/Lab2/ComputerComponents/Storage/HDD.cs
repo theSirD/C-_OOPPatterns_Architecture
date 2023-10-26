@@ -14,4 +14,9 @@ public class HDD : BaseStorage
     {
         return new HDD(newName, CapacityInGb, speed, consump);
     }
+
+    public override BaseRepoItem Clone()
+    {
+        return new HDD(Name, CapacityInGb, Speed, PowerConsumptionInWt);
+    }
 }

@@ -43,4 +43,9 @@ public class SSD : BaseStorage
     {
         return new SSD(newName, CapacityInGb, Speed, PowerConsumptionInWt, connectionType);
     }
+
+    public override BaseRepoItem Clone()
+    {
+        return new SSD(Name, CapacityInGb, Speed, PowerConsumptionInWt, ConnectionType);
+    }
 }

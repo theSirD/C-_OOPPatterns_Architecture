@@ -2,7 +2,7 @@ using System;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
-public class DedicatedGPU : BaseComputerComponent
+public class DedicatedGPU : BaseRepoItem
 {
     public DedicatedGPU(string name, int w, int h, int vram, int pcieVersion, double freq, int consump)
         : base(name)
@@ -37,5 +37,10 @@ public class DedicatedGPU : BaseComputerComponent
     public DedicatedGPU CloneWithNewFrequency(string newName, double freq)
     {
         return new DedicatedGPU(newName, WidthInSm, HeightInSm, VRAMAmount, PcieVersion, freq, PowerConsumptionInWt);
+    }
+
+    public override BaseRepoItem Clone()
+    {
+        return new DedicatedGPU(Name, WidthInSm, HeightInSm, VRAMAmount, PcieVersion, FrequencyInGhz, PowerConsumptionInWt);
     }
 }

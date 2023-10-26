@@ -2,7 +2,7 @@ using System;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
-public class NetworkModule : BaseComputerComponent
+public class NetworkModule : BaseRepoItem
 {
     public NetworkModule(string name, double version, bool hasBluetooth, int pcieVer, int consump)
     : base(name)
@@ -35,5 +35,10 @@ public class NetworkModule : BaseComputerComponent
     public NetworkModule CloneWithNewPcieVersion(string newName, int pcieVer)
     {
         return new NetworkModule(newName, Version, HasBluetooth, pcieVer, PowerConsumptionInWt);
+    }
+
+    public override BaseRepoItem Clone()
+    {
+        return new NetworkModule(Name, Version, HasBluetooth, PcieVersion, PowerConsumptionInWt);
     }
 }

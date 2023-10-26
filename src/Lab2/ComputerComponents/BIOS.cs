@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
-public class BIOS : BaseComputerComponent
+public class BIOS : BaseRepoItem
 {
     public BIOS(string name, string typeOfBios, string ver, IReadOnlyList<string?> supportedCpus)
         : base(name)
@@ -22,5 +22,10 @@ public class BIOS : BaseComputerComponent
     public BIOS CloneWithNewTypeOfBios(string newName, string newType, IReadOnlyList<string?> cpus)
     {
         return new BIOS(newName, newType, Version, cpus);
+    }
+
+    public override BaseRepoItem Clone()
+    {
+        return new BIOS(Name, TypeOfBIOS, Version, ListOfSuppertedCPUs);
     }
 }

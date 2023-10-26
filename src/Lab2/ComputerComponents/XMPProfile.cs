@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
-public class XMPProfile : BaseComputerComponent
+public class XMPProfile : BaseRepoItem
 {
     public XMPProfile(string name, double voltage, double freq, string timing)
     : base(name)
@@ -17,5 +17,10 @@ public class XMPProfile : BaseComputerComponent
     public XMPProfile CloneWithNewFrequency(string newName, double freq)
     {
         return new XMPProfile(newName, Voltage, freq, Timing);
+    }
+
+    public override BaseRepoItem Clone()
+    {
+        return new XMPProfile(Name, Voltage, Frequency, Timing);
     }
 }

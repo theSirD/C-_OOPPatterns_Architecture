@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Storage;
 
-public abstract class BaseStorage : BaseComputerComponent
+public abstract class BaseStorage : BaseRepoItem
 {
     protected BaseStorage(string name, int capacity, double speed, int consump)
     : base(name)

@@ -2,14 +2,14 @@ using Itmo.ObjectOrientedProgramming.Lab2.Enums;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
-public class MotherBoard : BaseComputerComponent
+public class MotherBoard : BaseRepoItem
 {
     public MotherBoard(
         string name,
         string socket,
         int pciCount,
         int sataCount,
-        ChipSet? chipSet,
+        BaseRepoItem chipSet,
         int ddrStandard,
         int ddrSlotsCount,
         bool hasNetworkModule,
@@ -20,7 +20,7 @@ public class MotherBoard : BaseComputerComponent
         Socket = socket;
         PciLinesAmount = pciCount;
         SataPortsAmount = sataCount;
-        ChipSet = chipSet;
+        ChipSet = (ChipSet)chipSet;
         SupportedDdrStandard = ddrStandard;
         DdrSlotsAmount = ddrSlotsCount;
         HasNetworkModule = hasNetworkModule;
@@ -37,7 +37,7 @@ public class MotherBoard : BaseComputerComponent
     public int SataPortsAmount { get; private init; }
 
     public int CurSataPortsAmount { get; set; }
-    public ChipSet? ChipSet { get; private init; }
+    public ChipSet ChipSet { get; private init; }
     public int SupportedDdrStandard { get; private init; }
     public int DdrSlotsAmount { get; private init; }
     public bool HasNetworkModule { get; private init; }
@@ -46,6 +46,11 @@ public class MotherBoard : BaseComputerComponent
 
     public MotherBoard CloneWithNewConnectionPorts(string newName, int pciLinesAmount, int sataPortsAmount, int ddrSlotsAmount)
     {
-        return new MotherBoard(newName, Socket, pciLinesAmount, sataPortsAmount, ChipSet?.Clone(), SupportedDdrStandard, ddrSlotsAmount, HasNetworkModule, PcieVersion, FormFactor);
+        return new MotherBoard(newName, Socket, pciLinesAmount, sataPortsAmount, ChipSet.Clone(), SupportedDdrStandard, ddrSlotsAmount, HasNetworkModule, PcieVersion, FormFactor);
+    }
+
+    public override BaseRepoItem Clone()
+    {
+        return new MotherBoard(Name, Socket, PciLinesAmount, SataPortsAmount, ChipSet.Clone(), SupportedDdrStandard, DdrSlotsAmount, HasNetworkModule, PcieVersion, FormFactor);
     }
 }

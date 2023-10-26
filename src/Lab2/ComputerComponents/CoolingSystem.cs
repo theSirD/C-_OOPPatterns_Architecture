@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
-public class CoolingSystem : BaseComputerComponent
+public class CoolingSystem : BaseRepoItem
 {
     public CoolingSystem(string name, IReadOnlyList<string?> supportedSockets, int tdp, int width, int height)
     : base(name)
@@ -32,5 +32,10 @@ public class CoolingSystem : BaseComputerComponent
     public CoolingSystem CloneWithNewSize(string newName, int tdp, int width, int height)
     {
         return new CoolingSystem(newName, ListOfSupportedSockets, tdp, width, height);
+    }
+
+    public override BaseRepoItem Clone()
+    {
+        return new CoolingSystem(Name, ListOfSupportedSockets, MaxTDP, WidthInSm, HeightInSm);
     }
 }

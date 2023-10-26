@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
-public class CPU : BaseComputerComponent
+public class CPU : BaseRepoItem
 {
     public CPU(
         string name,
@@ -51,5 +51,10 @@ public class CPU : BaseComputerComponent
     public CPU CloneWithNewFrequencyBoundaries(string newName, double minFreq, double maxFreq, int tdp, int consump)
     {
         return new CPU(newName, FrequencyOfCores, CoresAmount, Socket, HasGpu, minFreq, maxFreq, tdp, consump);
+    }
+
+    public override BaseRepoItem Clone()
+    {
+        return new CPU(Name, FrequencyOfCores, CoresAmount, Socket, HasGpu, MinMemoryFrequency, MaxMemoryFrequency, Tdp, PowerConsumptionInWt);
     }
 }

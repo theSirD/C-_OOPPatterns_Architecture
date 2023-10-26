@@ -2,7 +2,7 @@ using System;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
-public class RAM : BaseComputerComponent
+public class RAM : BaseRepoItem
 {
     public RAM(string name, int mmrySize, int ddrStandard, int consump, double freq)
     : base(name)
@@ -32,5 +32,10 @@ public class RAM : BaseComputerComponent
     public RAM CloneWithNewFrequency(string newName, double freq)
     {
         return new RAM(newName, MemorySize, DdrStandard, PowerConsumptionInWt, freq);
+    }
+
+    public override BaseRepoItem Clone()
+    {
+        return new RAM(Name, MemorySize, DdrStandard, PowerConsumptionInWt, Frequency);
     }
 }
