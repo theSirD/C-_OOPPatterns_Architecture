@@ -8,17 +8,26 @@ namespace Itmo.ObjectOrientedProgramming.Lab2;
 public class ComputerBuilder
 {
     private ComponentsRepo _repo = ComponentsRepo.Current;
+    private ComputerConfiguration _computer;
 
-    public ComputerConfiguration Computer { get; private set; } = new ComputerConfiguration();
+    public ComputerBuilder()
+    {
+        _computer = new ComputerConfiguration();
+    }
+
+    public ComputerBuilder(ComputerConfiguration computer)
+    {
+        _computer = computer;
+    }
 
     public void Reset()
     {
-        Computer = new ComputerConfiguration();
+        _computer = new ComputerConfiguration();
     }
 
     public void WithBios(string name)
     {
-        Computer.Bios = (BIOS)_repo.Get(name);
+        _computer.Bios = (BIOS)_repo.Get(name);
     }
 
     public void WithCool(string name)
@@ -27,14 +36,14 @@ public class ComputerBuilder
 
         try
         {
-            curCool.CanBePlaced(Computer);
+            curCool.CanBePlaced(_computer);
         }
         catch (ArgumentException e)
         {
             Console.WriteLine(e.Message);
         }
 
-        Computer.Cool = curCool;
+        _computer.Cool = curCool;
     }
 
     public void WithCpu(string name)
@@ -43,29 +52,29 @@ public class ComputerBuilder
 
         try
         {
-            curCpu.CanBePlaced(Computer);
+            curCpu.CanBePlaced(_computer);
         }
         catch (ArgumentException e)
         {
             Console.WriteLine(e.Message);
         }
 
-        Computer.Cpu = curCpu;
+        _computer.Cpu = curCpu;
     }
 
     public void WithMotherBoard(string name)
     {
-        Computer.MotherBoard = (MotherBoard)_repo.Get(name);
+        _computer.MotherBoard = (MotherBoard)_repo.Get(name);
     }
 
     public void WithComputerCase(string name)
     {
-        Computer.ComputerCase = (PCCase)_repo.Get(name);
+        _computer.ComputerCase = (PCCase)_repo.Get(name);
     }
 
     public void WithPowerPack(string name)
     {
-        Computer.PowerPack = (PowerPack)_repo.Get(name);
+        _computer.PowerPack = (PowerPack)_repo.Get(name);
     }
 
     public void WithRam(string name)
@@ -74,19 +83,19 @@ public class ComputerBuilder
 
         try
         {
-            curRam.CanBePlaced(Computer);
+            curRam.CanBePlaced(_computer);
         }
         catch (ArgumentException e)
         {
             Console.WriteLine(e.Message);
         }
 
-        Computer.Ram = curRam;
+        _computer.Ram = curRam;
     }
 
     public void WithXmp(string name)
     {
-        Computer.Xmp = (XMPProfile)_repo.Get(name);
+        _computer.Xmp = (XMPProfile)_repo.Get(name);
     }
 
     public void WithWifi(string name)
@@ -95,15 +104,15 @@ public class ComputerBuilder
 
         try
         {
-            curNetworkModule.CanBePlaced(Computer);
+            curNetworkModule.CanBePlaced(_computer);
         }
         catch (ArgumentException e)
         {
             Console.WriteLine(e.Message);
         }
 
-        Computer.Wifi = curNetworkModule;
-        if (Computer.MotherBoard is not null) Computer.MotherBoard.CurPciLinesAmount++;
+        _computer.Wifi = curNetworkModule;
+        if (_computer.MotherBoard is not null) _computer.MotherBoard.CurPciLinesAmount++;
     }
 
     public void WithDedicatedGpu(string name)
@@ -112,15 +121,15 @@ public class ComputerBuilder
 
         try
         {
-            curGpu.CanBePlaced(Computer);
+            curGpu.CanBePlaced(_computer);
         }
         catch (ArgumentException e)
         {
             Console.WriteLine(e.Message);
         }
 
-        Computer.DedicatedGpu = curGpu;
-        if (Computer.MotherBoard is not null) Computer.MotherBoard.CurPciLinesAmount++;
+        _computer.DedicatedGpu = curGpu;
+        if (_computer.MotherBoard is not null) _computer.MotherBoard.CurPciLinesAmount++;
     }
 
     public void WithSsd(string name)
@@ -129,74 +138,74 @@ public class ComputerBuilder
 
         try
         {
-            curSsd.CanBePlaced(Computer);
+            curSsd.CanBePlaced(_computer);
         }
         catch (ArgumentException e)
         {
             Console.WriteLine(e.Message);
         }
 
-        Computer.Ssd = curSsd;
-        if (Computer.MotherBoard is not null)
+        _computer.Ssd = curSsd;
+        if (_computer.MotherBoard is not null)
         {
-            if (curSsd.ConnectionType == SSDConnectionType.PCIE) Computer.MotherBoard.CurPciLinesAmount++;
-            else Computer.MotherBoard.CurSataPortsAmount++;
+            if (curSsd.ConnectionType == SSDConnectionType.PCIE) _computer.MotherBoard.CurPciLinesAmount++;
+            else _computer.MotherBoard.CurSataPortsAmount++;
         }
     }
 
     public void WithHdd(string name)
     {
-        Computer.Hdd = (HDD)_repo.Get(name);
+        _computer.Hdd = (HDD)_repo.Get(name);
     }
 
     public ComputerConfiguration Build()
     {
-        if (Computer.Hdd is null && Computer.Ssd is null)
+        if (_computer.Hdd is null && _computer.Ssd is null)
             throw new ArgumentException("Configuration does not have a storage");
 
-        if (Computer.MotherBoard is null || Computer.Cpu is null || Computer.Bios is null ||
-            Computer.Cool is null || Computer.Ram is null || Computer.PowerPack is null ||
-            Computer.ComputerCase is null)
+        if (_computer.MotherBoard is null || _computer.Cpu is null || _computer.Bios is null ||
+            _computer.Cool is null || _computer.Ram is null || _computer.PowerPack is null ||
+            _computer.ComputerCase is null)
             throw new ArgumentException("Configuration does not have one (or more) required components");
 
-        switch (Computer.ComputerCase.SupportedFormOfMotherBoard)
+        switch (_computer.ComputerCase.SupportedFormOfMotherBoard)
         {
             case MotherBoardFormFactors.MicroATX:
-                if (Computer.MotherBoard.FormFactor == MotherBoardFormFactors.ATX)
+                if (_computer.MotherBoard.FormFactor == MotherBoardFormFactors.ATX)
                     throw new ArgumentException("Computer case does not support form factor of mother boards chosen");
                 break;
 
             case MotherBoardFormFactors.MiniATX:
-                if (Computer.MotherBoard.FormFactor == MotherBoardFormFactors.ATX || Computer.MotherBoard.FormFactor == MotherBoardFormFactors.MicroATX)
+                if (_computer.MotherBoard.FormFactor == MotherBoardFormFactors.ATX || _computer.MotherBoard.FormFactor == MotherBoardFormFactors.MicroATX)
                     throw new ArgumentException("Computer case does not support form factor of mother boards chosen");
                 break;
 
             case MotherBoardFormFactors.NanoATX:
-                if (Computer.MotherBoard.FormFactor == MotherBoardFormFactors.ATX ||
-                    Computer.MotherBoard.FormFactor == MotherBoardFormFactors.MicroATX ||
-                    Computer.MotherBoard.FormFactor == MotherBoardFormFactors.NanoATX)
+                if (_computer.MotherBoard.FormFactor == MotherBoardFormFactors.ATX ||
+                    _computer.MotherBoard.FormFactor == MotherBoardFormFactors.MicroATX ||
+                    _computer.MotherBoard.FormFactor == MotherBoardFormFactors.NanoATX)
                     throw new ArgumentException("Computer case does not support form factor of mother boards chosen");
                 break;
         }
 
-        if (!Computer.Cpu.HasGpu && Computer.DedicatedGpu is null)
+        if (!_computer.Cpu.HasGpu && _computer.DedicatedGpu is null)
             throw new ArgumentException("Configuration does not have a GPU");
 
-        if (Computer.Cool.WidthInSm + (Computer.DedicatedGpu is null ? 0 : Computer.DedicatedGpu.WidthInSm) > Computer.ComputerCase.WidthInSm)
+        if (_computer.Cool.WidthInSm + (_computer.DedicatedGpu is null ? 0 : _computer.DedicatedGpu.WidthInSm) > _computer.ComputerCase.WidthInSm)
             throw new ArgumentException("Components are to wide for this computer case");
 
-        if (Computer.Cool.HeightInSm + (Computer.DedicatedGpu is null ? 0 : Computer.DedicatedGpu.HeightInSm) > Computer.ComputerCase.HeightInSm)
+        if (_computer.Cool.HeightInSm + (_computer.DedicatedGpu is null ? 0 : _computer.DedicatedGpu.HeightInSm) > _computer.ComputerCase.HeightInSm)
             throw new ArgumentException("Components are to tall for this computer case");
 
-        if (Computer.Cpu.Tdp > Computer.Cool.MaxTDP)
+        if (_computer.Cpu.Tdp > _computer.Cool.MaxTDP)
             throw new ArgumentException("Cooling system is not good enough");
 
-        if (Computer.Cpu.PowerConsumptionInWt + Computer.Ram.PowerConsumptionInWt +
-            (Computer.DedicatedGpu is null ? 0 : Computer.DedicatedGpu.PowerConsumptionInWt)
-            + (Computer.Ssd is null ? 0 : Computer.Ssd.PowerConsumptionInWt) +
-            (Computer.Hdd is null ? 0 : Computer.Hdd.PowerConsumptionInWt) > Computer.PowerPack.PeakLoadInWt)
+        if (_computer.Cpu.PowerConsumptionInWt + _computer.Ram.PowerConsumptionInWt +
+            (_computer.DedicatedGpu is null ? 0 : _computer.DedicatedGpu.PowerConsumptionInWt)
+            + (_computer.Ssd is null ? 0 : _computer.Ssd.PowerConsumptionInWt) +
+            (_computer.Hdd is null ? 0 : _computer.Hdd.PowerConsumptionInWt) > _computer.PowerPack.PeakLoadInWt)
             throw new ArgumentException("Power pack is not good enough");
 
-        return Computer;
+        return _computer;
     }
 }
