@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab2.Services;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2;
 
 public class ComponentsRepo
 {
     private static readonly ComponentsRepo Instance = new ComponentsRepo();
+    private RepoInitializer _initService;
 
     private Dictionary<string, BaseRepoItem> _repo;
 
     private ComponentsRepo()
     {
         _repo = new Dictionary<string, BaseRepoItem>();
+        _initService = new RepoInitializer(Current);
     }
 
     public static ComponentsRepo Current => Instance;
@@ -26,5 +29,10 @@ public class ComponentsRepo
     public BaseRepoItem Get(string name)
     {
         return _repo[name];
+    }
+
+    public void InitializeRepo()
+    {
+        _initService.Initialize();
     }
 }

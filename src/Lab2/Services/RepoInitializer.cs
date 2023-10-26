@@ -7,27 +7,32 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services;
 
 public class RepoInitializer
 {
-    public ComponentsRepo? CurrentRepo { get;  set; }
+    private ComponentsRepo? _currentRepo;
+
+    public RepoInitializer(ComponentsRepo repo)
+    {
+        _currentRepo = repo;
+    }
 
     public void Initialize()
     {
-        AddDiscreteGPUs();
+        AddPCCases();
         AddMotherboards();
         AddBIOS();
-        AddPCCases();
-        AddNetworkModules();
         AddPowerPacks();
-        AddRAM();
         AddXMP();
         AddCoolingSystem();
         AddCPUs();
+        AddRAM();
+        AddNetworkModules();
+        AddDiscreteGPUs();
         AddSSDs();
         AddHDDs();
     }
 
     private void AddDiscreteGPUs()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Nvidia GeForce RTX 3090 Ti",
             new DedicatedGPU(
                 "Nvidia GeForce RTX 3090 Ti",
@@ -38,7 +43,7 @@ public class RepoInitializer
                 1.86,
                 450));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "AMD Radeon RX 7900 XT",
             new DedicatedGPU(
                 "AMD Radeon RX 7900 XT",
@@ -49,7 +54,7 @@ public class RepoInitializer
                 2.2,
                 350));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Intel Arc A770",
             new DedicatedGPU(
                 "Intel Arc A770",
@@ -60,7 +65,7 @@ public class RepoInitializer
                 2.3,
                 300));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "ASUS ROG Strix RTX 3080 Ti",
             new DedicatedGPU(
                 "ASUS ROG Strix RTX 3080 Ti",
@@ -74,7 +79,7 @@ public class RepoInitializer
 
     private void AddMotherboards()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "ASUS ROG Strix Z690-A Gaming WiFi",
             new MotherBoard(
                 "ASUS ROG Strix Z690-A Gaming WiFi",
@@ -90,7 +95,7 @@ public class RepoInitializer
                 5.3,
                 true));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "MSI MPG X570S Edge MAX WiFi",
             new MotherBoard(
                 "MSI MPG X570S Edge MAX WiFi",
@@ -106,7 +111,7 @@ public class RepoInitializer
                 5.1,
                 true));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Gigabyte B660 Aorus Master",
             new MotherBoard(
                 "Gigabyte B660 Aorus Master",
@@ -122,7 +127,7 @@ public class RepoInitializer
                 5.1,
                 false));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "ASUS TUF Gaming B550-Plus",
             new MotherBoard(
                 "ASUS TUF Gaming B550-Plus",
@@ -141,7 +146,7 @@ public class RepoInitializer
 
     private void AddBIOS()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "ASUS ROG Strix Z690-A Gaming WiFi BIOS",
             new BIOS(
                 "ASUS ROG Strix Z690-A Gaming WiFi BIOS",
@@ -154,7 +159,7 @@ public class RepoInitializer
                     "Intel Core i5-12600K",
                 }));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "MSI MPG X570S Edge MAX WiFi BIOS",
             new BIOS(
                 "MSI MPG X570S Edge MAX WiFi BIOS",
@@ -170,7 +175,7 @@ public class RepoInitializer
 
     private void AddPCCases()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Corsair iCUE 5000X RGB",
             new PCCase(
                 "Corsair iCUE 5000X RGB",
@@ -178,7 +183,7 @@ public class RepoInitializer
                 150,
                 MotherBoardFormFactors.ATX));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "NZXT H510 Elite",
             new PCCase(
                 "NZXT H510 Elite",
@@ -189,7 +194,7 @@ public class RepoInitializer
 
     private void AddNetworkModules()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Intel Wi-Fi 6 AX200",
             new NetworkModule(
                 "Intel Wi-Fi 6 AX200",
@@ -198,7 +203,7 @@ public class RepoInitializer
                 4,
                 10));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "TP-Link Archer TX50E",
             new NetworkModule(
                 "Intel Wi-Fi 6 AX200",
@@ -210,13 +215,13 @@ public class RepoInitializer
 
     private void AddPowerPacks()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Corsair RM850x",
             new PowerPack(
                 "Corsair RM850x",
                 850));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "EVGA SuperNOVA 1000 G5",
             new PowerPack(
                 "EVGA SuperNOVA 1000 G5",
@@ -225,7 +230,7 @@ public class RepoInitializer
 
     private void AddRAM()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Kingston HyperX Fury RGB 32 GB (2 x 16 GB) DDR4-3200 CL16",
             new RAM(
                 "Kingston HyperX Fury RGB 32 GB (2 x 16 GB) DDR4-3200 CL16",
@@ -234,7 +239,7 @@ public class RepoInitializer
                 16,
                 3200));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Crucial Ballistix RGB 32 GB (2 x 16 GB) DDR4-3600 CL16",
             new RAM(
                 "Crucial Ballistix RGB 32 GB (2 x 16 GB) DDR4-3600 CL16",
@@ -246,7 +251,7 @@ public class RepoInitializer
 
     private void AddXMP()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "G.Skill Trident Z RGB 32GB (2x16GB) DDR4-3600 CL16 XMP Profile 1",
             new XMPProfile(
                 "G.Skill Trident Z RGB 32GB (2x16GB) DDR4-3600 CL16 XMP Profile 1",
@@ -254,7 +259,7 @@ public class RepoInitializer
                 3600,
                 "16-16-16-36"));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Kingston HyperX Fury RGB 32GB (2x16GB) DDR4-3200 CL16 XMP Profile 1",
             new XMPProfile(
                 "G.Skill Trident Z RGB 32GB (2x16GB) DDR4-3600 CL16 XMP Profile 1",
@@ -265,7 +270,7 @@ public class RepoInitializer
 
     private void AddCoolingSystem()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
         "Dark Rock Pro 4",
         new CoolingSystem(
             "Dark Rock Pro 4",
@@ -274,7 +279,7 @@ public class RepoInitializer
             136,
             146));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Corsair iCUE H150i ELITE CAPELLIX",
             new CoolingSystem(
                 "Corsair iCUE H150i ELITE CAPELLIX",
@@ -286,7 +291,7 @@ public class RepoInitializer
 
     private void AddCPUs()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Intel Core i9-12900K",
             new CPU(
                 "Intel Core i9-12900K",
@@ -298,7 +303,7 @@ public class RepoInitializer
                 5200,
                 125,
                 125));
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "AMD Ryzen 9 5950X",
             new CPU(
                 "AMD Ryzen 9 5950X",
@@ -311,7 +316,7 @@ public class RepoInitializer
                 105,
                 105));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Intel Core i7-12700K",
             new CPU(
                 "Intel Core i7-12700K",
@@ -324,7 +329,7 @@ public class RepoInitializer
                 125,
                 125));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "AMD Ryzen 7 5800X",
             new CPU(
                 "AMD Ryzen 7 5800X",
@@ -337,7 +342,7 @@ public class RepoInitializer
                 105,
                 105));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Intel Core i5-12400",
             new CPU(
                 "Intel Core i5-12400",
@@ -350,7 +355,7 @@ public class RepoInitializer
                 65,
                 65));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "AMD Ryzen 5 5600X",
             new CPU(
                 "AMD Ryzen 5 5600X",
@@ -363,7 +368,7 @@ public class RepoInitializer
                 65,
                 65));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Intel Core i3-12100F",
             new CPU(
                 "Intel Core i3-12100F",
@@ -376,7 +381,7 @@ public class RepoInitializer
                 65,
                 65));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "AMD Ryzen 3 5300X",
             new CPU(
                 "AMD Ryzen 3 5300X",
@@ -392,7 +397,7 @@ public class RepoInitializer
 
     private void AddSSDs()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Samsung 980 Pro 1TB PCIe Gen4 NVMe SSD",
             new SSD(
                 "Samsung 980 Pro 1TB PCIe Gen4 NVMe SSD",
@@ -401,7 +406,7 @@ public class RepoInitializer
                 6,
                 SSDConnectionType.PCIE));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Samsung 870 QVO 500Gb SATA III SSD",
             new SSD(
                 "Samsung 870 QVO 500Gb SATA III SSD",
@@ -410,7 +415,7 @@ public class RepoInitializer
                 4,
                 SSDConnectionType.SATA));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Western Digital Blue SN550 250GB NVMe SSD",
             new SSD(
                 "Western Digital Blue SN550 250GB NVMe SSD",
@@ -422,7 +427,7 @@ public class RepoInitializer
 
     private void AddHDDs()
     {
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Toshiba MG09ACA18TE 18TB SATA III HDD",
             new HDD(
                 "Toshiba MG09ACA18TE 18TB SATA III HDD",
@@ -430,7 +435,7 @@ public class RepoInitializer
                 250,
                 7));
 
-        CurrentRepo?.Add(
+        _currentRepo?.Add(
             "Seagate Barracuda 4TB SATA III HDD",
             new HDD(
                 "Seagate Barracuda 4TB SATA III HDD",
