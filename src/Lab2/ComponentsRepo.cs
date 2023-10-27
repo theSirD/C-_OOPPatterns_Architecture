@@ -21,7 +21,11 @@ public class ComponentsRepo
         get
         {
             if (_instance == null)
+            {
                 _instance = new ComponentsRepo();
+                _instance.Initialize();
+            }
+
             return _instance;
         }
         set
@@ -42,7 +46,7 @@ public class ComponentsRepo
         return _repo[name];
     }
 
-    public void Initialize()
+    private void Initialize()
     {
         AddPCCases();
         AddMotherboards();
