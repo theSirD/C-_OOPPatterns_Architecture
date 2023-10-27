@@ -1,4 +1,4 @@
-using System;
+using Itmo.ObjectOrientedProgramming.Lab2.CustomExceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Storage;
@@ -15,17 +15,17 @@ public class SSD : BaseStorage
     public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.MotherBoard is null)
-            throw new ArgumentException("Install mother board first");
+            throw new BuildLacksRequiredComponentsException("Install mother board first");
 
         if (ConnectionType == SSDConnectionType.PCIE)
         {
             if (computer.MotherBoard.PciLinesAmount < computer.MotherBoard.CurPciLinesAmount + 1)
-                throw new ArgumentException("Mother board does not have enough PCIE lines");
+                throw new NotEnoughPortsException("Mother board does not have enough PCIE lines");
         }
         else
         {
             if (computer.MotherBoard.SataPortsAmount < computer.MotherBoard.CurSataPortsAmount + 1)
-                throw new ArgumentException("Mother board does not have enough SATA ports");
+                throw new NotEnoughPortsException("Mother board does not have enough SATA ports");
         }
     }
 

@@ -1,4 +1,4 @@
-using System;
+using Itmo.ObjectOrientedProgramming.Lab2.CustomExceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
@@ -20,16 +20,16 @@ public class NetworkModule : BaseRepoItem
     public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.MotherBoard is null)
-            throw new ArgumentException("Install mother board first");
+            throw new BuildLacksRequiredComponentsException("Install mother board first");
 
         if (computer.MotherBoard.HasNetworkModule)
-            throw new ArgumentException("Mother board has built-in network module");
+            throw new ComponentIsNotSupportedException("Mother board has built-in network module");
 
         if (computer.MotherBoard.PcieVersion < PcieVersion)
-            throw new ArgumentException("Mother board's PCIE is too old for this Wi-Fi module");
+            throw new ComponentIsNotSupportedException("Mother board's PCIE is too old for this Wi-Fi module");
 
         if (computer.MotherBoard.PciLinesAmount < computer.MotherBoard.CurPciLinesAmount + 1)
-            throw new ArgumentException("Mother board does not have enough PCIE lines");
+            throw new NotEnoughPortsException("Mother board does not have enough PCIE lines");
     }
 
     public NetworkModule CloneWithNewPcieVersion(string newName, int pcieVer)

@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab2.CustomExceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
@@ -23,10 +23,10 @@ public class CoolingSystem : BaseRepoItem
     public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.MotherBoard is null)
-            throw new ArgumentException("Install mother board first");
+            throw new BuildLacksRequiredComponentsException("Install mother board first");
 
         if (!ListOfSupportedSockets.Contains(computer.MotherBoard.Socket))
-            throw new ArgumentException("Mother board does not support this cooling system");
+            throw new ComponentIsNotSupportedException("Mother board does not support this cooling system");
     }
 
     public CoolingSystem CloneWithNewSize(string newName, int tdp, int width, int height)

@@ -1,4 +1,4 @@
-using System;
+using Itmo.ObjectOrientedProgramming.Lab2.CustomExceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
@@ -20,13 +20,13 @@ public class RAM : BaseRepoItem
     public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.MotherBoard is null)
-            throw new ArgumentException("Install mother board first");
+            throw new BuildLacksRequiredComponentsException("Install mother board first");
 
         if (computer?.MotherBoard.MinMemoryFrequency > Frequency)
-            throw new ArgumentException("This RAM is too slow");
+            throw new ComponentIsNotSupportedException("This RAM is too slow");
 
         if (computer?.MotherBoard.SupportedDdrStandard < DdrStandard)
-            throw new ArgumentException("Mother board does not support this DDR standard");
+            throw new ComponentIsNotSupportedException("Mother board does not support this DDR standard");
     }
 
     public RAM CloneWithNewFrequency(string newName, double freq)

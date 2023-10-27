@@ -2,6 +2,7 @@ using System;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Responses;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Storage;
+using Itmo.ObjectOrientedProgramming.Lab2.CustomExceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
 using Itmo.ObjectOrientedProgramming.Lab2.Services;
 
@@ -141,6 +142,26 @@ public class ComputerBuilder
             _warningsValidator.CheckPowerConsumptionOfBuild();
         }
         catch (ArgumentException ex)
+        {
+            return new BuildResponse(_computer, ex.Message);
+        }
+        catch (ComponentIsNotSupportedException ex)
+        {
+            return new BuildResponse(_computer, ex.Message);
+        }
+        catch (BuildLacksRequiredComponentsException ex)
+        {
+            return new BuildResponse(_computer, ex.Message);
+        }
+        catch (NotEnoughPortsException ex)
+        {
+            return new BuildResponse(_computer, ex.Message);
+        }
+        catch (NotEnoughSpaceException ex)
+        {
+            return new BuildResponse(_computer, ex.Message);
+        }
+        catch (WarningException ex)
         {
             return new BuildResponse(_computer, ex.Message);
         }

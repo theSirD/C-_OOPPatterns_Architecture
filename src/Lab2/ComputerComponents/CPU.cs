@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab2.CustomExceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents;
 
@@ -39,13 +40,13 @@ public class CPU : BaseRepoItem
     public void CanBePlaced(ComputerConfiguration computer)
     {
         if (computer?.Bios is null)
-            throw new ArgumentException("Install BIOS first");
+            throw new BuildLacksRequiredComponentsException("Install BIOS first");
 
         if (!computer.Bios.ListOfSuppertedCPUs.Contains(Name))
-            throw new ArgumentException("BIOS does not support this CPU");
+            throw new ComponentIsNotSupportedException("BIOS does not support this CPU");
 
         if (computer.MotherBoard?.Socket != Socket)
-            throw new ArgumentException("Mother board does not support this CPU");
+            throw new ComponentIsNotSupportedException("Mother board does not support this CPU");
     }
 
     public CPU CloneWithNewFrequencyBoundaries(string newName, double minFreq, double maxFreq, int tdp, int consump)

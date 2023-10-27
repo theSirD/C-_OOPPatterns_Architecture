@@ -1,4 +1,4 @@
-using System;
+using Itmo.ObjectOrientedProgramming.Lab2.CustomExceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services;
 
@@ -16,7 +16,7 @@ public class BuildWarningsValidatorService
     public void CheckTdpOfBuild()
     {
         if (_computer.Cpu?.Tdp > _computer.Cool?.MaxTDP)
-            throw new ArgumentException("Disclaimer Of Warranty: Cooling System Is Not Powerful Enough");
+            throw new WarningException("Disclaimer Of Warranty: Cooling System Is Not Powerful Enough");
     }
 
     public void CheckPowerConsumptionOfBuild()
@@ -29,6 +29,6 @@ public class BuildWarningsValidatorService
 
         if (totalPowerConsumptionInWt < _computer.PowerPack?.PeakLoadInWt + powerConsumptionReserve &&
             totalPowerConsumptionInWt > _computer.PowerPack?.PeakLoadInWt)
-            throw new ArgumentException("Warning: More Powerful Power Pack Is Recommended");
+            throw new WarningException("Warning: More Powerful Power Pack Is Recommended");
     }
 }
