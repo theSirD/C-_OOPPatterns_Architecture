@@ -6,12 +6,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services;
 public class BuildErrorsValidatorService
 {
     private readonly ComputerConfiguration _computer;
-    private readonly int powerConsumptionReserve;
+    private readonly int _powerConsumptionReserve;
 
     public BuildErrorsValidatorService(ComputerConfiguration computer, int powerConsumptionReserve)
     {
         _computer = computer;
-        this.powerConsumptionReserve = powerConsumptionReserve;
+        _powerConsumptionReserve = powerConsumptionReserve;
     }
 
     public void CheckIfBuildHasStorage()
@@ -78,7 +78,7 @@ public class BuildErrorsValidatorService
             (_computer.Ssd is null ? 0 : _computer.Ssd.PowerConsumptionInWt) +
             (_computer.Hdd is null ? 0 : _computer.Hdd.PowerConsumptionInWt);
 
-        if (totalPowerConsumptionInWt > _computer.PowerPack?.PeakLoadInWt + powerConsumptionReserve &&
+        if (totalPowerConsumptionInWt > _computer.PowerPack?.PeakLoadInWt + _powerConsumptionReserve &&
             totalPowerConsumptionInWt > _computer.PowerPack?.PeakLoadInWt)
             throw new ArgumentException("More powerful PowerPack Is required");
     }

@@ -25,7 +25,7 @@ public class CoolingSystem : BaseRepoItem
         if (computer?.MotherBoard is null)
             throw new ArgumentException("Install mother board first");
 
-        if (!ListOfSupportedSockets?.Contains(computer?.MotherBoard.Socket) is null)
+        if (!ListOfSupportedSockets.Contains(computer.MotherBoard.Socket))
             throw new ArgumentException("Mother board does not support this cooling system");
     }
 

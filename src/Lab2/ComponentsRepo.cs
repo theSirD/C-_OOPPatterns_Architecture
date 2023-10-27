@@ -147,7 +147,7 @@ public class ComponentsRepo
             "Gigabyte B660 Aorus Master",
             new MotherBoard(
                 "Gigabyte B660 Aorus Master",
-                "LGA 1700",
+                "AM4",
                 16,
                 6,
                 5,
@@ -189,6 +189,7 @@ public class ComponentsRepo
                     "Intel Core i9-12900K",
                     "Intel Core i7-12700K",
                     "Intel Core i5-12600K",
+                    "AMD Ryzen 9 5950X",
                 }));
 
         _repo?.Add(
@@ -263,13 +264,13 @@ public class ComponentsRepo
     private void AddRAM()
     {
         _repo?.Add(
-            "Kingston HyperX Fury RGB 32 GB (2 x 16 GB) DDR4-3200 CL16",
+            "Kingston HyperX Fury RGB 32 GB (2 x 16 GB) DDR4-2000 CL16",
             new RAM(
                 "Kingston HyperX Fury RGB 32 GB (2 x 16 GB) DDR4-3200 CL16",
                 32,
                 4,
                 16,
-                3200));
+                3.2));
 
         _repo?.Add(
             "Crucial Ballistix RGB 32 GB (2 x 16 GB) DDR4-3600 CL16",
@@ -278,7 +279,7 @@ public class ComponentsRepo
                 32,
                 4,
                 16,
-                2200));
+                2));
     }
 
     private void AddXMP()
@@ -288,7 +289,7 @@ public class ComponentsRepo
             new XMPProfile(
                 "G.Skill Trident Z RGB 32GB (2x16GB) DDR4-3600 CL16 XMP Profile 1",
                 1.35,
-                3600,
+                3.6,
                 "16-16-16-36"));
 
         _repo?.Add(
@@ -296,7 +297,7 @@ public class ComponentsRepo
             new XMPProfile(
                 "G.Skill Trident Z RGB 32GB (2x16GB) DDR4-3600 CL16 XMP Profile 1",
                 1.35,
-                3200,
+                3.2,
                 "16-18-18-36"));
     }
 
@@ -331,8 +332,8 @@ public class ComponentsRepo
                 16,
                 "LGA1700",
                 false,
-                2133,
-                5200,
+                2.1,
+                5.2,
                 125,
                 125));
         _repo?.Add(
@@ -343,8 +344,8 @@ public class ComponentsRepo
                 16,
                 "AM4",
                 false,
-                1600,
-                3200,
+                1.6,
+                3.2,
                 260,
                 105));
 
@@ -356,8 +357,8 @@ public class ComponentsRepo
                 12,
                 "LGA1700",
                 false,
-                2133,
-                5000,
+                2.1,
+                5,
                 125,
                 125));
 
@@ -369,8 +370,8 @@ public class ComponentsRepo
                 8,
                 "AM4",
                 false,
-                1600,
-                3200,
+                1.6,
+                3.2,
                 105,
                 105));
 
@@ -382,8 +383,8 @@ public class ComponentsRepo
                 6,
                 "LGA1700",
                 false,
-                2133,
-                5000,
+                2.1,
+                5,
                 65,
                 65));
 
@@ -395,8 +396,8 @@ public class ComponentsRepo
                 6,
                 "AM4",
                 false,
-                1600,
-                3200,
+                1.6,
+                3.2,
                 65,
                 65));
 
@@ -408,8 +409,8 @@ public class ComponentsRepo
                 4,
                 "LGA1700",
                 false,
-                2133,
-                5000,
+                2.1,
+                5,
                 65,
                 65));
 
@@ -421,8 +422,8 @@ public class ComponentsRepo
                 4,
                 "AM4",
                 false,
-                1600,
-                3200,
+                1.6,
+                3.2,
                 65,
                 65));
     }
@@ -434,7 +435,7 @@ public class ComponentsRepo
             new SSD(
                 "Samsung 980 Pro 1TB PCIe Gen4 NVMe SSD",
                 1000,
-                7000,
+                7,
                 6,
                 SSDConnectionType.PCIE));
 
@@ -443,7 +444,7 @@ public class ComponentsRepo
             new SSD(
                 "Samsung 870 QVO 500Gb SATA III SSD",
                 500,
-                560,
+                0.56,
                 4,
                 SSDConnectionType.SATA));
 
@@ -452,7 +453,7 @@ public class ComponentsRepo
             new SSD(
                 "Western Digital Blue SN550 250GB NVMe SSD",
                 250,
-                2400,
+                2.4,
                 4,
                 SSDConnectionType.PCIE));
     }
@@ -464,7 +465,7 @@ public class ComponentsRepo
             new HDD(
                 "Toshiba MG09ACA18TE 18TB SATA III HDD",
                 18000,
-                250,
+                0.25,
                 7));
 
         _repo?.Add(
@@ -472,7 +473,7 @@ public class ComponentsRepo
             new HDD(
                 "Seagate Barracuda 4TB SATA III HDD",
                 4000,
-                150,
+                0.15,
                 6));
     }
 }

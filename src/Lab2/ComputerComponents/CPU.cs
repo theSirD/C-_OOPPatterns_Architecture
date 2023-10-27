@@ -41,7 +41,7 @@ public class CPU : BaseRepoItem
         if (computer?.Bios is null)
             throw new ArgumentException("Install BIOS first");
 
-        if (!computer.Bios.ListOfSuppertedCPUs?.Contains(Name) is null)
+        if (!computer.Bios.ListOfSuppertedCPUs.Contains(Name))
             throw new ArgumentException("BIOS does not support this CPU");
 
         if (computer.MotherBoard?.Socket != Socket)

@@ -64,15 +64,8 @@ public class ComputerBuilder
     {
         var curCool = (CoolingSystem)_repo.Get(name).Clone();
 
-        // try
-        // {
         curCool.CanBePlaced(_computer);
 
-        // }
-        // catch (ArgumentException e)
-        // {
-        //     Console.WriteLine(e.Message);
-        // }
         _computer.Cool = curCool;
     }
 
@@ -80,14 +73,7 @@ public class ComputerBuilder
     {
         var curCpu = (CPU)_repo.Get(name).Clone();
 
-        try
-        {
-            curCpu.CanBePlaced(_computer);
-        }
-        catch (ArgumentException e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        curCpu.CanBePlaced(_computer);
 
         _computer.Cpu = curCpu;
     }
@@ -96,14 +82,7 @@ public class ComputerBuilder
     {
         var curRam = (RAM)_repo.Get(name).Clone();
 
-        try
-        {
-            curRam.CanBePlaced(_computer);
-        }
-        catch (ArgumentException e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        curRam.CanBePlaced(_computer);
 
         _computer.Ram = curRam;
     }
@@ -112,14 +91,7 @@ public class ComputerBuilder
     {
         var curNetworkModule = (NetworkModule)_repo.Get(name).Clone();
 
-        try
-        {
-            curNetworkModule.CanBePlaced(_computer);
-        }
-        catch (ArgumentException e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        curNetworkModule.CanBePlaced(_computer);
 
         _computer.Wifi = curNetworkModule;
         if (_computer.MotherBoard is not null) _computer.MotherBoard.CurPciLinesAmount++;
@@ -129,14 +101,7 @@ public class ComputerBuilder
     {
         var curGpu = (DedicatedGPU)_repo.Get(name).Clone();
 
-        try
-        {
-            curGpu.CanBePlaced(_computer);
-        }
-        catch (ArgumentException e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        curGpu.CanBePlaced(_computer);
 
         _computer.DedicatedGpu = curGpu;
         if (_computer.MotherBoard is not null) _computer.MotherBoard.CurPciLinesAmount++;
@@ -146,14 +111,7 @@ public class ComputerBuilder
     {
         var curSsd = (SSD)_repo.Get(name).Clone();
 
-        try
-        {
-            curSsd.CanBePlaced(_computer);
-        }
-        catch (ArgumentException e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        curSsd.CanBePlaced(_computer);
 
         _computer.Ssd = curSsd;
         if (_computer.MotherBoard is not null)
