@@ -9,7 +9,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2;
 
 public class ComputerBuilder
 {
-    private ComponentsRepo _repo = ComponentsRepo.Current;
+    private ComponentsRepo _repo = ComponentsRepo.Instance;
     private ComputerConfiguration _computer;
     private BuildErrorsValidatorService _errorsValidator;
     private BuildWarningsValidatorService _warningsValidator;
@@ -24,7 +24,7 @@ public class ComputerBuilder
     public ComputerBuilder(ComputerConfiguration computer)
     {
         if (computer is null)
-            throw new ArgumentException("Passed null instead of computer");
+            throw new ArgumentException("Recieved null instead of computer");
         _computer = (ComputerConfiguration)computer.Clone();
         _errorsValidator = new BuildErrorsValidatorService(_computer, 20);
         _warningsValidator = new BuildWarningsValidatorService(_computer, 20);
@@ -37,48 +37,48 @@ public class ComputerBuilder
 
     public void WithMotherBoard(string name)
     {
-        _computer.MotherBoard = (MotherBoard)_repo.Get(name);
+        _computer.MotherBoard = (MotherBoard)_repo.Get(name).Clone();
     }
 
     public void WithComputerCase(string name)
     {
-        _computer.ComputerCase = (PCCase)_repo.Get(name);
+        _computer.ComputerCase = (PCCase)_repo.Get(name).Clone();
     }
 
     public void WithBios(string name)
     {
-        _computer.Bios = (BIOS)_repo.Get(name);
+        _computer.Bios = (BIOS)_repo.Get(name).Clone();
     }
 
     public void WithPowerPack(string name)
     {
-        _computer.PowerPack = (PowerPack)_repo.Get(name);
+        _computer.PowerPack = (PowerPack)_repo.Get(name).Clone();
     }
 
     public void WithXmp(string name)
     {
-        _computer.Xmp = (XMPProfile)_repo.Get(name);
+        _computer.Xmp = (XMPProfile)_repo.Get(name).Clone();
     }
 
     public void WithCool(string name)
     {
-        var curCool = (CoolingSystem)_repo.Get(name);
+        var curCool = (CoolingSystem)_repo.Get(name).Clone();
 
-        try
-        {
-            curCool.CanBePlaced(_computer);
-        }
-        catch (ArgumentException e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        // try
+        // {
+        curCool.CanBePlaced(_computer);
 
+        // }
+        // catch (ArgumentException e)
+        // {
+        //     Console.WriteLine(e.Message);
+        // }
         _computer.Cool = curCool;
     }
 
     public void WithCpu(string name)
     {
-        var curCpu = (CPU)_repo.Get(name);
+        var curCpu = (CPU)_repo.Get(name).Clone();
 
         try
         {
@@ -94,7 +94,7 @@ public class ComputerBuilder
 
     public void WithRam(string name)
     {
-        var curRam = (RAM)_repo.Get(name);
+        var curRam = (RAM)_repo.Get(name).Clone();
 
         try
         {
@@ -110,7 +110,7 @@ public class ComputerBuilder
 
     public void WithWifi(string name)
     {
-        var curNetworkModule = (NetworkModule)_repo.Get(name);
+        var curNetworkModule = (NetworkModule)_repo.Get(name).Clone();
 
         try
         {
@@ -127,7 +127,7 @@ public class ComputerBuilder
 
     public void WithDedicatedGpu(string name)
     {
-        var curGpu = (DedicatedGPU)_repo.Get(name);
+        var curGpu = (DedicatedGPU)_repo.Get(name).Clone();
 
         try
         {
@@ -144,7 +144,7 @@ public class ComputerBuilder
 
     public void WithSsd(string name)
     {
-        var curSsd = (SSD)_repo.Get(name);
+        var curSsd = (SSD)_repo.Get(name).Clone();
 
         try
         {
@@ -165,7 +165,7 @@ public class ComputerBuilder
 
     public void WithHdd(string name)
     {
-        _computer.Hdd = (HDD)_repo.Get(name);
+        _computer.Hdd = (HDD)_repo.Get(name).Clone();
     }
 
     public BuildResponse Build()
