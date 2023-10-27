@@ -1,5 +1,5 @@
-using System;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerComponents.Responses;
+using Itmo.ObjectOrientedProgramming.Lab2.CustomExceptions;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Tests.UnitTests;
@@ -83,7 +83,7 @@ public class Tests
         {
             builder.WithCool("Corsair iCUE H150i ELITE CAPELLIX");
         }
-        catch (ArgumentException e)
+        catch (ComponentIsNotSupportedException e)
         {
             warning = e.Message;
         }
@@ -109,7 +109,7 @@ public class Tests
         {
             builder.WithRam("Crucial Ballistix RGB 32 GB (2 x 16 GB) DDR4-3600 CL16");
         }
-        catch (ArgumentException e)
+        catch (ComponentIsNotSupportedException e)
         {
             warning = e.Message;
         }
