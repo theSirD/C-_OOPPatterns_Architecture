@@ -4,14 +4,18 @@ using Itmo.ObjectOrientedProgramming.Lab3.Targets;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
-public class AddresseeUser : BaseAddressee
+public class UserAddressee : BaseAddressee
 {
-    public AddresseeUser(ConfidentialityLevels confLevelAccess)
+    public UserAddressee(ConfidentialityLevels confLevelAccess)
         : base(confLevelAccess) { }
     public override void Send(IRecieve target)
     {
+        if (target is null)
+            throw new ArgumentException("Specified user is null");
+        if (target is not User)
+            throw new ArgumentException("Only target for this addressee is User");
         if (CurrentMessage is null)
             throw new ArgumentException("Addressee does not contain a message");
-        target?.RecieveMessage(CurrentMessage);
+        target.RecieveMessage(CurrentMessage);
     }
 }
