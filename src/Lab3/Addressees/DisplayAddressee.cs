@@ -9,14 +9,20 @@ public class DisplayAddressee : BaseAddressee
 {
     public DisplayAddressee(ConfidentialityLevels confLevelAccess)
         : base(confLevelAccess) { }
-    public override void Send(IRecieve target)
+
+    public void SetTarget(IRecieve target)
     {
-        if (target is null)
-            throw new ArgumentException("Specified user is null");
         if (target is not Display)
             throw new ArgumentException("Only target for this addressee is Display");
+        Target = target;
+    }
+
+    public override void Send()
+    {
+        if (Target is null)
+            throw new ArgumentException("Specified user is null");
         if (CurrentMessage is null)
             throw new ArgumentException("Addressee does not contain a message");
-        target.RecieveMessage(CurrentMessage);
+        Target.RecieveMessage(CurrentMessage);
     }
 }
