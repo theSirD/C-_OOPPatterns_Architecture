@@ -7,11 +7,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public abstract class BaseAddressee
 {
-    private readonly ILogger _logger = new Logger();
+    private readonly ILogger _logger;
     private Message? _currentMessage;
-    protected BaseAddressee(ConfidentialityLevels confLevelAccess)
+    protected BaseAddressee(ConfidentialityLevels confLevelAccess, ILogger logger)
     {
         ConfidentialityLevelAccess = confLevelAccess;
+        _logger = logger;
     }
 
     public Message? CurrentMessage

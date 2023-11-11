@@ -1,5 +1,6 @@
 using System;
 using Itmo.ObjectOrientedProgramming.Lab3.Enums;
+using Itmo.ObjectOrientedProgramming.Lab3.Services;
 using Itmo.ObjectOrientedProgramming.Lab3.Targets;
 using Itmo.ObjectOrientedProgramming.Lab3.Targets.Display;
 
@@ -7,8 +8,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public class DisplayAddressee : BaseAddressee
 {
-    public DisplayAddressee(ConfidentialityLevels confLevelAccess)
-        : base(confLevelAccess) { }
+    public DisplayAddressee(ConfidentialityLevels confLevelAccess, ILogger logger)
+        : base(confLevelAccess, logger) { }
 
     public void SetTarget(IRecieve target)
     {

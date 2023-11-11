@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab3.Enums;
+using Itmo.ObjectOrientedProgramming.Lab3.Services;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
@@ -9,8 +10,8 @@ public class GroupAddressee : BaseAddressee
 {
     private List<BaseAddressee> _addresseesList;
 
-    public GroupAddressee(ConfidentialityLevels confLevelAccess)
-        : base(confLevelAccess)
+    public GroupAddressee(ConfidentialityLevels confLevelAccess, ILogger logger)
+        : base(confLevelAccess, logger)
     {
         _addresseesList = new();
     }
