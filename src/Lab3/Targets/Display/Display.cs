@@ -1,4 +1,5 @@
 using System;
+using Itmo.ObjectOrientedProgramming.Lab3.CustomExceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Targets.Display;
 
@@ -24,7 +25,7 @@ public class Display : IRecieve
         _driver.SetConsoleColor(colorOfText);
 
         if (_currentMessage is null)
-            throw new ArgumentException("Display does not have a message now");
+            throw new MessageIsNotSpecifiedException("Display does not have a message now");
         _driver.PrintOnConsole(_currentMessage.Header);
         _driver.PrintOnConsole(_currentMessage.Body);
         _driver.PrintOnConsole(_currentMessage.ConfidentialityLevel.ToString());

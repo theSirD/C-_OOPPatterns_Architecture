@@ -1,4 +1,4 @@
-using System;
+using Itmo.ObjectOrientedProgramming.Lab3.CustomExceptions;
 using Itmo.ObjectOrientedProgramming.Lab3.Enums;
 using Itmo.ObjectOrientedProgramming.Lab3.Services;
 using Itmo.ObjectOrientedProgramming.Lab3.Targets;
@@ -14,16 +14,16 @@ public class DisplayAddressee : BaseAddressee
     public void SetTarget(IRecieve target)
     {
         if (target is not Display)
-            throw new ArgumentException("Only target for this addressee is Display");
+            throw new WrongTargetSpecifiedException("Only target for this addressee is Display");
         Target = target;
     }
 
     public override void Send()
     {
         if (Target is null)
-            throw new ArgumentException("Specified user is null");
+            throw new TargetIsNotSpecifiedException("Specified user is null");
         if (CurrentMessage is null)
-            throw new ArgumentException("Addressee does not contain a message");
+            throw new MessageIsNotSpecifiedException("Addressee does not contain a message");
         Target.RecieveMessage(CurrentMessage);
     }
 }

@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab3.CustomExceptions;
 using Itmo.ObjectOrientedProgramming.Lab3.Enums;
 using Itmo.ObjectOrientedProgramming.Lab3.Services;
 
@@ -21,7 +21,7 @@ public class GroupAddressee : BaseAddressee
     public override void Send()
     {
         if (CurrentMessage is null)
-            throw new ArgumentException("Addressee does not contain a message");
+            throw new MessageIsNotSpecifiedException("Addressee does not contain a message");
 
         bool anyAddresseeHasNoRightToReadMessage = _addresseesList.Any(
             addressee => CurrentMessage.ConfidentialityLevel > addressee.ConfidentialityLevelAccess);
@@ -35,7 +35,7 @@ public class GroupAddressee : BaseAddressee
         }
         else
         {
-            throw new ArgumentException("One of given addresses does not have a right to read this message");
+            throw new TargetIsProhibitedToReadException("One of given addresses does not have a right to read this message");
         }
     }
 }

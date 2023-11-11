@@ -1,5 +1,5 @@
-using System;
 using Itmo.ObjectOrientedProgramming.Lab3.Addressees;
+using Itmo.ObjectOrientedProgramming.Lab3.CustomExceptions;
 using Itmo.ObjectOrientedProgramming.Lab3.Enums;
 using Itmo.ObjectOrientedProgramming.Lab3.Services;
 using Itmo.ObjectOrientedProgramming.Lab3.Targets;
@@ -59,7 +59,7 @@ public class Tests
         {
             user1.ReadMessage(msg1);
         }
-        catch (ArgumentException ex)
+        catch (MessageWasReadException ex)
         {
             errorMessage = ex.Message;
         }

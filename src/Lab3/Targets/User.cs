@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab3.CustomExceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Targets;
 
@@ -36,7 +37,7 @@ public class User : IRecieve
             }
         }
 
-        throw new ArgumentException("Given message is either already read or user never recieved it");
+        throw new MessageWasReadException("Given message is either already read or user never recieved it");
     }
 
     public bool CheckIfMessageIsUnread(string header)
