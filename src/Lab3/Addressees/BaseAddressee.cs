@@ -32,7 +32,7 @@ public abstract class BaseAddressee
             else
             {
                 _currentMessage = value;
-                _logger.LogOneMessage($"Addressee with a confidence level of {ConfidentialityLevelAccess} got a message");
+                _logger.LogOneMessage("Addressee with got a message");
             }
         }
     }

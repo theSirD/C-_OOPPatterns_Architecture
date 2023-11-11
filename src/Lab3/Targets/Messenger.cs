@@ -6,8 +6,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Targets;
 
 public class Messenger : IRecieve
 {
-    private readonly ILogger _logger = new Logger();
+    private readonly ILogger _logger;
     private List<Message> _messages = new();
+
+    public Messenger(ILogger logger)
+    {
+        _logger = logger;
+    }
 
     public void RecieveMessage(Message message)
     {
@@ -15,6 +20,7 @@ public class Messenger : IRecieve
             throw new ArgumentException("Given message is null");
 
         _messages.Add(message);
+        _logger.LogOneMessage($"Messenger recieved a message. Now it has {_messages.Count} message(s)");
     }
 
     public void LogAllMessages()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Targets;
@@ -19,10 +20,23 @@ public class User : IRecieve
         _unreadMessages.Add(message);
     }
 
-    public void ReadMessage(int numberOfMessage)
+    public void ReadMessage(Message message)
     {
-        _readMessages.Add(_unreadMessages[numberOfMessage]);
-        _unreadMessages.RemoveAt(numberOfMessage); // Add catch
+        if (message is null)
+            throw new ArgumentException("Given message is null");
+        for (int i = 0; i < _unreadMessages.Count; i++)
+        {
+            if (_unreadMessages[i].Header == message.Header &&
+                _unreadMessages[i].Body == message.Body &&
+                _unreadMessages[i].ConfidentialityLevel == message.ConfidentialityLevel)
+            {
+                _unreadMessages.RemoveAt(i);
+                _readMessages.Add(message);
+                return;
+            }
+        }
+
+        throw new ArgumentException("Given message is either already read or user never recieved it");
     }
 
     public bool CheckIfMessageIsUnread(string header)
