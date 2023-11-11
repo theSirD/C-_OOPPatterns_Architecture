@@ -25,9 +25,14 @@ public abstract class BaseAddressee
             if (value is null)
                 throw new ArgumentException("Message you've tried to pass to addressee is null");
             if (value.ConfidentialityLevel > ConfidentialityLevelAccess)
-                throw new ArgumentException("This addressee does not have right to read this message");
-            _currentMessage = value;
-            _logger.LogOneMessage($"Addressee with a confidence level of {ConfidentialityLevelAccess} got a message");
+            {
+                _logger.LogOneMessage("This addressee does not have right to read this message");
+            }
+            else
+            {
+                _currentMessage = value;
+                _logger.LogOneMessage($"Addressee with a confidence level of {ConfidentialityLevelAccess} got a message");
+            }
         }
     }
 
