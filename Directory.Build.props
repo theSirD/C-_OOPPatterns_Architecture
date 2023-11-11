@@ -33,8 +33,9 @@
     <ItemGroup>
         <InternalsVisibleTo Include="$(AssemblyName).Tests" />
     </ItemGroup>
-    <PropertyGroup>
+  
+    <PropertyGroup>    
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
-    
+
 </Project>
