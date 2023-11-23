@@ -8,13 +8,13 @@ public interface IFileSystem
 
     public void TreeList(string depth);
 
-    public void FileShow();
+    public void FileShow(string mode, string path);
 
-    public void FileMove();
+    public void FileMove(string sourcePath, string destinationPath);
 
-    public void FileCopy();
+    public void FileCopy(string sourcePath, string destinationPath);
 
-    public void FileDelete();
+    public void FileDelete(string pathOfFileToDelete);
 
-    public void FileRename();
+    public void FileRename(string pathOfFileToRename, string newFileName);
 }

@@ -8,47 +8,47 @@ public class LocalFileSystem : IFileSystem
         _currentPath = path;
     }
 
-    public void Connect()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void Disconnect()
     {
-        throw new System.NotImplementedException();
+        _currentPath = string.Empty;
     }
 
-    public void TreeGoTo()
+    public void TreeGoTo(string address)
     {
         throw new System.NotImplementedException();
     }
 
-    public void TreeList()
+    public void TreeList(string depth)
     {
         throw new System.NotImplementedException();
     }
 
-    public void FileShow()
+    public void FileShow(string mode, string path)
+    {
+        if (mode == "console")
+        {
+            throw new System.NotImplementedException();
+        }
+
+        throw new System.NotImplementedException();
+    }
+
+    public void FileMove(string sourcePath, string destinationPath)
     {
         throw new System.NotImplementedException();
     }
 
-    public void FileMove()
+    public void FileCopy(string sourcePath, string destinationPath)
     {
         throw new System.NotImplementedException();
     }
 
-    public void FileCopy()
+    public void FileDelete(string pathOfFileToDelete)
     {
         throw new System.NotImplementedException();
     }
 
-    public void FileDelete()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void FileRename()
+    public void FileRename(string pathOfFileToRename, string newFileName)
     {
         throw new System.NotImplementedException();
     }
