@@ -7,7 +7,7 @@ public class DisconnectHandler : BaseHandler
 {
     public DisconnectHandler()
     {
-        NextHandler = new TreeGoToHandler();
+        NextHandler = new TreeHandler();
     }
 
     public override void Handle(string request, string path)
