@@ -8,6 +8,9 @@ public class TreeListHandler : BaseHandler
 
     public override void Handle(string request, string path)
     {
+        if (Parser is null)
+            throw new ArgumentException("You need to pass a parser first");
+
         if (!CanHandle(request))
         {
             if (NextHandler is null)
@@ -15,13 +18,11 @@ public class TreeListHandler : BaseHandler
             NextHandler.Handle(request, string.Empty);
         }
 
-        string? flag = Parser?.SearchForFlag();
-        if (flag is not null)
-        {
-            if (flag.Length == 0)
-                throw new ArgumentException("Flag is not specified");
-            _chainOfFlagHandlers.Handle(flag, string.Empty);
-        }
+        Parser.MoveForward();
+        string flag = Parser.Current;
+        if (flag.Length == 0)
+            throw new ArgumentException("Flag is not specified");
+        _chainOfFlagHandlers.Handle(flag, string.Empty);
     }
 
     public override bool CanHandle(string request)
