@@ -12,19 +12,17 @@ public class DisconnectHandler : BaseHandler
 
     public override void Handle(string request, string path)
     {
-        if (CanHandle(request))
-        {
-            if (FileSystem is null)
-                throw new ArgumentException("You are not connected to FS yet");
-            FileSystem.Disconnect();
-        }
-        else
+        if (!CanHandle(request))
         {
             if (NextHandler is null)
-                Console.WriteLine("Can not do the command");
+                throw new ArgumentException("Can not do the command");
             else
                 NextHandler.Handle(request, string.Empty);
         }
+
+        if (FileSystem is null)
+            throw new ArgumentException("You are not connected to FS yet");
+        FileSystem.Disconnect();
     }
 
     public override bool CanHandle(string request)
