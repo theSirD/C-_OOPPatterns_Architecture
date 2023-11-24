@@ -17,33 +17,29 @@ public class ConnectHandler : BaseHandler
 
     public override void Handle(string request, string path)
     {
-        if (CanHandle(request))
+        if (Parser is null)
         {
-            string? address = Parser?.SearchForPath();
-            if (address is not null)
-            {
-                string? flag = Parser?.SearchForFlag();
-                if (flag is not null)
-                {
-                    _chainOfFlagHandlers.Handle(flag, address);
-                }
-                else
-                {
-                    throw new ArgumentException("Flag is not specified");
-                }
-            }
-            else
-            {
-                throw new ArgumentException("Address is not specified");
-            }
+            throw new ArgumentException("You need to pass a parser first");
         }
-        else
+
+        if (!CanHandle(request))
         {
             if (NextHandler is null)
-                Console.WriteLine("Can not do the command");
+                throw new ArgumentException("Can not do the command");
             else
                 NextHandler.Handle(request, string.Empty);
         }
+
+        Parser.MoveForward();
+        string address = Parser.Current;
+        if (address.Length == 0)
+            throw new ArgumentException("Address is not specified");
+
+        Parser.MoveForward();
+        string flag = Parser.Current;
+        if (flag.Length == 0)
+            throw new ArgumentException("Flag is not specified");
+        _chainOfFlagHandlers.Handle(flag, address);
     }
 
     public override bool CanHandle(string request)
