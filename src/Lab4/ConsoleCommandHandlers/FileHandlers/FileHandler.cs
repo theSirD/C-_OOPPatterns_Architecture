@@ -8,6 +8,8 @@ public class FileHandler : BaseHandler
 
     public override void Handle(string request, string path)
     {
+        if (Parser is null)
+            throw new ArgumentException("You need to pass a parser first");
         if (!CanHandle(request))
         {
             if (NextHandler is null)
@@ -15,13 +17,11 @@ public class FileHandler : BaseHandler
             NextHandler.Handle(request, string.Empty);
         }
 
-        string? subcommand = Parser?.SearchForPath();
-        if (subcommand is not null)
-        {
-            if (subcommand.Length == 0)
-                throw new ArgumentException("For 'file' command subcommand is required");
-            _chainOfSubcommandHandlers.Handle(subcommand, string.Empty);
-        }
+        Parser.MoveForward();
+        string subcommand = Parser.Current;
+        if (subcommand.Length == 0)
+            throw new ArgumentException("For 'file' command subcommand is required");
+        _chainOfSubcommandHandlers.Handle(subcommand, string.Empty);
     }
 
     public override bool CanHandle(string request)

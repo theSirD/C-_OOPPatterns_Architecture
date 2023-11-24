@@ -34,6 +34,7 @@ public class ConnectHandler : BaseHandler
         string address = Parser.Current;
         if (address.Length == 0)
             throw new ArgumentException("Address is not specified");
+        address = address.Substring(0, address.Length - 1);
 
         Parser.MoveForward();
         string flag = Parser.Current;
