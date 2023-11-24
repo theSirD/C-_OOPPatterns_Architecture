@@ -6,6 +6,7 @@ public class ConsoleCommandParser : IParse
 {
     private readonly string _input;
     private int _currentPosition;
+    private bool _betweenSameQuotationMarks;
 
     public ConsoleCommandParser(string input)
     {
@@ -13,83 +14,33 @@ public class ConsoleCommandParser : IParse
             throw new ArgumentException("Given command is null. A string required");
         _input = input;
         _currentPosition = 0;
+        _betweenSameQuotationMarks = false;
     }
 
-    public string SearchForCommand()
+    public string Current { get; private set; } = string.Empty;
+
+    public void MoveForward()
     {
-        string decipheredCommand = string.Empty;
+        Current = string.Empty;
         while (_currentPosition < _input.Length)
         {
             if (char.IsWhiteSpace(_input[_currentPosition]))
             {
+                if (_betweenSameQuotationMarks)
+                {
+                    Current += _input[_currentPosition];
+                    _currentPosition++;
+                }
+
                 _currentPosition++;
-                return decipheredCommand;
+                return;
             }
 
-            decipheredCommand += _input[_currentPosition];
+            if (_input[_currentPosition] == '"')
+                _betweenSameQuotationMarks = !_betweenSameQuotationMarks;
+
+            Current += _input[_currentPosition];
             _currentPosition++;
         }
-
-        return decipheredCommand;
-    }
-
-    public string SearchForPath()
-    {
-        string decipheredPath = string.Empty;
-        char typeOfQuotationMarks = _input[_currentPosition];
-        decipheredPath += _input[_currentPosition];
-        _currentPosition++;
-        while (_currentPosition < _input.Length)
-        {
-            if (_input[_currentPosition] == typeOfQuotationMarks)
-            {
-                decipheredPath += _input[_currentPosition];
-                if (_currentPosition + 2 < _input.Length)
-                    _currentPosition += 2;
-                return decipheredPath;
-            }
-
-            decipheredPath += _input[_currentPosition];
-            _currentPosition++;
-        }
-
-        // validation
-        return decipheredPath;
-    }
-
-    public string SearchForFlag()
-    {
-        string decipheredFlag = string.Empty;
-        while (_currentPosition < _input.Length)
-        {
-            if (char.IsWhiteSpace(_input[_currentPosition]))
-            {
-                _currentPosition++;
-                return decipheredFlag;
-            }
-
-            decipheredFlag += _input[_currentPosition];
-            _currentPosition++;
-        }
-
-        return decipheredFlag;
-    }
-
-    public string SearchForFlagArgument()
-    {
-        string decipheredFlagArgument = string.Empty;
-        while (_currentPosition < _input.Length)
-        {
-            if (char.IsWhiteSpace(_input[_currentPosition]))
-            {
-                _currentPosition++;
-                return decipheredFlagArgument;
-            }
-
-            decipheredFlagArgument += _input[_currentPosition];
-            _currentPosition++;
-        }
-
-        return decipheredFlagArgument;
     }
 }
