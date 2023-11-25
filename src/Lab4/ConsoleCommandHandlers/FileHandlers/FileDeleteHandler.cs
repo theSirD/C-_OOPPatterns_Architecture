@@ -18,11 +18,12 @@ public class FileDeleteHandler : BaseHandler
             if (NextHandler is null)
                 throw new ArgumentException("Can not do the command");
             NextHandler.Handle(request, string.Empty);
+            return;
         }
 
         Parser.MoveForward();
         string pathOfFileToDelete = Parser.Current;
-        pathOfFileToDelete = pathOfFileToDelete.Substring(0, pathOfFileToDelete.Length - 1);
+        pathOfFileToDelete = pathOfFileToDelete.Substring(1, pathOfFileToDelete.Length - 2);
 
         if (pathOfFileToDelete.Length == 0)
             throw new ArgumentException("You need to specify source path for 'file delete'");

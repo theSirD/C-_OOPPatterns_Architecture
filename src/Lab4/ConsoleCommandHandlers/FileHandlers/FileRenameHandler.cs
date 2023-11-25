@@ -13,14 +13,15 @@ public class FileRenameHandler : BaseHandler
             if (NextHandler is null)
                 throw new ArgumentException("Can not do the command");
             NextHandler.Handle(request, string.Empty);
+            return;
         }
 
         Parser.MoveForward();
         string pathOfFileToRename = Parser.Current;
-        pathOfFileToRename = pathOfFileToRename.Substring(0, pathOfFileToRename.Length - 1);
+        pathOfFileToRename = pathOfFileToRename.Substring(1, pathOfFileToRename.Length - 2);
         Parser.MoveForward();
         string newFileName = Parser.Current;
-        newFileName = newFileName.Substring(0, newFileName.Length - 1);
+        newFileName = newFileName.Substring(1, newFileName.Length - 2);
 
         if (pathOfFileToRename.Length == 0)
             throw new ArgumentException("You need to specify path for 'file rename'");

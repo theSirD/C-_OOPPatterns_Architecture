@@ -18,14 +18,15 @@ public class FileMoveHandler : BaseHandler
             if (NextHandler is null)
                 throw new ArgumentException("Can not do the command");
             NextHandler.Handle(request, string.Empty);
+            return;
         }
 
         Parser.MoveForward();
         string sourcePath = Parser.Current;
-        sourcePath = sourcePath.Substring(0, sourcePath.Length - 1);
+        sourcePath = sourcePath.Substring(1, sourcePath.Length - 2);
         Parser.MoveForward();
         string destinationPath = Parser.Current;
-        destinationPath = destinationPath.Substring(0, sourcePath.Length - 1);
+        destinationPath = destinationPath.Substring(1, destinationPath.Length - 2);
         if (sourcePath.Length == 0)
             throw new ArgumentException("You need to specify source path for 'file move'");
         if (destinationPath.Length == 0)
