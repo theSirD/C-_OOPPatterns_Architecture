@@ -7,13 +7,22 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystems;
 public class LocalFileSystem : IFileSystem
 {
     private string _currentPath;
+
+    public LocalFileSystem()
+    {
+        _currentPath = string.Empty;
+        IsConnected = false;
+    }
+
     public LocalFileSystem(string path)
     {
         if (!Directory.Exists(path))
             throw new ArgumentException("Specified directory does not exist");
         _currentPath = path;
+        IsConnected = true;
     }
 
+    public bool IsConnected { get; set; }
     public void Disconnect()
     {
         if (_currentPath.Length == 0)
