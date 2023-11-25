@@ -26,15 +26,15 @@ public class ConnectHandler : BaseHandler
         {
             if (NextHandler is null)
                 throw new ArgumentException("Can not do the command");
-            else
-                NextHandler.Handle(request, string.Empty);
+            NextHandler.Handle(request, string.Empty);
+            return;
         }
 
         Parser.MoveForward();
         string address = Parser.Current;
         if (address.Length == 0)
             throw new ArgumentException("Address is not specified");
-        address = address.Substring(0, address.Length - 1);
+        address = address.Substring(1, address.Length - 2);
 
         Parser.MoveForward();
         string flag = Parser.Current;

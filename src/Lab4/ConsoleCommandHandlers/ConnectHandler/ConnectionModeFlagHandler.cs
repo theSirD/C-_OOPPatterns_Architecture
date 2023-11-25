@@ -17,9 +17,14 @@ public class ConnectionModeFlagHandler : BaseHandler
         if (!CanHandle(request))
         {
             if (NextHandler is not null)
+            {
                 NextHandler.Handle(request, path);
+                return;
+            }
             else
+            {
                 throw new ArgumentException("Unknown connection mode flag");
+            }
         }
 
         Parser.MoveForward();
@@ -28,9 +33,10 @@ public class ConnectionModeFlagHandler : BaseHandler
             throw new ArgumentException("Connection mode after flag is not specified");
         if (flagArgument == "local")
         {
-            if (FileSystem is null)
-                FileSystem = new LocalFileSystem(path.Substring(0, path.Length - 1));
-            throw new ArgumentException("You are already connected to a local file system");
+            if (FileSystem is not null)
+                throw new ArgumentException("You are already connected to a local file system");
+            FileSystem = new LocalFileSystem(path);
+            Console.WriteLine("Successfully connected");
         }
         else
         {
