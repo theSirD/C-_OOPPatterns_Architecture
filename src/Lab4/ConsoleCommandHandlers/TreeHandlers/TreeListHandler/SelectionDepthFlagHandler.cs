@@ -4,10 +4,18 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.TreeHandler
 
 public class SelectionDepthFlagHandler : BaseHandler
 {
+    public SelectionDepthFlagHandler(Context context)
+    : base(context)
+    {
+    }
+
     public override void Handle(string request, string path)
     {
-        if (Parser is null)
-            throw new ArgumentException("You need to pass a parser first");
+        if (Context is null || Context.Info is null || Context.Parser is null)
+        {
+            throw new ArgumentException("Context object is not initialized properly");
+        }
+
         if (!CanHandle(request))
         {
             if (NextHandler is null)
@@ -16,13 +24,14 @@ public class SelectionDepthFlagHandler : BaseHandler
             return;
         }
 
-        Parser.MoveForward();
-        string flagArgument = Parser.Current;
+        Context.Parser.MoveForward();
+        string flagArgument = Context.Parser.Current;
+        Context.Info.FlagArgument = flagArgument;
         if (flagArgument.Length == 0)
             throw new ArgumentException("Flag argument is not specified after flag");
-        if (FileSystem is null)
+        if (Context.FileSystem is null)
             throw new ArgumentException("You need to connect to FS first");
-        FileSystem.TreeList(flagArgument);
+        Context.FileSystem.TreeList(flagArgument);
     }
 
     public override bool CanHandle(string request)

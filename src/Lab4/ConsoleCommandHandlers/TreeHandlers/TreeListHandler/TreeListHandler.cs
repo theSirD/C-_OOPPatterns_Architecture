@@ -4,12 +4,20 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.TreeHandler
 
 public class TreeListHandler : BaseHandler
 {
-    private readonly IHandler _chainOfFlagHandlers = new SelectionDepthFlagHandler();
+    private IHandler _chainOfFlagHandlers;
+
+    public TreeListHandler(Context context)
+    : base(context)
+    {
+        _chainOfFlagHandlers = new SelectionDepthFlagHandler(context);
+    }
 
     public override void Handle(string request, string path)
     {
-        if (Parser is null)
-            throw new ArgumentException("You need to pass a parser first");
+        if (Context is null || Context.Info is null || Context.Parser is null)
+        {
+            throw new ArgumentException("Context object is not initialized properly");
+        }
 
         if (!CanHandle(request))
         {
@@ -19,10 +27,13 @@ public class TreeListHandler : BaseHandler
             return;
         }
 
-        Parser.MoveForward();
-        string address = Parser.Current;
-        Parser.MoveForward();
-        string flag = Parser.Current;
+        Context.Parser.MoveForward();
+        string address = Context.Parser.Current;
+        address = address.Substring(1, address.Length - 2);
+        Context.Info.Path1 = address;
+        Context.Parser.MoveForward();
+        string flag = Context.Parser.Current;
+        Context.Info.Flag = flag;
         if (flag.Length == 0)
             throw new ArgumentException("Flag is not specified");
         _chainOfFlagHandlers.Handle(flag, address);
