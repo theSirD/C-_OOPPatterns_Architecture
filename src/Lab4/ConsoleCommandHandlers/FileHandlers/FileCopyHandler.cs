@@ -4,15 +4,19 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.FileHandler
 
 public class FileCopyHandler : BaseHandler
 {
-    public FileCopyHandler()
+    public FileCopyHandler(Context context)
+    : base(context)
     {
-        NextHandler = new FileDeleteHandler();
+        NextHandler = new FileDeleteHandler(context);
     }
 
     public override void Handle(string request, string path)
     {
-        if (Parser is null)
-            throw new ArgumentException("You need to pass a parser first");
+        if (Context is null || Context.Info is null || Context.Parser is null)
+        {
+            throw new ArgumentException("Context object is not initialized properly");
+        }
+
         if (!CanHandle(request))
         {
             if (NextHandler is null)
@@ -21,21 +25,21 @@ public class FileCopyHandler : BaseHandler
             return;
         }
 
-        Parser.MoveForward();
-        string sourcePath = Parser.Current;
+        Context.Parser.MoveForward();
+        string sourcePath = Context.Parser.Current;
         sourcePath = sourcePath.Substring(1, sourcePath.Length - 2);
-        Info.Path1 = sourcePath;
-        Parser.MoveForward();
-        string destinationPath = Parser.Current;
+        Context.Info.Path1 = sourcePath;
+        Context.Parser.MoveForward();
+        string destinationPath = Context.Parser.Current;
         destinationPath = destinationPath.Substring(1, destinationPath.Length - 2);
-        Info.Path1 = destinationPath;
+        Context.Info.Path2 = destinationPath;
         if (sourcePath.Length == 0)
             throw new ArgumentException("You need to specify source path for 'file copy'");
         if (destinationPath.Length == 0)
             throw new ArgumentException("You need to specify destination path for 'file copy'");
-        if (FileSystem is null)
+        if (Context.FileSystem is null)
             throw new ArgumentException("You need to connect to FS first");
-        FileSystem.FileCopy(sourcePath, destinationPath);
+        Context.FileSystem.FileCopy(sourcePath, destinationPath);
     }
 
     public override bool CanHandle(string request)

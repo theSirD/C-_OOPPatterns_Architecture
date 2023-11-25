@@ -5,17 +5,21 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.TreeHandler
 
 public class TreeHandler : BaseHandler
 {
-    private readonly BaseHandler _chainOfSubcommandHandlers = new TreeGoToHandler();
+    private BaseHandler _chainOfSubcommandHandlers;
 
-    public TreeHandler()
+    public TreeHandler(Context context)
+    : base(context)
     {
-        NextHandler = new FileHandler();
+        NextHandler = new FileHandler(context);
+        _chainOfSubcommandHandlers = new TreeGoToHandler(context);
     }
 
     public override void Handle(string request, string path)
     {
-        if (Parser is null)
-            throw new ArgumentException("You need to pass a parser first");
+        if (Context is null || Context.Info is null || Context.Parser is null)
+        {
+            throw new ArgumentException("Context object is not initialized properly");
+        }
 
         if (!CanHandle(request))
         {
@@ -25,9 +29,9 @@ public class TreeHandler : BaseHandler
             return;
         }
 
-        Parser.MoveForward();
-        string subcommand = Parser.Current;
-        Info.Subcommand = subcommand;
+        Context.Parser.MoveForward();
+        string subcommand = Context.Parser.Current;
+        Context.Info.Subcommand = subcommand;
         if (subcommand.Length == 0)
             throw new ArgumentException("For 'tree' command subcommand is required");
         _chainOfSubcommandHandlers.Handle(subcommand, string.Empty);

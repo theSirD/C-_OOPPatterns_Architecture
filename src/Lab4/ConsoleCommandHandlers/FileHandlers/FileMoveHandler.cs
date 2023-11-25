@@ -4,15 +4,19 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.FileHandler
 
 public class FileMoveHandler : BaseHandler
 {
-    public FileMoveHandler()
+    public FileMoveHandler(Context context)
+    : base(context)
     {
-        NextHandler = new FileCopyHandler();
+        NextHandler = new FileCopyHandler(context);
     }
 
     public override void Handle(string request, string path)
     {
-        if (Parser is null)
-            throw new ArgumentException("You need to pass a parser first");
+        if (Context is null || Context.Info is null || Context.Parser is null)
+        {
+            throw new ArgumentException("Context object is not initialized properly");
+        }
+
         if (!CanHandle(request))
         {
             if (NextHandler is null)
@@ -21,21 +25,21 @@ public class FileMoveHandler : BaseHandler
             return;
         }
 
-        Parser.MoveForward();
-        string sourcePath = Parser.Current;
+        Context.Parser.MoveForward();
+        string sourcePath = Context.Parser.Current;
         sourcePath = sourcePath.Substring(1, sourcePath.Length - 2);
-        Info.Path1 = sourcePath;
-        Parser.MoveForward();
-        string destinationPath = Parser.Current;
+        Context.Info.Path1 = sourcePath;
+        Context.Parser.MoveForward();
+        string destinationPath = Context.Parser.Current;
         destinationPath = destinationPath.Substring(1, destinationPath.Length - 2);
-        Info.Path1 = destinationPath;
+        Context.Info.Path2 = destinationPath;
         if (sourcePath.Length == 0)
             throw new ArgumentException("You need to specify source path for 'file move'");
         if (destinationPath.Length == 0)
             throw new ArgumentException("You need to specify destination path for 'file move'");
-        if (FileSystem is null)
+        if (Context.FileSystem is null)
             throw new ArgumentException("You need to connect to FS first");
-        FileSystem.FileMove(sourcePath, destinationPath);
+        Context.FileSystem.FileMove(sourcePath, destinationPath);
     }
 
     public override bool CanHandle(string request)

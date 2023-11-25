@@ -4,10 +4,18 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.FileHandler
 
 public class FileRenameHandler : BaseHandler
 {
+    public FileRenameHandler(Context context)
+    : base(context)
+    {
+    }
+
     public override void Handle(string request, string path)
     {
-        if (Parser is null)
-            throw new ArgumentException("You need to pass a parser first");
+        if (Context is null || Context.Info is null || Context.Parser is null)
+        {
+            throw new ArgumentException("Context object is not initialized properly");
+        }
+
         if (!CanHandle(request))
         {
             if (NextHandler is null)
@@ -16,22 +24,22 @@ public class FileRenameHandler : BaseHandler
             return;
         }
 
-        Parser.MoveForward();
-        string pathOfFileToRename = Parser.Current;
+        Context.Parser.MoveForward();
+        string pathOfFileToRename = Context.Parser.Current;
         pathOfFileToRename = pathOfFileToRename.Substring(1, pathOfFileToRename.Length - 2);
-        Info.Path1 = pathOfFileToRename;
-        Parser.MoveForward();
-        string newFileName = Parser.Current;
+        Context.Info.Path1 = pathOfFileToRename;
+        Context.Parser.MoveForward();
+        string newFileName = Context.Parser.Current;
         newFileName = newFileName.Substring(1, newFileName.Length - 2);
-        Info.Path2 = newFileName;
+        Context.Info.Path2 = newFileName;
 
         if (pathOfFileToRename.Length == 0)
             throw new ArgumentException("You need to specify path for 'file rename'");
         if (newFileName.Length == 0)
             throw new ArgumentException("You need to specify new file name for 'file rename'");
-        if (FileSystem is null)
+        if (Context.FileSystem is null)
             throw new ArgumentException("You need to connect to FS first");
-        FileSystem.FileRename(pathOfFileToRename, newFileName);
+        Context.FileSystem.FileRename(pathOfFileToRename, newFileName);
     }
 
     public override bool CanHandle(string request)

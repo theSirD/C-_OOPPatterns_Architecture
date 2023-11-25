@@ -1,26 +1,23 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.ConnectHandler;
 
 public class ConnectHandler : BaseHandler
 {
-    private readonly IHandler _chainOfFlagHandlers = new ConnectionModeFlagHandler();
+    private IHandler _chainOfFlagHandlers;
 
-    public ConnectHandler(IParse parser, InfoAboutExecutedCommand info)
+    public ConnectHandler(Context context)
+        : base(context)
     {
-        if (parser is null)
-            throw new ArgumentException("Given parser is null");
-        Parser = parser;
-        NextHandler = new DisconnectHandler();
-        Info = info;
+        _chainOfFlagHandlers = new ConnectionModeFlagHandler(context);
+        NextHandler = new DisconnectHandler(context);
     }
 
     public override void Handle(string request, string path)
     {
-        if (Parser is null)
+        if (Context is null || Context.Info is null || Context.Parser is null)
         {
-            throw new ArgumentException("You need to pass a parser first");
+            throw new ArgumentException("Context object is not initialized properly");
         }
 
         if (!CanHandle(request))
@@ -31,19 +28,19 @@ public class ConnectHandler : BaseHandler
             return;
         }
 
-        Parser.MoveForward();
-        string address = Parser.Current;
+        Context.Parser.MoveForward();
+        string address = Context.Parser.Current;
         if (address.Length == 0)
             throw new ArgumentException("Address is not specified");
         address = address.Substring(1, address.Length - 2);
-        Info.Path1 = address;
+        Context.Info.Path1 = address;
 
-        Parser.MoveForward();
-        string flag = Parser.Current;
+        Context.Parser.MoveForward();
+        string flag = Context.Parser.Current;
+        Context.Info.Flag = flag;
         if (flag.Length == 0)
             throw new ArgumentException("Flag is not specified");
         _chainOfFlagHandlers.Handle(flag, address);
-        Info.Flag = flag;
     }
 
     public override bool CanHandle(string request)

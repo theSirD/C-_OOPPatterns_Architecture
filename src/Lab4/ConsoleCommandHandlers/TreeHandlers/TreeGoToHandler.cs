@@ -3,15 +3,18 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.TreeHandler
 
 public class TreeGoToHandler : BaseHandler
 {
-    public TreeGoToHandler()
+    public TreeGoToHandler(Context context)
+    : base(context)
     {
-        NextHandler = new TreeListHandler.TreeListHandler();
+        NextHandler = new TreeListHandler.TreeListHandler(context);
     }
 
     public override void Handle(string request, string path)
     {
-        if (Parser is null)
-            throw new ArgumentException("You need to pass a parser first");
+        if (Context is null || Context.Info is null || Context.Parser is null)
+        {
+            throw new ArgumentException("Context object is not initialized properly");
+        }
 
         if (!CanHandle(request))
         {
@@ -21,15 +24,15 @@ public class TreeGoToHandler : BaseHandler
             return;
         }
 
-        Parser.MoveForward();
-        string address = Parser.Current;
+        Context.Parser.MoveForward();
+        string address = Context.Parser.Current;
         address = address.Substring(1, address.Length - 2);
-        Info.Path1 = address;
+        Context.Info.Path1 = address;
         if (address.Length == 0)
             throw new ArgumentException("For 'tree goto' command address is required");
-        if (FileSystem is null)
+        if (Context.FileSystem is null)
             throw new ArgumentException("You are not connected to FS yet");
-        FileSystem.TreeGoTo(address);
+        Context.FileSystem.TreeGoTo(address);
     }
 
     public override bool CanHandle(string request)

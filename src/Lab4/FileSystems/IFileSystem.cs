@@ -2,6 +2,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystems;
 
 public interface IFileSystem
 {
+    public bool IsConnected { get; protected set; }
     public void Disconnect();
 
     public void TreeGoTo(string address);

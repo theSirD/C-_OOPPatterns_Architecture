@@ -1,16 +1,19 @@
-using Itmo.ObjectOrientedProgramming.Lab4.FileSystems;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser;
+using System;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers;
 
 public abstract class BaseHandler : IHandler
 {
-    public static IParse? Parser { get; set; }
+    protected BaseHandler(Context context)
+    {
+        if (context is null)
+            throw new ArgumentException("Context is null");
+        Context = context;
+    }
+
+    public Context? Context { get; private set; }
 
     public IHandler? NextHandler { get; protected set; }
-    protected static IFileSystem? FileSystem { get; set; }
-
     public abstract void Handle(string request, string path);
-
     public abstract bool CanHandle(string request);
 }
