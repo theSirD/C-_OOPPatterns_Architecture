@@ -4,20 +4,27 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parser;
 
 public class ConsoleCommandParser : IParse
 {
-    private readonly string _input;
+    private string _input;
     private int _currentPosition;
     private bool _betweenSameQuotationMarks;
 
-    public ConsoleCommandParser(string input)
+    public ConsoleCommandParser()
     {
-        if (input is null)
-            throw new ArgumentException("Given command is null. A string required");
-        _input = input;
+        _input = string.Empty;
         _currentPosition = 0;
         _betweenSameQuotationMarks = false;
     }
 
-    public string Current { get; private set; } = string.Empty;
+    public string Current { get; set; } = string.Empty;
+
+    public void SetInput(string input)
+    {
+        if (input is null)
+            throw new ArgumentException("input is null");
+        _input = input;
+        _currentPosition = 0;
+        _betweenSameQuotationMarks = false;
+    }
 
     public void MoveForward()
     {
@@ -26,14 +33,14 @@ public class ConsoleCommandParser : IParse
         {
             if (char.IsWhiteSpace(_input[_currentPosition]))
             {
-                if (_betweenSameQuotationMarks)
+                if (!_betweenSameQuotationMarks)
                 {
-                    Current += _input[_currentPosition];
                     _currentPosition++;
+                    return;
                 }
 
+                Current += _input[_currentPosition];
                 _currentPosition++;
-                return;
             }
 
             if (_input[_currentPosition] == '"')
