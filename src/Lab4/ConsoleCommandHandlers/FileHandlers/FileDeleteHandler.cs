@@ -24,6 +24,7 @@ public class FileDeleteHandler : BaseHandler
         Parser.MoveForward();
         string pathOfFileToDelete = Parser.Current;
         pathOfFileToDelete = pathOfFileToDelete.Substring(1, pathOfFileToDelete.Length - 2);
+        Info.Path1 = pathOfFileToDelete;
 
         if (pathOfFileToDelete.Length == 0)
             throw new ArgumentException("You need to specify source path for 'file delete'");

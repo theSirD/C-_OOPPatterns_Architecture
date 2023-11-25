@@ -31,6 +31,7 @@ public class ConnectionModeFlagHandler : BaseHandler
         string flagArgument = Parser.Current;
         if (flagArgument.Length == 0)
             throw new ArgumentException("Connection mode after flag is not specified");
+        Info.FlagArgument = flagArgument;
         if (flagArgument == "local")
         {
             if (FileSystem is not null)

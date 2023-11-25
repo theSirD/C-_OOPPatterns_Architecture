@@ -20,6 +20,7 @@ public class FileHandler : BaseHandler
 
         Parser.MoveForward();
         string subcommand = Parser.Current;
+        Info.Subcommand = subcommand;
         if (subcommand.Length == 0)
             throw new ArgumentException("For 'file' command subcommand is required");
         _chainOfSubcommandHandlers.Handle(subcommand, string.Empty);

@@ -24,6 +24,7 @@ public class TreeGoToHandler : BaseHandler
         Parser.MoveForward();
         string address = Parser.Current;
         address = address.Substring(1, address.Length - 2);
+        Info.Path1 = address;
         if (address.Length == 0)
             throw new ArgumentException("For 'tree goto' command address is required");
         if (FileSystem is null)

@@ -19,9 +19,11 @@ public class FileRenameHandler : BaseHandler
         Parser.MoveForward();
         string pathOfFileToRename = Parser.Current;
         pathOfFileToRename = pathOfFileToRename.Substring(1, pathOfFileToRename.Length - 2);
+        Info.Path1 = pathOfFileToRename;
         Parser.MoveForward();
         string newFileName = Parser.Current;
         newFileName = newFileName.Substring(1, newFileName.Length - 2);
+        Info.Path2 = newFileName;
 
         if (pathOfFileToRename.Length == 0)
             throw new ArgumentException("You need to specify path for 'file rename'");

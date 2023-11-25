@@ -24,9 +24,11 @@ public class FileCopyHandler : BaseHandler
         Parser.MoveForward();
         string sourcePath = Parser.Current;
         sourcePath = sourcePath.Substring(1, sourcePath.Length - 2);
+        Info.Path1 = sourcePath;
         Parser.MoveForward();
         string destinationPath = Parser.Current;
         destinationPath = destinationPath.Substring(1, destinationPath.Length - 2);
+        Info.Path1 = destinationPath;
         if (sourcePath.Length == 0)
             throw new ArgumentException("You need to specify source path for 'file copy'");
         if (destinationPath.Length == 0)

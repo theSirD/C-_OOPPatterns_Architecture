@@ -21,8 +21,10 @@ public class TreeListHandler : BaseHandler
 
         Parser.MoveForward();
         string address = Parser.Current;
+        Info.Path1 = address.Substring(1, address.Length - 2);
         Parser.MoveForward();
         string flag = Parser.Current;
+        Info.Flag = flag;
         if (flag.Length == 0)
             throw new ArgumentException("Flag is not specified");
         _chainOfFlagHandlers.Handle(flag, address);

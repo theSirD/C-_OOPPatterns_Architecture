@@ -18,6 +18,7 @@ public class SelectionDepthFlagHandler : BaseHandler
 
         Parser.MoveForward();
         string flagArgument = Parser.Current;
+        Info.FlagArgument = flagArgument;
         if (flagArgument.Length == 0)
             throw new ArgumentException("Flag argument is not specified after flag");
         if (FileSystem is null)

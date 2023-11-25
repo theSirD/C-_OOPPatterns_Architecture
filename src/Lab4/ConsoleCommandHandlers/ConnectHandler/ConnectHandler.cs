@@ -7,12 +7,13 @@ public class ConnectHandler : BaseHandler
 {
     private readonly IHandler _chainOfFlagHandlers = new ConnectionModeFlagHandler();
 
-    public ConnectHandler(IParse parser)
+    public ConnectHandler(IParse parser, InfoAboutExecutedCommand info)
     {
         if (parser is null)
             throw new ArgumentException("Given parser is null");
         Parser = parser;
         NextHandler = new DisconnectHandler();
+        Info = info;
     }
 
     public override void Handle(string request, string path)
@@ -35,12 +36,14 @@ public class ConnectHandler : BaseHandler
         if (address.Length == 0)
             throw new ArgumentException("Address is not specified");
         address = address.Substring(1, address.Length - 2);
+        Info.Path1 = address;
 
         Parser.MoveForward();
         string flag = Parser.Current;
         if (flag.Length == 0)
             throw new ArgumentException("Flag is not specified");
         _chainOfFlagHandlers.Handle(flag, address);
+        Info.Flag = flag;
     }
 
     public override bool CanHandle(string request)

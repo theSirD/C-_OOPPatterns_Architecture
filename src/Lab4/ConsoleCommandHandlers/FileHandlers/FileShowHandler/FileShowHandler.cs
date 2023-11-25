@@ -26,8 +26,10 @@ public class FileShowHandler : BaseHandler
         Parser.MoveForward();
         string address = Parser.Current;
         address = address.Substring(1, address.Length - 2);
+        Info.Path1 = address;
         Parser.MoveForward();
         string flag = Parser.Current;
+        Info.Flag = flag;
         if (address.Length == 0)
             throw new ArgumentException("Address for 'file show' is required");
         _chainOfFlagHandlers.Handle(flag, address);

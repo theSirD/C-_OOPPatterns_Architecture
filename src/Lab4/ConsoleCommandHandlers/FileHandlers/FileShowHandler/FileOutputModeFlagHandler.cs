@@ -18,6 +18,7 @@ public class FileOutputModeFlagHandler : BaseHandler
 
         Parser.MoveForward();
         string flagArgument = Parser.Current;
+        Info.FlagArgument = flagArgument;
         if (flagArgument.Length == 0)
             throw new ArgumentException("Flag argument after flag was not specified for 'file show -m'");
         if (FileSystem is null)
