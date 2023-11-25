@@ -13,6 +13,7 @@ public class SelectionDepthFlagHandler : BaseHandler
             if (NextHandler is null)
                 throw new ArgumentException("Unknown flag");
             NextHandler.Handle(request, string.Empty);
+            return;
         }
 
         Parser.MoveForward();

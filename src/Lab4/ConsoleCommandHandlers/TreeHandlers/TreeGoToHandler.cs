@@ -18,11 +18,12 @@ public class TreeGoToHandler : BaseHandler
             if (NextHandler is null)
                 throw new ArgumentException("Can not do the command");
             NextHandler.Handle(request, string.Empty);
+            return;
         }
 
         Parser.MoveForward();
         string address = Parser.Current;
-        address = address.Substring(0, address.Length - 1);
+        address = address.Substring(1, address.Length - 2);
         if (address.Length == 0)
             throw new ArgumentException("For 'tree goto' command address is required");
         if (FileSystem is null)

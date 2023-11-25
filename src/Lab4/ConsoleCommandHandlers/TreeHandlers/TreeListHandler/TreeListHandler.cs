@@ -16,13 +16,16 @@ public class TreeListHandler : BaseHandler
             if (NextHandler is null)
                 throw new ArgumentException("Can not do the command");
             NextHandler.Handle(request, string.Empty);
+            return;
         }
 
+        Parser.MoveForward();
+        string address = Parser.Current;
         Parser.MoveForward();
         string flag = Parser.Current;
         if (flag.Length == 0)
             throw new ArgumentException("Flag is not specified");
-        _chainOfFlagHandlers.Handle(flag, string.Empty);
+        _chainOfFlagHandlers.Handle(flag, address);
     }
 
     public override bool CanHandle(string request)

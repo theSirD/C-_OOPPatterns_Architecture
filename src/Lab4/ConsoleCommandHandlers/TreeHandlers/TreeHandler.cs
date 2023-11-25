@@ -22,6 +22,7 @@ public class TreeHandler : BaseHandler
             if (NextHandler is null)
                 throw new ArgumentException("Can not do the command");
             NextHandler.Handle(request, string.Empty);
+            return;
         }
 
         Parser.MoveForward();
