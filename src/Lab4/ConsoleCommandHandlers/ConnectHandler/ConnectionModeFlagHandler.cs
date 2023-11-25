@@ -4,11 +4,16 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.ConnectHand
 
 public class ConnectionModeFlagHandler : BaseHandler
 {
+    public ConnectionModeFlagHandler(Context context)
+        : base(context)
+    {
+    }
+
     public override void Handle(string request, string path)
     {
-        if (Parser is null)
+        if (Context is null || Context.Info is null || Context.Parser is null || Context.FileSystem is null)
         {
-            throw new ArgumentException("You need to pass a parser first");
+            throw new ArgumentException("Context object is not properly initialized");
         }
 
         if (path is null)
@@ -27,15 +32,16 @@ public class ConnectionModeFlagHandler : BaseHandler
             }
         }
 
-        Parser.MoveForward();
-        string flagArgument = Parser.Current;
+        Context.Parser.MoveForward();
+        string flagArgument = Context.Parser.Current;
+        Context.Info.FlagArgument = flagArgument;
         if (flagArgument.Length == 0)
             throw new ArgumentException("Connection mode after flag is not specified");
         if (flagArgument == "local")
         {
-            if (FileSystem is not null)
+            if (Context.FileSystem.IsConnected)
                 throw new ArgumentException("You are already connected to a local file system");
-            FileSystem = new LocalFileSystem(path);
+            Context.FileSystem = new LocalFileSystem(path);
             Console.WriteLine("Successfully connected");
         }
         else
