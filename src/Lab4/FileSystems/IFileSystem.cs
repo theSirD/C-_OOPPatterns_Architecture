@@ -3,19 +3,20 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystems;
 public interface IFileSystem
 {
     public bool IsConnected { get; protected set; }
+    public void Connect(Context context);
     public void Disconnect();
 
-    public void TreeGoTo(string address);
+    public void TreeGoTo(Context context);
 
-    public void TreeList(string depth);
+    public void TreeList(Context context);
 
-    public void FileShow(string mode, string path);
+    public void FileShow(Context context);
 
-    public void FileMove(string sourcePath, string destinationPath);
+    public void FileMove(Context context);
 
-    public void FileCopy(string sourcePath, string destinationPath);
+    public void FileCopy(Context context);
 
-    public void FileDelete(string pathOfFileToDelete);
+    public void FileDelete(Context context);
 
-    public void FileRename(string pathOfFileToRename, string newFileName);
+    public void FileRename(Context context);
 }

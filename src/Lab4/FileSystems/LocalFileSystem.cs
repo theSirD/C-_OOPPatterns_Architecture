@@ -23,6 +23,26 @@ public class LocalFileSystem : IFileSystem
     }
 
     public bool IsConnected { get; set; }
+    public void Connect(Context context)
+    {
+        if (context is null || context.Info is null)
+            throw new ArgumentException("Context object is not properly initialized");
+
+        string flagArgument = context.Info.FlagArguments["-m"];
+
+        if (flagArgument == "local")
+        {
+            if (IsConnected)
+                throw new ArgumentException("You are already connected to a local file system");
+            context.FileSystem = new LocalFileSystem(context.Info.Path1);
+            Console.WriteLine("Successfully connected");
+        }
+        else
+        {
+            throw new ArgumentException($"This type of connection is not supported {flagArgument}");
+        }
+    }
+
     public void Disconnect()
     {
         if (_currentPath.Length == 0)
@@ -31,8 +51,12 @@ public class LocalFileSystem : IFileSystem
         Console.WriteLine("Disconnected");
     }
 
-    public void TreeGoTo(string address)
+    public void TreeGoTo(Context context)
     {
+        if (context is null || context.Info is null)
+            throw new ArgumentException("Context object is not properly initialized");
+
+        string address = context.Info.Path1;
         if (_currentPath.Length == 0)
             throw new ArgumentException("You are not connected to file system");
         if (address is null)
@@ -43,8 +67,15 @@ public class LocalFileSystem : IFileSystem
         _currentPath = _currentPath + "/" + address;
     }
 
-    public void TreeList(string depth)
+    public void TreeList(Context context)
     {
+        if (context is null || context.Info is null)
+        {
+            throw new ArgumentException("Context object is not properly initialized");
+        }
+
+        string depth = context.Info.FlagArguments["-d"];
+
         if (_currentPath.Length == 0)
             throw new ArgumentException("You are not connected to file system");
         if (depth is null)
@@ -69,8 +100,15 @@ public class LocalFileSystem : IFileSystem
         }
     }
 
-    public void FileShow(string mode, string path)
+    public void FileShow(Context context)
     {
+        if (context is null || context.Info is null || context.Parser is null || context.FileSystem is null)
+        {
+            throw new ArgumentException("Context object is not properly initialized");
+        }
+
+        string mode = context.Info.FlagArguments["-m"];
+        string path = context.Info.Path1;
         if (_currentPath.Length == 0)
             throw new ArgumentException("You are not connected to file system");
         if (mode == "console")
@@ -91,8 +129,13 @@ public class LocalFileSystem : IFileSystem
         }
     }
 
-    public void FileMove(string sourcePath, string destinationPath)
+    public void FileMove(Context context)
     {
+        if (context is null || context.Info is null)
+            throw new ArgumentException("Context object is not properly initialized");
+
+        string sourcePath = context.Info.Path1;
+        string destinationPath = context.Info.Path2;
         if (_currentPath.Length == 0)
             throw new ArgumentException("You are not connected to file system");
         if (sourcePath is null || destinationPath is null)
@@ -116,8 +159,15 @@ public class LocalFileSystem : IFileSystem
         Console.WriteLine($"Moved file from {sourcePath} to {destinationPath}");
     }
 
-    public void FileCopy(string sourcePath, string destinationPath)
+    public void FileCopy(Context context)
     {
+        if (context is null || context.Info is null)
+        {
+            throw new ArgumentException("Context object is not properly initialized");
+        }
+
+        string sourcePath = context.Info.Path1;
+        string destinationPath = context.Info.Path2;
         if (_currentPath.Length == 0)
             throw new ArgumentException("You are not connected to file system");
         if (sourcePath is null || destinationPath is null)
@@ -132,8 +182,12 @@ public class LocalFileSystem : IFileSystem
         Console.WriteLine($"Copied file from {sourcePath} to {destinationPath}");
     }
 
-    public void FileDelete(string pathOfFileToDelete)
+    public void FileDelete(Context context)
     {
+        if (context is null || context.Info is null)
+            throw new ArgumentException("Context object is not properly initialized");
+
+        string pathOfFileToDelete = context.Info.Path1;
         if (_currentPath.Length == 0)
             throw new ArgumentException("You are not connected to file system");
         if (pathOfFileToDelete is null)
@@ -146,8 +200,13 @@ public class LocalFileSystem : IFileSystem
         Console.WriteLine($"Deleted {pathOfFileToDelete}");
     }
 
-    public void FileRename(string pathOfFileToRename, string newFileName)
+    public void FileRename(Context context)
     {
+        if (context is null || context.Info is null)
+            throw new ArgumentException("Context object is not properly initialized");
+
+        string pathOfFileToRename = context.Info.Path1;
+        string newFileName = context.Info.Path2;
         if (_currentPath.Length == 0)
             throw new ArgumentException("You are not connected to file system");
         if (pathOfFileToRename is null || newFileName is null)
