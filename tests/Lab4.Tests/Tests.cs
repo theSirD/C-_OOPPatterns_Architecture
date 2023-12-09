@@ -18,17 +18,18 @@ public class Tests
         var context = new Context(info, parser, localFileSystem);
         IHandler chainOfHandlers = new ConnectHandler(context);
 
+        info.ClearInfo();
         string input = @"connect ""/Users/danielisaev/Desktop/U/Университет/2 курс/ООП/test"" -m local";
         parser.SetInput(input);
         parser.MoveForward();
         string command = parser.Current;
         info.Command = command;
-        chainOfHandlers.Handle(command, string.Empty);
+        chainOfHandlers.Handle();
 
         Assert.True(info.Command == "connect" &&
                     info.Path1 == "/Users/danielisaev/Desktop/U/Университет/2 курс/ООП/test" &&
                     info.Flag == "-m" &&
-                    info.FlagArgument == "local");
+                    info.FlagArguments["-m"] == "local");
     }
 
     [Fact]
@@ -45,21 +46,23 @@ public class Tests
         parser.SetInput(input);
         parser.MoveForward();
         string command = parser.Current;
-        chainOfHandlers.Handle(command, string.Empty);
+        info.Command = command;
+        chainOfHandlers.Handle();
 
+        info.ClearInfo();
         input = @"tree list ""/Users/danielisaev/Desktop/U/Университет/2 курс/ООП/test"" -d 2";
         if (string.IsNullOrEmpty(input)) return;
         parser.SetInput(input);
         parser.MoveForward();
         command = parser.Current;
         info.Command = command;
-        chainOfHandlers.Handle(command, string.Empty);
+        chainOfHandlers.Handle();
 
         Assert.True(info.Command == "tree" &&
                     info.Subcommand == "list" &&
                     info.Path1 == "/Users/danielisaev/Desktop/U/Университет/2 курс/ООП/test" &&
                     info.Flag == "-d" &&
-                    info.FlagArgument == "2");
+                    info.FlagArguments["-d"] == "2");
     }
 
     [Fact]
@@ -76,14 +79,16 @@ public class Tests
         parser.SetInput(input);
         parser.MoveForward();
         string command = parser.Current;
-        chainOfHandlers.Handle(command, string.Empty);
+        info.Command = command;
+        chainOfHandlers.Handle();
 
+        info.ClearInfo();
         input = @"tree goto ""innerTest1""";
         parser.SetInput(input);
         parser.MoveForward();
         command = parser.Current;
         info.Command = command;
-        chainOfHandlers.Handle(command, string.Empty);
+        chainOfHandlers.Handle();
 
         Assert.True(info.Command == "tree" &&
                     info.Subcommand == "goto" &&
@@ -104,19 +109,21 @@ public class Tests
         parser.SetInput(input);
         parser.MoveForward();
         string command = parser.Current;
-        chainOfHandlers.Handle(command, string.Empty);
+        info.Command = command;
+        chainOfHandlers.Handle();
 
+        info.ClearInfo();
         input = @"file show ""/Users/danielisaev/Desktop/U/Университет/2 курс/ООП/test/file1.txt"" -m console";
         parser.SetInput(input);
         parser.MoveForward();
         command = parser.Current;
         info.Command = command;
-        chainOfHandlers.Handle(command, string.Empty);
+        chainOfHandlers.Handle();
 
         Assert.True(info.Command == "file" &&
                     info.Subcommand == "show" &&
                     info.Path1 == "/Users/danielisaev/Desktop/U/Университет/2 курс/ООП/test/file1.txt" &&
                     info.Flag == "-m" &&
-                    info.FlagArgument == "console");
+                    info.FlagArguments["-m"] == "console");
     }
 }
