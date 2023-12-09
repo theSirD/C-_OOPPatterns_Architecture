@@ -9,33 +9,33 @@ public class FileOutputModeFlagHandler : BaseHandler
     {
     }
 
-    public override void Handle(string request, string path)
+    public override void Handle()
     {
         if (Context is null || Context.Info is null || Context.Parser is null)
         {
             throw new ArgumentException("Context object is not initialized properly");
         }
 
-        if (!CanHandle(request))
+        if (!CanHandle())
         {
             if (NextHandler is null)
                 throw new ArgumentException("Unknown flag");
-            NextHandler.Handle(request, string.Empty);
+            NextHandler.Handle();
             return;
         }
 
+        Context.Info.VisitedFlagHandlersList["-m"] = true;
         Context.Parser.MoveForward();
         string flagArgument = Context.Parser.Current;
-        Context.Info.FlagArgument = flagArgument;
+        Context.Info.FlagArguments[Context.Info.Flag] = flagArgument;
         if (flagArgument.Length == 0)
             throw new ArgumentException("Flag argument after flag was not specified for 'file show -m'");
-        if (Context.FileSystem is null)
-            throw new ArgumentException("You need to connect to FS first");
-        Context.FileSystem.FileShow(flagArgument, path);
     }
 
-    public override bool CanHandle(string request)
+    public override bool CanHandle()
     {
-        return request == "-m";
+        if (Context is null || Context.Info is null)
+            throw new ArgumentException("Context object is not initialized properly");
+        return Context.Info.Flag == "-m";
     }
 }

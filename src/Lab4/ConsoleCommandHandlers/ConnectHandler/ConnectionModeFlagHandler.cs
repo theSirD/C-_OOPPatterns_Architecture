@@ -1,5 +1,4 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab4.FileSystems;
 namespace Itmo.ObjectOrientedProgramming.Lab4.ConsoleCommandHandlers.ConnectHandler;
 
 public class ConnectionModeFlagHandler : BaseHandler
@@ -9,21 +8,21 @@ public class ConnectionModeFlagHandler : BaseHandler
     {
     }
 
-    public override void Handle(string request, string path)
+    public override void Handle()
     {
         if (Context is null || Context.Info is null || Context.Parser is null || Context.FileSystem is null)
         {
             throw new ArgumentException("Context object is not properly initialized");
         }
 
-        if (path is null)
+        if (Context.Info.Path1 is null)
             throw new ArgumentException("You need to specify path first");
 
-        if (!CanHandle(request))
+        if (!CanHandle())
         {
             if (NextHandler is not null)
             {
-                NextHandler.Handle(request, path);
+                NextHandler.Handle();
                 return;
             }
             else
@@ -32,26 +31,18 @@ public class ConnectionModeFlagHandler : BaseHandler
             }
         }
 
+        Context.Info.VisitedFlagHandlersList["-m"] = true;
         Context.Parser.MoveForward();
         string flagArgument = Context.Parser.Current;
-        Context.Info.FlagArgument = flagArgument;
+        Context.Info.FlagArguments[Context.Info.Flag] = flagArgument;
         if (flagArgument.Length == 0)
             throw new ArgumentException("Connection mode after flag is not specified");
-        if (flagArgument == "local")
-        {
-            if (Context.FileSystem.IsConnected)
-                throw new ArgumentException("You are already connected to a local file system");
-            Context.FileSystem = new LocalFileSystem(path);
-            Console.WriteLine("Successfully connected");
-        }
-        else
-        {
-            throw new ArgumentException($"This type of connection is not supported {flagArgument}");
-        }
     }
 
-    public override bool CanHandle(string request)
+    public override bool CanHandle()
     {
-        return request == "-m";
+        if (Context is null || Context.Info is null)
+            throw new ArgumentException("Context object is not initialized properly");
+        return Context.Info.Flag == "-m";
     }
 }

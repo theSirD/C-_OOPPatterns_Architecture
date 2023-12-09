@@ -14,6 +14,6 @@ public abstract class BaseHandler : IHandler
     public Context? Context { get; private set; }
 
     public IHandler? NextHandler { get; protected set; }
-    public abstract void Handle(string request, string path);
-    public abstract bool CanHandle(string request);
+    public abstract void Handle();
+    public abstract bool CanHandle();
 }

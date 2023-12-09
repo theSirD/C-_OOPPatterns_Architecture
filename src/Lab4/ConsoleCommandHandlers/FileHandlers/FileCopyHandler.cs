@@ -10,18 +10,18 @@ public class FileCopyHandler : BaseHandler
         NextHandler = new FileDeleteHandler(context);
     }
 
-    public override void Handle(string request, string path)
+    public override void Handle()
     {
         if (Context is null || Context.Info is null || Context.Parser is null)
         {
             throw new ArgumentException("Context object is not initialized properly");
         }
 
-        if (!CanHandle(request))
+        if (!CanHandle())
         {
             if (NextHandler is null)
                 throw new ArgumentException("Can not do the command");
-            NextHandler.Handle(request, string.Empty);
+            NextHandler.Handle();
             return;
         }
 
@@ -39,11 +39,13 @@ public class FileCopyHandler : BaseHandler
             throw new ArgumentException("You need to specify destination path for 'file copy'");
         if (Context.FileSystem is null)
             throw new ArgumentException("You need to connect to FS first");
-        Context.FileSystem.FileCopy(sourcePath, destinationPath);
+        Context.FileSystem.FileCopy(Context);
     }
 
-    public override bool CanHandle(string request)
+    public override bool CanHandle()
     {
-        return request == "copy";
+        if (Context is null || Context.Info is null)
+            throw new ArgumentException("Context object is not initialized properly");
+        return Context.Info.Subcommand == "copy";
     }
 }

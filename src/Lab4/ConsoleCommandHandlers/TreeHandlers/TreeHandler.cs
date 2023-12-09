@@ -14,18 +14,18 @@ public class TreeHandler : BaseHandler
         _chainOfSubcommandHandlers = new TreeGoToHandler(context);
     }
 
-    public override void Handle(string request, string path)
+    public override void Handle()
     {
         if (Context is null || Context.Info is null || Context.Parser is null)
         {
             throw new ArgumentException("Context object is not initialized properly");
         }
 
-        if (!CanHandle(request))
+        if (!CanHandle())
         {
             if (NextHandler is null)
                 throw new ArgumentException("Can not do the command");
-            NextHandler.Handle(request, string.Empty);
+            NextHandler.Handle();
             return;
         }
 
@@ -34,11 +34,13 @@ public class TreeHandler : BaseHandler
         Context.Info.Subcommand = subcommand;
         if (subcommand.Length == 0)
             throw new ArgumentException("For 'tree' command subcommand is required");
-        _chainOfSubcommandHandlers.Handle(subcommand, string.Empty);
+        _chainOfSubcommandHandlers.Handle();
     }
 
-    public override bool CanHandle(string request)
+    public override bool CanHandle()
     {
-        return request == "tree";
+        if (Context is null || Context.Info is null)
+            throw new ArgumentException("Context object is not initialized properly");
+        return Context.Info.Command == "tree";
     }
 }
