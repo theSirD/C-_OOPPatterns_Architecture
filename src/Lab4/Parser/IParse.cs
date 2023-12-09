@@ -5,4 +5,5 @@ public interface IParse
     public string Current { get; set; }
     public void SetInput(string input);
     public void MoveForward();
+    public bool HasNextWord();
 }

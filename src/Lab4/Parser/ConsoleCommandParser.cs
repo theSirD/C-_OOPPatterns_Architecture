@@ -50,4 +50,9 @@ public class ConsoleCommandParser : IParse
             _currentPosition++;
         }
     }
+
+    public bool HasNextWord()
+    {
+        return !(_currentPosition == _input.Length);
+    }
 }
