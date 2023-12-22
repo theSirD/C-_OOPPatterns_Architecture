@@ -1,6 +1,6 @@
-using Application.Domain;
+using Application.DomainModel;
 
-namespace Application.Repositories.UserRepository;
+namespace Application.Abstractions.Repositories.UserRepository;
 
 public interface IUserRepo
 {

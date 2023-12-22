@@ -1,6 +1,6 @@
-using Application.Domain;
+using Application.DomainModel;
 
-namespace Application.Repositories.AccountRepository;
+namespace Application.Abstractions.Repositories.AccountRepository;
 
 public interface IAccountRepo
 {

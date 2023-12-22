@@ -1,4 +1,4 @@
-namespace Application.Domain;
+namespace Application.DomainModel;
 
 public class Account
 {
