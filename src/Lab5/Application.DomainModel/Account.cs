@@ -2,12 +2,16 @@ namespace Application.DomainModel;
 
 public class Account
 {
-    private int _id;
-    private int _balance;
-
-    public Account(int id, int balance)
+    public Account(long id, long user, int balance)
     {
-        _id = id;
-        _balance = balance;
+        Id = id;
+        UserId = user;
+        Balance = balance;
     }
+
+    public long Id { get; set; }
+
+    public long UserId { get; set; }
+
+    public int Balance { get; set; }
 }

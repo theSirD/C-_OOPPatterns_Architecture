@@ -1,4 +1,4 @@
-namespace Application.DomainModel;
+namespace Application.DomainModel.Transactions;
 
 public enum TypeOfTranscations
 {
