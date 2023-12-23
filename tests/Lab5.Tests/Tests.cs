@@ -21,9 +21,10 @@ public class Tests
 
         IUserRepo userRepo = new UserRepo(connectionString);
         IAccountRepo accountRepo = new AccountRepo(connectionString);
+        ITransactionsRepo transactionsRepo = new TransactionsRepo(connectionString);
         var currentUserManager = new CurrentUserManager();
 
-        IUserService userService = new UserService(userRepo, accountRepo, currentUserManager);
+        IUserService userService = new UserService(userRepo, accountRepo, transactionsRepo, currentUserManager);
         IScenario loginScenarion = new LoginScenario(userService);
 
         loginScenarion.Run();
@@ -33,10 +34,13 @@ public class Tests
 
         // IScenario seeBalanceScenario = new SeeBalanceScenario(userService);
         // seeBalanceScenario.Run();
+        IScenario removeMoneyFromAccount = new RemoveMoneyFromAccountScenario(userService);
+        removeMoneyFromAccount.Run();
 
-        // IScenario removeMoneyFromAccount = new RemoveMoneyFromAccountScenario(userService);
-        // removeMoneyFromAccount.Run();
         IScenario addMoneyToAccountScenario = new AddMoneyToAccountScenario(userService);
         addMoneyToAccountScenario.Run();
+
+        IScenario seeHistoryOfTransactionsScenario = new SeeHistoryOfTransactionsScenario(userService);
+        seeHistoryOfTransactionsScenario.Run();
     }
 }

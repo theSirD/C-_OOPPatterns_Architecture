@@ -46,16 +46,16 @@ public class AddMoneyToAccountScenario : IScenario
             if (int.TryParse(amountOfMoney, out int intAmountOfMoney))
             {
                 Account accountToAddMoneyTo = enumerable.First();
-                AccountOperationsResult result2 = _userService.RemoveMoneyFromAccount(accountToAddMoneyTo, intAmountOfMoney);
+                AccountOperationsResult result2 = _userService.RefillMoneyOnAccount(accountToAddMoneyTo, intAmountOfMoney);
 
                 if (result2 == AccountOperationsResult.Success)
                 {
-                    System.Console.WriteLine($"You have removed {amountOfMoney} " +
-                                             $"money from account {accountToAddMoneyTo.Id}");
+                    System.Console.WriteLine($"You have added {amountOfMoney} " +
+                                             $"money to account {accountToAddMoneyTo.Id}");
                 }
                 else
                 {
-                    System.Console.WriteLine("Failed to remove money");
+                    System.Console.WriteLine("Failed to add money");
                 }
             }
         }
