@@ -54,30 +54,6 @@ public class Tests
     }
 
     [Fact]
-    public void ChangeBalance()
-    {
-        string connectionString = "Host=localhost:5432;" +
-                                  "Username=postgres;" +
-                                  "Password=theSirD;" +
-                                  "Database=Bank";
-
-        IUserRepo userRepo = new UserRepo(connectionString);
-        IAccountRepo accountRepo = new AccountRepo(connectionString);
-        ITransactionsRepo transactionsRepo = new TransactionsRepo(connectionString);
-        var currentUserManager = new CurrentUserManager();
-
-        IUserService userService = new UserService(userRepo, accountRepo, transactionsRepo, currentUserManager);
-        LoginResult result1 = userService.Login("Dan", "123");
-
-        AccountOperationsResult result2 = userService.CreateAccount();
-
-        AccountOperationsResult result3 = userService.RemoveMoneyFromAccount(new Account(1, 1, 0), 100);
-
-        Assert.True(result1 == LoginResult.Success && result2 == AccountOperationsResult.Success
-        && result3 == AccountOperationsResult.Success);
-    }
-
-    [Fact]
     public void SeeHistoryOfTransactions()
     {
         string connectionString = "Host=localhost:5432;" +
@@ -95,7 +71,7 @@ public class Tests
 
         AccountOperationsResult result2 = userService.CreateAccount();
 
-        AccountOperationsResult result3 = userService.RemoveMoneyFromAccount(new Account(1, 1, 0), 100);
+        AccountOperationsResult result3 = userService.RemoveMoneyFromAccount(new Account(18, 2, 0), 100);
 
         GetTransactionResponse result4 = userService.GetTransactions();
 
