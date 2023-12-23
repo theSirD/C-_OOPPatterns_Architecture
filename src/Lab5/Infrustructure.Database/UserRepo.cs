@@ -43,13 +43,14 @@ public class UserRepo : IUserRepo
         int id = reader.GetInt32(0);
         string name = reader.GetString(1);
         string role = reader.GetString(2);
+        string password = reader.GetString(3);
         switch (role)
         {
             case "Admin":
-                result = new User(id, name, UserRole.Admin);
+                result = new User(id, name, UserRole.Admin, password);
                 break;
             case "Customer":
-                result = new User(id, name, UserRole.Customer);
+                result = new User(id, name, UserRole.Customer, password);
                 break;
             default:
                 throw new ArgumentException("There is a user with incorrect role in database");

@@ -25,7 +25,12 @@ public class LoginScenario : IScenario
             if (username is null)
                 throw new ArgumentException("Given name is null");
 
-            result = _userService.Login(username);
+            System.Console.WriteLine("Enter your password");
+            string? password = System.Console.ReadLine();
+            if (password is null)
+                throw new ArgumentException("Given password is null");
+
+            result = _userService.Login(username, password);
 
             if (result == LoginResult.Success)
             {

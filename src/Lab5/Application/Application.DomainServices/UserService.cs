@@ -27,13 +27,18 @@ public class UserService : IUserService
         _logger = new Logger(transactionsRepo);
     }
 
-    public LoginResult Login(string username)
+    public LoginResult Login(string username, string password)
     {
         User? user = _userRepo.GetByName(username);
 
         if (user is null)
         {
             return LoginResult.NotFound;
+        }
+
+        if (password != user.Password)
+        {
+            return LoginResult.IncorrectPassword;
         }
 
         _currentUserManager.User = user;
@@ -61,7 +66,12 @@ public class UserService : IUserService
                 break;
         }
 
-        var user = new User(0, username, role);
+        System.Console.WriteLine("Enter password");
+        input = System.Console.ReadLine();
+        if (input is null)
+            throw new ArgumentException("Given role is null");
+
+        var user = new User(0, username, role, input);
         _userRepo.Add(user);
         _currentUserManager.User = user;
 

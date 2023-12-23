@@ -6,7 +6,7 @@ namespace Application.Contracts.Users;
 
 public interface IUserService
 {
-    public LoginResult Login(string username);
+    public LoginResult Login(string username, string password);
     public LoginResult Register(string username);
     public AccountOperationsResult CreateAccount();
     public GetAccountResponse GetAccounts();
