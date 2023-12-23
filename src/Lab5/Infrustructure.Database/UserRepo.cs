@@ -13,16 +13,6 @@ public class UserRepo : IUserRepo
         _connectionString = connectionString;
     }
 
-    public void Add(User user)
-    {
-        throw new NotImplementedException();
-    }
-
-    public User? GetById(string id)
-    {
-        throw new NotImplementedException();
-    }
-
     public User? GetByName(string userName)
     {
         User result;
@@ -57,20 +47,5 @@ public class UserRepo : IUserRepo
         }
 
         return result;
-    }
-
-    public void Remove(string id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(User user)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<User> GetAll()
-    {
-        throw new NotImplementedException();
     }
 }

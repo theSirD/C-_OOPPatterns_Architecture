@@ -41,7 +41,6 @@ public class LoginScenario : IScenario
             System.Console.WriteLine();
             System.Console.WriteLine("User with given name does not exist");
             System.Console.WriteLine("Press 1 to exit application");
-            System.Console.WriteLine("Press 2 to register new user with name given");
             choice = System.Console.ReadLine();
 
             switch (choice)
@@ -51,11 +50,8 @@ public class LoginScenario : IScenario
                     break;
                 case "1":
                     break;
-                case "2":
-                    result = _userService.Register(username);
-                    if (result == LoginResult.Success) System.Console.WriteLine("Registration is successful");
-                    else System.Console.WriteLine("Registration has failed");
-                    break;
+                default:
+                    throw new ArgumentException("Wrong command");
             }
         }
         while ((choice != "2" && result != LoginResult.Success) || choice != "1");

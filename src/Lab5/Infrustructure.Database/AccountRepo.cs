@@ -27,16 +27,6 @@ public class AccountRepo : IAccountRepo
         using NpgsqlDataReader reader = cmd.ExecuteReader();
     }
 
-    public Account? GetById(string id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Remove(string id)
-    {
-        throw new NotImplementedException();
-    }
-
     public void Update(Account account)
     {
         if (account is null) throw new AggregateException("Account is null");
@@ -52,11 +42,6 @@ public class AccountRepo : IAccountRepo
         cmd.Parameters.AddWithValue("balance", account.Balance);
         cmd.Parameters.AddWithValue("id", account.Id);
         cmd.ExecuteReader();
-    }
-
-    public IEnumerable<Account> GetAll()
-    {
-        throw new NotImplementedException();
     }
 
     public IEnumerable<Account> GetAllAccountsByUserId(long userId)

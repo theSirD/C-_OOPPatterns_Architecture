@@ -45,39 +45,6 @@ public class UserService : IUserService
         return LoginResult.Success;
     }
 
-    public LoginResult Register(string username)
-    {
-        System.Console.WriteLine("Enter your role (1 - admin, 2 - customer)");
-        string? input = System.Console.ReadLine();
-        if (input is null)
-            throw new ArgumentException("Given role is null");
-
-        UserRole role;
-        switch (input)
-        {
-            case "1":
-                role = UserRole.Admin;
-                break;
-            case "2":
-                role = UserRole.Customer;
-                break;
-            default:
-                role = UserRole.Customer;
-                break;
-        }
-
-        System.Console.WriteLine("Enter password");
-        input = System.Console.ReadLine();
-        if (input is null)
-            throw new ArgumentException("Given role is null");
-
-        var user = new User(0, username, role, input);
-        _userRepo.Add(user);
-        _currentUserManager.User = user;
-
-        return LoginResult.Success;
-    }
-
     public AccountOperationsResult CreateAccount()
     {
         if (_currentUserManager.User is null) return AccountOperationsResult.NotAuthorized;
