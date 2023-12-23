@@ -4,7 +4,7 @@ namespace Application.Abstractions.Repositories;
 
 public interface IAccountRepo
 {
-    public void Add(Account account);
+    public void Add(long userId);
     public Account? GetById(string id);
     public void Remove(string id);
     public void Update(Account account);

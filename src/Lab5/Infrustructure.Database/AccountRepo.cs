@@ -1,13 +1,30 @@
 using Application.Abstractions.Repositories;
 using Application.DomainModel;
+using Npgsql;
 
 namespace Infrustructure.Database;
 
 public class AccountRepo : IAccountRepo
 {
-    public void Add(Account account)
+    private readonly string _connectionString;
+
+    public AccountRepo(string connectionString)
     {
-        throw new NotImplementedException();
+        _connectionString = connectionString;
+    }
+
+    public void Add(long userId)
+    {
+        using var connection = new NpgsqlConnection(_connectionString);
+        connection.Open();
+        using var cmd = new NpgsqlCommand(
+            """
+                    INSERT INTO "BankingSystem"."Account" ("userId", "balance")
+                    VALUES (@userId, 0)
+            """,
+            connection);
+        cmd.Parameters.AddWithValue("userId", userId);
+        using NpgsqlDataReader reader = cmd.ExecuteReader();
     }
 
     public Account? GetById(string id)

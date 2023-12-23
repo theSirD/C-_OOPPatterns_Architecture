@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Application\Application.Abstractions\Application.Abstractions.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Npgsql" />
+    </ItemGroup>
+
 </Project>

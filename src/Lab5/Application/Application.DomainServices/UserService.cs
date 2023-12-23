@@ -54,7 +54,7 @@ public class UserService : IUserService
                 break;
         }
 
-        var user = new User(?, username, role);
+        var user = new User(0, username, role);
         _userRepo.Add(user);
         _currentUserManager.User = user;
 
@@ -64,9 +64,7 @@ public class UserService : IUserService
     public AccountOperationsResult CreateAccount()
     {
         if (_currentUserManager.User is null) return AccountOperationsResult.NotAuthorized;
-
-        var account = new Account(?, _currentUserManager.User.Id, 0);
-        _accountRepo.Add(account);
+        _accountRepo.Add(_currentUserManager.User.Id);
 
         return AccountOperationsResult.Success;
     }
