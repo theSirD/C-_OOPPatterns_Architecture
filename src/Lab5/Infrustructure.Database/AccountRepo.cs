@@ -47,8 +47,31 @@ public class AccountRepo : IAccountRepo
         throw new NotImplementedException();
     }
 
-    public IEnumerable<Account> GetAllByUserId()
+    public IEnumerable<Account> GetAllAccountsByUserId(long userId)
     {
-        throw new NotImplementedException();
+        var result = new List<Account>();
+
+        using var connection = new NpgsqlConnection(_connectionString);
+        connection.Open();
+        using var cmd = new NpgsqlCommand(
+            """
+            SELECT *
+            FROM "BankingSystem"."Account"
+            WHERE "userId" = @userId
+            Order by "id"
+            """,
+            connection);
+        cmd.Parameters.AddWithValue("userId", userId);
+        using NpgsqlDataReader reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            int id = reader.GetInt32(0);
+            long uId = reader.GetInt32(1);
+            int balance = reader.GetInt32(2);
+            result.Add(new Account(id, userId, balance));
+        }
+
+        return result;
     }
 }

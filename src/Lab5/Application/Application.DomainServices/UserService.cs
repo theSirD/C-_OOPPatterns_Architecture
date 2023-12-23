@@ -73,7 +73,7 @@ public class UserService : IUserService
     {
         if (_currentUserManager.User is null) return new GetAccountResponse(AccountOperationsResult.NotAuthorized, null);
 
-        IEnumerable<Account> userAccountsList = _accountRepo.GetAllByUserId();
+        IEnumerable<Account> userAccountsList = _accountRepo.GetAllAccountsByUserId(_currentUserManager.User.Id);
         return new GetAccountResponse(AccountOperationsResult.Success, userAccountsList);
     }
 

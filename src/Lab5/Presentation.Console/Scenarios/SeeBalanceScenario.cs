@@ -19,7 +19,7 @@ public class SeeBalanceScenario : IScenario
     {
         GetAccountResponse result = _userService.GetAccounts();
         if (result.Response == AccountOperationsResult.NotAuthorized)
-            System.Console.WriteLine("You need to log in before creating account");
+            System.Console.WriteLine("You need to log in before seeing balance");
 
         if (result.Account == null)
             throw new ArgumentException("Account list should not be null");

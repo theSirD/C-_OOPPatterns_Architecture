@@ -9,5 +9,5 @@ public interface IAccountRepo
     public void Remove(string id);
     public void Update(Account account);
     public IEnumerable<Account> GetAll();
-    public IEnumerable<Account> GetAllByUserId();
+    public IEnumerable<Account> GetAllAccountsByUserId(long userId);
 }
