@@ -4,5 +4,5 @@ public interface IScenario
 {
     public string Name { get; }
 
-    void Run();
+    ScenarioResults Run();
 }

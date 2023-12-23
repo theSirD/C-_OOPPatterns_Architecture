@@ -1,9 +1,10 @@
 using Application.Abstractions.Repositories;
+using Application.Contracts.Accounts;
+using Application.Contracts.Transactions;
 using Application.Contracts.Users;
+using Application.DomainModel;
 using Application.DomainServices;
 using Infrustructure.Database;
-using Presentation.Console;
-using Presentation.Console.Scenarios;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab5.Tests;
@@ -25,22 +26,81 @@ public class Tests
         var currentUserManager = new CurrentUserManager();
 
         IUserService userService = new UserService(userRepo, accountRepo, transactionsRepo, currentUserManager);
-        IScenario loginScenarion = new LoginScenario(userService);
 
-        loginScenarion.Run();
+        LoginResult result = userService.Login("Dan", "123");
 
-        // IScenario createAccountScenario = new CreateAccountScenario(userService);
-        // createAccountScenario.Run();
+        Assert.True(result == LoginResult.Success);
+    }
 
-        // IScenario seeBalanceScenario = new SeeBalanceScenario(userService);
-        // seeBalanceScenario.Run();
-        IScenario removeMoneyFromAccount = new RemoveMoneyFromAccountScenario(userService);
-        removeMoneyFromAccount.Run();
+    [Fact]
+    public void CreateAccount()
+    {
+        string connectionString = "Host=localhost:5432;" +
+                                  "Username=postgres;" +
+                                  "Password=theSirD;" +
+                                  "Database=Bank";
 
-        IScenario addMoneyToAccountScenario = new AddMoneyToAccountScenario(userService);
-        addMoneyToAccountScenario.Run();
+        IUserRepo userRepo = new UserRepo(connectionString);
+        IAccountRepo accountRepo = new AccountRepo(connectionString);
+        ITransactionsRepo transactionsRepo = new TransactionsRepo(connectionString);
+        var currentUserManager = new CurrentUserManager();
 
-        IScenario seeHistoryOfTransactionsScenario = new SeeHistoryOfTransactionsScenario(userService);
-        seeHistoryOfTransactionsScenario.Run();
+        IUserService userService = new UserService(userRepo, accountRepo, transactionsRepo, currentUserManager);
+        LoginResult result1 = userService.Login("Dan", "123");
+
+        AccountOperationsResult result2 = userService.CreateAccount();
+
+        Assert.True(result1 == LoginResult.Success && result2 == AccountOperationsResult.Success);
+    }
+
+    [Fact]
+    public void ChangeBalance()
+    {
+        string connectionString = "Host=localhost:5432;" +
+                                  "Username=postgres;" +
+                                  "Password=theSirD;" +
+                                  "Database=Bank";
+
+        IUserRepo userRepo = new UserRepo(connectionString);
+        IAccountRepo accountRepo = new AccountRepo(connectionString);
+        ITransactionsRepo transactionsRepo = new TransactionsRepo(connectionString);
+        var currentUserManager = new CurrentUserManager();
+
+        IUserService userService = new UserService(userRepo, accountRepo, transactionsRepo, currentUserManager);
+        LoginResult result1 = userService.Login("Dan", "123");
+
+        AccountOperationsResult result2 = userService.CreateAccount();
+
+        AccountOperationsResult result3 = userService.RemoveMoneyFromAccount(new Account(1, 1, 0), 100);
+
+        Assert.True(result1 == LoginResult.Success && result2 == AccountOperationsResult.Success
+        && result3 == AccountOperationsResult.Success);
+    }
+
+    [Fact]
+    public void SeeHistoryOfTransactions()
+    {
+        string connectionString = "Host=localhost:5432;" +
+                                  "Username=postgres;" +
+                                  "Password=theSirD;" +
+                                  "Database=Bank";
+
+        IUserRepo userRepo = new UserRepo(connectionString);
+        IAccountRepo accountRepo = new AccountRepo(connectionString);
+        ITransactionsRepo transactionsRepo = new TransactionsRepo(connectionString);
+        var currentUserManager = new CurrentUserManager();
+
+        IUserService userService = new UserService(userRepo, accountRepo, transactionsRepo, currentUserManager);
+        LoginResult result1 = userService.Login("Dan", "123");
+
+        AccountOperationsResult result2 = userService.CreateAccount();
+
+        AccountOperationsResult result3 = userService.RemoveMoneyFromAccount(new Account(1, 1, 0), 100);
+
+        GetTransactionResponse result4 = userService.GetTransactions();
+
+        Assert.True(result1 == LoginResult.Success && result2 == AccountOperationsResult.Success
+                                                   && result3 == AccountOperationsResult.Success
+                                                   && result4.Response == AccountOperationsResult.Success);
     }
 }

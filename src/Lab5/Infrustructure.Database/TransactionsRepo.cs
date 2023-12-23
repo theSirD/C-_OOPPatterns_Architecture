@@ -30,7 +30,7 @@ public class TransactionsRepo : ITransactionsRepo
         using NpgsqlDataReader reader = cmd.ExecuteReader();
     }
 
-    public IEnumerable<Transaction> GetAllTransactionsByUserId(long userId)
+    public IEnumerable<Transaction> GetAllTransactionsByUserId(long accountId)
     {
         var result = new List<Transaction>();
 
@@ -40,11 +40,11 @@ public class TransactionsRepo : ITransactionsRepo
             """
             SELECT *
             FROM "BankingSystem"."Transaction"
-            WHERE "userId" = @userId
+            WHERE "accountId" = @accountId
             Order by "id"
             """,
             connection);
-        cmd.Parameters.AddWithValue("userId", userId);
+        cmd.Parameters.AddWithValue("accountId", accountId);
         using NpgsqlDataReader reader = cmd.ExecuteReader();
 
         Transaction transaction;

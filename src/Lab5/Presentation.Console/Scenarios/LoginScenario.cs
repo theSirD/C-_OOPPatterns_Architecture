@@ -13,7 +13,7 @@ public class LoginScenario : IScenario
 
     public string Name => "Login";
 
-    public void Run()
+    public ScenarioResults Run()
     {
         string? choice;
         LoginResult result;
@@ -35,7 +35,7 @@ public class LoginScenario : IScenario
             if (result == LoginResult.Success)
             {
                 System.Console.WriteLine("Successful login");
-                break;
+                return ScenarioResults.LoggedIn;
             }
 
             System.Console.WriteLine();
@@ -55,5 +55,7 @@ public class LoginScenario : IScenario
             }
         }
         while ((choice != "2" && result != LoginResult.Success) || choice != "1");
+
+        return ScenarioResults.ScenarioFailed;
     }
 }

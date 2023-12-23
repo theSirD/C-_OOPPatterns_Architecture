@@ -14,7 +14,7 @@ public class CreateAccountScenario : IScenario
 
     public string Name => "Create Account";
 
-    public void Run()
+    public ScenarioResults Run()
     {
         AccountOperationsResult result = _userService.CreateAccount();
 
@@ -22,10 +22,12 @@ public class CreateAccountScenario : IScenario
         {
             case AccountOperationsResult.NotAuthorized:
                 System.Console.WriteLine("You need to log in before creating account");
-                break;
+                return ScenarioResults.NotAuthorized;
             case AccountOperationsResult.Success:
-                System.Console.WriteLine("You have created new account for user with id");
-                break;
+                System.Console.WriteLine("You have created new account");
+                return ScenarioResults.NewAccountCreated;
+            default:
+                return ScenarioResults.ScenarioFailed;
         }
     }
 }

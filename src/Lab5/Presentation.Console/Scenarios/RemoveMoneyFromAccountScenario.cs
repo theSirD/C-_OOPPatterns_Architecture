@@ -15,7 +15,7 @@ public class RemoveMoneyFromAccountScenario : IScenario
 
     public string Name => "Remove Money";
 
-    public void Run()
+    public ScenarioResults Run()
     {
         GetAccountResponse result = _userService.GetAccounts();
         if (result.Response == AccountOperationsResult.NotAuthorized)
@@ -52,10 +52,12 @@ public class RemoveMoneyFromAccountScenario : IScenario
                 {
                     System.Console.WriteLine($"You have removed {amountOfMoney} " +
                                              $"money from account {accountToRemoveMoneyFrom.Id}");
+                    return ScenarioResults.MoneyWasRemoved;
                 }
                 else
                 {
                     System.Console.WriteLine("Failed to remove money");
+                    return ScenarioResults.ScenarioFailed;
                 }
             }
         }
@@ -63,5 +65,7 @@ public class RemoveMoneyFromAccountScenario : IScenario
         {
             System.Console.WriteLine("Unable to parse id");
         }
+
+        return ScenarioResults.ScenarioFailed;
     }
 }

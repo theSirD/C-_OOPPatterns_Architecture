@@ -15,7 +15,7 @@ public class AddMoneyToAccountScenario : IScenario
 
     public string Name => "Add Money";
 
-    public void Run()
+    public ScenarioResults Run()
     {
         GetAccountResponse result = _userService.GetAccounts();
         if (result.Response == AccountOperationsResult.NotAuthorized)
@@ -52,10 +52,12 @@ public class AddMoneyToAccountScenario : IScenario
                 {
                     System.Console.WriteLine($"You have added {amountOfMoney} " +
                                              $"money to account {accountToAddMoneyTo.Id}");
+                    return ScenarioResults.MoneyWasAdded;
                 }
                 else
                 {
                     System.Console.WriteLine("Failed to add money");
+                    return ScenarioResults.ScenarioFailed;
                 }
             }
         }
@@ -63,5 +65,7 @@ public class AddMoneyToAccountScenario : IScenario
         {
             System.Console.WriteLine("Unable to parse id");
         }
+
+        return ScenarioResults.ScenarioFailed;
     }
 }

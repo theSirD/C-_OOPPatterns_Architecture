@@ -15,11 +15,14 @@ public class SeeBalanceScenario : IScenario
 
     public string Name => "Check Balance";
 
-    public void Run()
+    public ScenarioResults Run()
     {
         GetAccountResponse result = _userService.GetAccounts();
         if (result.Response == AccountOperationsResult.NotAuthorized)
+        {
             System.Console.WriteLine("You need to log in before seeing balance");
+            return ScenarioResults.NotAuthorized;
+        }
 
         if (result.Account == null)
             throw new ArgumentException("Account list should not be null");
@@ -28,5 +31,7 @@ public class SeeBalanceScenario : IScenario
         {
             System.Console.WriteLine($"ID: {account.Id}, Balance: {account.Balance}");
         }
+
+        return ScenarioResults.BalanceWasShown;
     }
 }

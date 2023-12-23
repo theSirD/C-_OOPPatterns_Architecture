@@ -16,7 +16,7 @@ public class SeeHistoryOfTransactionsScenario : IScenario
 
     public string Name => "See History";
 
-    public void Run()
+    public ScenarioResults Run()
     {
         GetTransactionResponse result = _userService.GetTransactions();
         if (result.Response == AccountOperationsResult.NotAuthorized)
@@ -29,5 +29,7 @@ public class SeeHistoryOfTransactionsScenario : IScenario
         {
             System.Console.WriteLine($"ID: {transaction.Id}, AccountId: {transaction.AccountId}, Operation: {transaction.Operation}, Money: {transaction.AmountOfMoney}");
         }
+
+        return ScenarioResults.HistoryWasShown;
     }
 }
