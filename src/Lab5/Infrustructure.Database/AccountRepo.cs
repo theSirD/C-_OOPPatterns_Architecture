@@ -39,7 +39,19 @@ public class AccountRepo : IAccountRepo
 
     public void Update(Account account)
     {
-        throw new NotImplementedException();
+        if (account is null) throw new AggregateException("Account is null");
+        using var connection = new NpgsqlConnection(_connectionString);
+        connection.Open();
+        using var cmd = new NpgsqlCommand(
+            """
+            Update "BankingSystem"."Account"
+            set "balance" = @balance
+            Where "id" = @id
+            """,
+            connection);
+        cmd.Parameters.AddWithValue("balance", account.Balance);
+        cmd.Parameters.AddWithValue("id", account.Id);
+        cmd.ExecuteReader();
     }
 
     public IEnumerable<Account> GetAll()

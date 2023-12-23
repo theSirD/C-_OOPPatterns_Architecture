@@ -96,7 +96,7 @@ public class UserService : IUserService
         var newAccount = new Account(
             account.Id,
             account.UserId,
-            account.Balance - amountOfMoney);
+            account.Balance + amountOfMoney);
 
         _accountRepo.Update(newAccount);
 

@@ -28,10 +28,15 @@ public class Tests
 
         loginScenarion.Run();
 
-        IScenario createAccountScenario = new CreateAccountScenario(userService);
-        createAccountScenario.Run();
+        // IScenario createAccountScenario = new CreateAccountScenario(userService);
+        // createAccountScenario.Run();
 
-        IScenario seeBalanceScenario = new SeeBalanceScenario(userService);
-        seeBalanceScenario.Run();
+        // IScenario seeBalanceScenario = new SeeBalanceScenario(userService);
+        // seeBalanceScenario.Run();
+
+        // IScenario removeMoneyFromAccount = new RemoveMoneyFromAccountScenario(userService);
+        // removeMoneyFromAccount.Run();
+        IScenario addMoneyToAccountScenario = new AddMoneyToAccountScenario(userService);
+        addMoneyToAccountScenario.Run();
     }
 }
