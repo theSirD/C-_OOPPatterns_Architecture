@@ -8,6 +8,9 @@ The goal of lab is to apply creatioal patterns, solve problems related to the cr
 ## Lab 3. Email System
 The goal of lab is to put in practice principles of OOP, GRASP, SOLID, creational patterns, structural patterns, mocking.
 
-## Lab 4. Command Line Tool For Interacting and Managing the File System.
-The goal of lab is to apply SOLID principles, behavioral, structural and creational patterns
+## Lab 4. Just Like Git. Command Line Tool For Interacting and Managing the File System
+The goal of lab is to apply SOLID principles, behavioral, structural and creational patterns.
+
+## Lab 5. Banking System With Layered Architecture
+The goal of lab is to create banking system using layered architecture. I used Onion architrecture and PostreSQL.
 
